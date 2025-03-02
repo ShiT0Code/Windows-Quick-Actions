@@ -70,8 +70,6 @@ namespace Quick_Launch_Bar
                 parts = parameter.Split('/');
                 string firstPart = parts[0];
 
-                if (new SettingsManager().CheckBoolSetting("IsWelcomed"))
-                {
                     if (firstPart == "settings")
                         new AllSettingsWindow().Activate();
                     else if (firstPart == "sidebar" && new SettingsManager().CheckBoolSetting("IsSideBarOn"))
@@ -80,33 +78,25 @@ namespace Quick_Launch_Bar
                         NormalBoot();
                     else
                         new AllSettingsWindow().Activate();
-                }
-                else
-                    new WelcomeWindow().Activate();
             }
         }
 
         private void NormalBoot()
         {
-            if (new SettingsManager().CheckBoolSetting("IsWelcomed"))
+            bool Actioned = false;
+            if (new SettingsManager().CheckBoolSetting("IsSideBarOn"))
             {
-                bool Actioned = false;
-                if (new SettingsManager().CheckBoolSetting("IsSideBarOn"))
-                {
-                    m_window = new SideBarWindow();
-                    Actioned = true;
-                }
-                if (!Actioned)
-                    m_window = new AllSettingsWindow();
-                else
-                {
-                    var Notif = new AppNotificationBuilder()
-                        .AddText("快速启动栏已启动！");
-                    AppNotificationManager.Default.Show(Notif.BuildNotification());
-                }
+                m_window = new SideBarWindow();
+                Actioned = true;
             }
+            if (!Actioned)
+                m_window = new AllSettingsWindow();
             else
-                m_window = new WelcomeWindow();
+            {
+                var Notif = new AppNotificationBuilder()
+                    .AddText("快速启动栏已启动！");
+                AppNotificationManager.Default.Show(Notif.BuildNotification());
+            }
         }
 
         private Window? m_window;

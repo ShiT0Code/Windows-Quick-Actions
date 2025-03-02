@@ -297,6 +297,13 @@ namespace Quick_Launch_Bar.UI
             double set = ContentSV.HorizontalOffset + 320;
 
             ContentSV.ChangeView(set, null, null);
+
+
+            Button button = (Button)sender;
+            if (ContentSV.HorizontalOffset >= ActionItems.Width)
+                button.IsEnabled = false;
+            else
+                button.IsEnabled = true;
         }
 
         private void LastButton_Click(object sender, RoutedEventArgs e)
@@ -304,6 +311,13 @@ namespace Quick_Launch_Bar.UI
             double set = ContentSV.HorizontalOffset - 288;
 
             ContentSV.ChangeView(set, null, null);
+
+
+            Button button = (Button)sender;
+            if (ContentSV.HorizontalOffset <= 0)
+                button.IsEnabled = false;
+            else
+                button.IsEnabled = true;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -432,11 +446,6 @@ namespace Quick_Launch_Bar.UI
 
                                 menuFlyoutList.Items.Add(menu1);
                             }
-                            if (menuFlyoutList.Items.Count > 0)
-                            {
-                                // ÒÆ³ýµÚÒ»Ïî
-                                menuFlyoutList.Items.RemoveAt(0);
-                            }
 
                             splitButton.Flyout = menuFlyoutList;
                             break;
@@ -492,15 +501,19 @@ namespace Quick_Launch_Bar.UI
 
             if (Tag != "" || Tag != null)
             {
-                List<string> parts = Tag.Split(',').ToList();
-
-                if (parts.Count > 0 || bool.TryParse(parts[4], out bool isE))
+                try
                 {
-                    bool.TryParse(parts[2], out bool IsShow);
-                    int.TryParse(parts[3], out int times);
+                    List<string> parts = Tag.Split(',').ToList();
 
-                    SetUpApp(parts[0], parts[1], IsShow, times);
+                    if (parts.Count > 0 || bool.TryParse(parts[4], out bool isE))
+                    {
+                        bool.TryParse(parts[2], out bool IsShow);
+                        int.TryParse(parts[3], out int times);
+
+                        SetUpApp(parts[0], parts[1], IsShow, times);
+                    }
                 }
+                catch { }
             }
         }
 
@@ -511,15 +524,19 @@ namespace Quick_Launch_Bar.UI
 
             if (Tag != "" || Tag != null)
             {
-                List<string> parts = Tag.Split(',').ToList();
-
-                if (parts.Count > 0 || bool.TryParse(parts[4], out bool isE))
+                try
                 {
-                    bool.TryParse(parts[2], out bool IsShow);
-                    int.TryParse(parts[3], out int times);
+                    List<string> parts = Tag.Split(',').ToList();
 
-                    SetUpApp(parts[0], parts[1], IsShow, times);
+                    if (parts.Count > 0 || bool.TryParse(parts[4], out bool isE))
+                    {
+                        bool.TryParse(parts[2], out bool IsShow);
+                        int.TryParse(parts[3], out int times);
+
+                        SetUpApp(parts[0], parts[1], IsShow, times);
+                    }
                 }
+                catch { }
             }
         }
 
@@ -530,14 +547,21 @@ namespace Quick_Launch_Bar.UI
 
             if(Tag!=""||Tag!=null)
             {
-                List<string> parts = Tag.Split(',').ToList();
-
-                if (parts.Count > 0 || bool.TryParse(parts[4],out bool isE))
+                try
                 {
-                    bool.TryParse(parts[2], out bool IsShow);
-                    int.TryParse(parts[3], out int times);
+                    List<string> parts = Tag.Split(',').ToList();
 
-                    SetUpApp(parts[0], parts[1], IsShow, times);
+                    if (parts.Count > 0 || bool.TryParse(parts[4], out bool isE))
+                    {
+                        bool.TryParse(parts[2], out bool IsShow);
+                        int.TryParse(parts[3], out int times);
+
+                        SetUpApp(parts[0], parts[1], IsShow, times);
+                    }
+                }
+                catch
+                {
+
                 }
             }
         }
@@ -549,15 +573,19 @@ namespace Quick_Launch_Bar.UI
 
             if (Tag != "" || Tag != null)
             {
-                List<string> parts = Tag.Split(',').ToList();
-
-                if (parts.Count > 0 || bool.TryParse(parts[4], out bool isE))
+                try
                 {
-                    bool.TryParse(parts[2], out bool IsShow);
-                    int.TryParse(parts[3], out int times);
+                    List<string> parts = Tag.Split(',').ToList();
 
-                    SetUpApp(parts[0], parts[1], IsShow, times);
+                    if (parts.Count > 0 || bool.TryParse(parts[4], out bool isE))
+                    {
+                        bool.TryParse(parts[2], out bool IsShow);
+                        int.TryParse(parts[3], out int times);
+
+                        SetUpApp(parts[0], parts[1], IsShow, times);
+                    }
                 }
+                catch { }
             }
         }
 

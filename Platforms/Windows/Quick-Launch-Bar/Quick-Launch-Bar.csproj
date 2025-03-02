@@ -33,7 +33,6 @@
     <None Remove="UI\Pages\Welcome\Page3.xaml" />
     <None Remove="UI\Pages\Welcome\Page4.xaml" />
     <None Remove="UI\SideBarWindow.xaml" />
-    <None Remove="UI\WelcomeWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -101,11 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="UI\Pages\Welcome\Page2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="UI\WelcomeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

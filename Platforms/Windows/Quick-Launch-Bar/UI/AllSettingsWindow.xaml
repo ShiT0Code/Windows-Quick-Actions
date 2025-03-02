@@ -42,7 +42,7 @@
         <NavigationView.PaneHeader>
             <StackPanel Orientation="Horizontal"
                             Padding="8">
-                <TextBlock Text="快速启动栏 设置"
+                <TextBlock Text="侧边栏 设置"
                                VerticalAlignment="Center"/>
             </StackPanel>
         </NavigationView.PaneHeader>

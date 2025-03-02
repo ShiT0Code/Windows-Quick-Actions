@@ -14,15 +14,15 @@
             <ColumnDefinition Width="6"/>
         </Grid.ColumnDefinitions>
         <Rectangle x:Name="NButton"
-                   Fill="{StaticResource AccentAAFillColorDefaultBrush}"
+                   Fill="DarkGray"
                    PointerPressed="NButton_PointerPressed"
                    Width="6"
                    Height="90"
                    VerticalAlignment="Center"
                    SizeChanged="ShapeButton_SizeChanged"
-                   RadiusX="2"
+                   RadiusX="3"
                    RadiusY="3"
-                   Opacity="0.6">
+                   Opacity="0.65">
             <FlyoutBase.AttachedFlyout>
                 <Flyout Closed="Flyout_Closed" x:Name="flyout">
                     <Grid Height="450" Width="350" RowSpacing="8">
@@ -68,7 +68,8 @@
                             </HyperlinkButton>
 
                             <HyperlinkButton Foreground="{ThemeResource TextControlForeground}"
-                                             Click="Button_Click_3">
+                                             Click="Button_Click_3"
+                                             ToolTipService.ToolTip="关闭侧边栏">
                                 <FontIcon Glyph="&#xE711;"/>
                             </HyperlinkButton>
                         </StackPanel>
