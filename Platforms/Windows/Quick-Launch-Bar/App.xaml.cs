@@ -1,7 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
-using Microsoft.Windows.AppNotifications;
-using Microsoft.Windows.AppNotifications.Builder;
 using Quick_Launch_Bar.UI;
 using Windows.ApplicationModel.Activation;
 
@@ -72,7 +70,7 @@ namespace Quick_Launch_Bar
 
                     if (firstPart == "settings")
                         new AllSettingsWindow().Activate();
-                    else if (firstPart == "sidebar" && new SettingsManager().CheckBoolSetting("IsSideBarOn"))
+                    else if (firstPart == "sidebar")
                         new SideBarWindow().Activate();
                     else if (firstPart == "none")
                         NormalBoot();
@@ -83,20 +81,7 @@ namespace Quick_Launch_Bar
 
         private void NormalBoot()
         {
-            bool Actioned = false;
-            if (new SettingsManager().CheckBoolSetting("IsSideBarOn"))
-            {
-                m_window = new SideBarWindow();
-                Actioned = true;
-            }
-            if (!Actioned)
-                m_window = new AllSettingsWindow();
-            else
-            {
-                var Notif = new AppNotificationBuilder()
-                    .AddText("快速启动栏已启动！");
-                AppNotificationManager.Default.Show(Notif.BuildNotification());
-            }
+            m_window = new SideBarWindow();
         }
 
         private Window? m_window;

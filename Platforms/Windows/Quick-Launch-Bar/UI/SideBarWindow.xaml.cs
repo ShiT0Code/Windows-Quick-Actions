@@ -1,4 +1,4 @@
-using Microsoft.UI.Windowing;
+ï»¿using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using System;
 using WinRT.Interop;
@@ -26,7 +26,7 @@ namespace Quick_Launch_Bar.UI
     /// </summary>
     public sealed partial class SideBarWindow : Window
     {
-        // ÉèÖÃ´°¿ÚÑùÊ½
+        // è®¾ç½®çª—å£æ ·å¼
         public SideBarWindow()
         {
             this.InitializeComponent();
@@ -46,7 +46,7 @@ namespace Quick_Launch_Bar.UI
         int scw = 1920;
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            // ÉèÖÃ´°¿Ú
+            // è®¾ç½®çª—å£
             this.AppWindow.SetPresenter(Microsoft.UI.Windowing.AppWindowPresenterKind.Overlapped);
 
             var over_Presenter = this.AppWindow.Presenter as OverlappedPresenter;
@@ -58,44 +58,44 @@ namespace Quick_Launch_Bar.UI
                 over_Presenter.IsResizable = false;
             }
 
-            // »ñÈ¡µ±Ç°´°¿ÚµÄ¾ä±ú
+            // èŽ·å–å½“å‰çª—å£çš„å¥æŸ„
             IntPtr hWnd = WindowNative.GetWindowHandle(this);
 
-            // »ñÈ¡µ±Ç°´°¿ÚµÄ DPI Ëõ·Å±ÈÀý
+            // èŽ·å–å½“å‰çª—å£çš„ DPI ç¼©æ”¾æ¯”ä¾‹
             uint dpi = GetDpiForWindow(hWnd);
 
-            // ¼ÆËãËõ·Å±ÈÀý£¨°Ù·Ö±È£©
+            // è®¡ç®—ç¼©æ”¾æ¯”ä¾‹ï¼ˆç™¾åˆ†æ¯”ï¼‰
             double scalingFactor = (double)dpi / 96;
             scFa = scalingFactor;
 
             this.AppWindow.Resize(new Windows.Graphics.SizeInt32((int)(136 * scalingFactor), (int)(96 * scalingFactor)));
 
-            // ½ûÓÃ Windows 11 µÄÔ²½ÇÐ§¹û
+            // ç¦ç”¨ Windows 11 çš„åœ†è§’æ•ˆæžœ
             int attribute = 33; // DWMWA_WINDOW_CORNER_PREFERENCE
             int preference = 1; // DWMWCP_DONOTROUND
             DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(int));
 
-            // »ñÈ¡µ±Ç°´°¿ÚÑùÊ½
+            // èŽ·å–å½“å‰çª—å£æ ·å¼
             int windowStyle = GetWindowLong(hWnd, GWL_STYLE);
 
-            // ÒÆ³ý´°¿ÚµÄ±êÌâÀ¸ÑùÊ½£¨½ûÓÃÒõÓ°£©
+            // ç§»é™¤çª—å£çš„æ ‡é¢˜æ æ ·å¼ï¼ˆç¦ç”¨é˜´å½±ï¼‰
             SetWindowLong(hWnd, GWL_STYLE, windowStyle & ~WS_CAPTION);
 
-            // »ñÈ¡´°¿ÚËùÔÚµÄÏÔÊ¾Æ÷¾ä±ú
+            // èŽ·å–çª—å£æ‰€åœ¨çš„æ˜¾ç¤ºå™¨å¥æŸ„
             IntPtr hMonitor = MonitorFromWindow(hWnd, MONITOR_DEFAULTTOPRIMARY);
 
-            // »ñÈ¡ÏÔÊ¾Æ÷ÐÅÏ¢
+            // èŽ·å–æ˜¾ç¤ºå™¨ä¿¡æ¯
             MONITORINFO monitorInfo = new MONITORINFO();
             monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
             GetMonitorInfo(hMonitor, ref monitorInfo);
 
-            // ¼ÆËãÏÔÊ¾Æ÷µÄ¿íºÍ¸ß
+            // è®¡ç®—æ˜¾ç¤ºå™¨çš„å®½å’Œé«˜
             int screenWidth = monitorInfo.rcMonitor.Right - monitorInfo.rcMonitor.Left;
             int screenHeight = monitorInfo.rcMonitor.Bottom - monitorInfo.rcMonitor.Top;
 
             scw = screenWidth;
 
-            // Ó¦ÓÃÏÔÊ¾Æ÷ÐÅÏ¢
+            // åº”ç”¨æ˜¾ç¤ºå™¨ä¿¡æ¯
             float PerceOfWi = 1;
 
             if (screenWidth > 1920)
@@ -126,13 +126,13 @@ namespace Quick_Launch_Bar.UI
             WinX = (int)WinX;
         }
 
-        // Windows API ³£Á¿
+        // Windows API å¸¸é‡
         private const int MONITOR_DEFAULTTOPRIMARY = 1;
 
         private const int GWL_STYLE = -16;
         private const int WS_CAPTION = 0x00C00000;
 
-        // Windows API ½á¹¹Ìå
+        // Windows API ç»“æž„ä½“
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
         {
@@ -151,7 +151,7 @@ namespace Quick_Launch_Bar.UI
             public uint dwFlags;
         }
 
-        // Windows API º¯Êý
+        // Windows API å‡½æ•°
         [DllImport("user32.dll")]
         private static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
 
@@ -172,8 +172,7 @@ namespace Quick_Launch_Bar.UI
 
 
 
-        // ´¦ÀíÊÂ¼þ
-
+        // å¤„ç†äº‹ä»¶
         private void ShapeButton_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             this.AppWindow.SetPresenter(Microsoft.UI.Windowing.AppWindowPresenterKind.Overlapped);
@@ -277,13 +276,13 @@ namespace Quick_Launch_Bar.UI
             var Notif = new AppNotificationBuilder();
 
             if (Result)
-                Notif.AddText($"{Title} Æô¶¯³É¹¦£¡")
-                     .AddText($"ÃüÁî£º{executablePath}");
+                Notif.AddText($"{Title} å·²æ‰§è¡Œï¼")
+                     .AddText($"å‘½ä»¤ï¼š{executablePath}");
             else
             {
                 IsShow = true;
-                Notif.AddText($"{Title} Æô¶¯Ê§°Ü£¡");
-                Notif.AddText($"Ê§°ÜÔ­Òò£º{error}");
+                Notif.AddText($"{Title} å¯åŠ¨å¤±è´¥ï¼");
+                Notif.AddText($"å¤±è´¥åŽŸå› ï¼š{error}");
             }
 
             if(IsShow)
@@ -297,13 +296,6 @@ namespace Quick_Launch_Bar.UI
             double set = ContentSV.HorizontalOffset + 320;
 
             ContentSV.ChangeView(set, null, null);
-
-
-            Button button = (Button)sender;
-            if (ContentSV.HorizontalOffset >= ActionItems.Width)
-                button.IsEnabled = false;
-            else
-                button.IsEnabled = true;
         }
 
         private void LastButton_Click(object sender, RoutedEventArgs e)
@@ -311,13 +303,6 @@ namespace Quick_Launch_Bar.UI
             double set = ContentSV.HorizontalOffset - 288;
 
             ContentSV.ChangeView(set, null, null);
-
-
-            Button button = (Button)sender;
-            if (ContentSV.HorizontalOffset <= 0)
-                button.IsEnabled = false;
-            else
-                button.IsEnabled = true;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -488,8 +473,8 @@ namespace Quick_Launch_Bar.UI
             else
             {
                 var builder = new AppNotificationBuilder()
-                    .AddText("ÅäÖÃÎÄ¼þ¼ÓÔØÊ§°Ü £¡")
-                    .AddText("ÎÒÃÇÎÞ·¨ÕýÈ·µÄ¼ÓÔØÄãµÄÅäÖÃÎÄ¼þ£¬Õâ½«µ¼ÖÂÎÞ·¨ÎÒÃÇÎÞ·¨ÔÚ²à±ßÀ¸ÉÏÏÔÊ¾ÄãµÄÅäÖÃÉèÖÃ");
+                    .AddText("é…ç½®æ–‡ä»¶åŠ è½½å¤±è´¥ ï¼")
+                    .AddText("æˆ‘ä»¬æ— æ³•æ­£ç¡®çš„åŠ è½½ä½ çš„é…ç½®æ–‡ä»¶ï¼Œè¿™å°†å¯¼è‡´æ— æ³•æˆ‘ä»¬æ— æ³•åœ¨ä¾§è¾¹æ ä¸Šæ˜¾ç¤ºä½ çš„é…ç½®è®¾ç½®");
                 AppNotificationManager.Default.Show(builder.BuildNotification());
             }
         }

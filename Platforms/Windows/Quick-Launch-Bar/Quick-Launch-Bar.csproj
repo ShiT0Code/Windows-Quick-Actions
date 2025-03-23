@@ -11,38 +11,15 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
+
+
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Assets\AppIcon\BadgeLogo.scale-100.png" />
-    <None Remove="Assets\AppIcon\BadgeLogo.scale-125.png" />
-    <None Remove="Assets\AppIcon\BadgeLogo.scale-150.png" />
-    <None Remove="Assets\AppIcon\BadgeLogo.scale-200.png" />
-    <None Remove="Assets\AppIcon\BadgeLogo.scale-400.png" />
-    <None Remove="Assets\AppIcon\StoreLogo.scale-100.png" />
-    <None Remove="Assets\AppIcon\StoreLogo.scale-125.png" />
-    <None Remove="Assets\AppIcon\StoreLogo.scale-150.png" />
-    <None Remove="Assets\AppIcon\StoreLogo.scale-200.png" />
-    <None Remove="Assets\AppIcon\StoreLogo.scale-400.png" />
     <None Remove="UI\AllSettingsWindow.xaml" />
     <None Remove="UI\ExitingWarning.xaml" />
     <None Remove="UI\Pages\Settings\About.xaml" />
-    <None Remove="UI\Pages\Settings\DashBoard.xaml" />
     <None Remove="UI\Pages\Settings\SideBarSetting.xaml" />
-    <None Remove="UI\Pages\Welcome\Page1.xaml" />
-    <None Remove="UI\Pages\Welcome\Page2.xaml" />
-    <None Remove="UI\Pages\Welcome\Page3.xaml" />
-    <None Remove="UI\Pages\Welcome\Page4.xaml" />
     <None Remove="UI\SideBarWindow.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,29 +66,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UI\Pages\Welcome\Page4.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="UI\Pages\Welcome\Page3.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="UI\Pages\Welcome\Page2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="UI\Pages\Welcome\Page1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="UI\Pages\Settings\DashBoard.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Folder Include="Assets\" />
   </ItemGroup>
 
   <!--
@@ -139,7 +94,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <HoursBetweenUpdateChecks>144</HoursBetweenUpdateChecks>
-    <AppxPackageDir>C:\Users\hbeau\source\repos\Quick-Launch-Bar\Packages\Latest\</AppxPackageDir>
+    <AppxPackageDir>C:\Users\hbeau\Desktop\1\</AppxPackageDir>
     <AppInstallerUri>https://shit0code.github.io/ShiT0Code-Personal-WebSite/Downloads/Resources/Latest/Quick-Launch-Bar_x64.appinstaller</AppInstallerUri>
   </PropertyGroup>
 </Project>

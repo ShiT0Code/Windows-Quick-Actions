@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="Quick_Launch_Bar.UI.AllSettingsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="AllSettingsWindow">
+    Title="侧边栏 设置">
 
     <Window.SystemBackdrop>
         <MicaBackdrop/>
@@ -41,14 +41,15 @@
 
         <NavigationView.PaneHeader>
             <StackPanel Orientation="Horizontal"
-                            Padding="8">
+                            Padding="8"
+                        Spacing="8">
+                <Image Source="/Assets/AppIcon/StoreLogo.png" Width="16"/>
                 <TextBlock Text="侧边栏 设置"
                                VerticalAlignment="Center"/>
             </StackPanel>
         </NavigationView.PaneHeader>
 
         <NavigationView.MenuItems>
-            <NavigationViewItem Content="仪表板" Tag="DashBoard"/>
             <NavigationViewItem Content="侧边栏设置" Tag="SideBar"/>
             <NavigationViewItem Content="关于" Tag="About"/>
         </NavigationView.MenuItems>

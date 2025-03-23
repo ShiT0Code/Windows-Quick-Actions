@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
+ï»¿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.ObjectModel;
 using System;
@@ -20,20 +20,10 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
         {
             this.InitializeComponent();
 
-            SwitchViewModel = new SwitchViewModel();
-
             ViewModel = new SideBarSettingsViewModel();
         }
 
         public SideBarSettingsViewModel ViewModel { get; set; }
-
-        public SwitchViewModel SwitchViewModel { get; set; }
-
-        private void IsEnable_ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-        {
-            var setting = new SettingsManager();
-            setting.SaveBoolSetting("IsSideBarOn", Tog.IsOn);
-        }
 
         public static bool IsLoadedLeft { get; set; } = false;
 
@@ -45,34 +35,34 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
             ToggleSwitch toggleSwitch = new ToggleSwitch()
             {
                 IsOn = IsEe,
-                OnContent = "ÆôÓÃ",
-                OffContent = "½ûÓÃ"
+                OnContent = "å¯ç”¨",
+                OffContent = "ç¦ç”¨"
             };
             toggleSwitch.Toggled += ItemIsEnable_ToggleSwitch_Toggled;
 
             TextBox textBox1 = new TextBox()
             {
                 Text = name,
-                Header = "Ãû³Æ£º"
+                Header = "åç§°ï¼š"
             };
             textBox1.LostFocus += TextBox1_LostFocus;
 
             TextBox textBox2 = new TextBox()
             {
                 Text = des,
-                Header = "ÃèÊö£º"
+                Header = "æè¿°ï¼š"
             };
             textBox2.LostFocus += TextBox2_LostFocus;
 
             ComboBox comboBox = new()
             {
-                Header = "Ñ¡ÔñÏÔÊ¾ÑùÊ½",
+                Header = "é€‰æ‹©æ˜¾ç¤ºæ ·å¼",
                 SelectedIndex = style
             };
-            comboBox.Items.Add(new ComboBoxItem() { Content = "ÆÕÍ¨°´Å¥" });
-            comboBox.Items.Add(new ComboBoxItem() { Content = "Á´½Ó°´Å¥" });
-            comboBox.Items.Add(new ComboBoxItem() { Content = "ÏÂÀ­°´Å¥" });
-            comboBox.Items.Add(new ComboBoxItem() { Content = "²ğ·Ö°´Å¥" });
+            comboBox.Items.Add(new ComboBoxItem() { Content = "æ™®é€šæŒ‰é’®" });
+            comboBox.Items.Add(new ComboBoxItem() { Content = "é“¾æ¥æŒ‰é’®" });
+            comboBox.Items.Add(new ComboBoxItem() { Content = "ä¸‹æ‹‰æŒ‰é’®" });
+            comboBox.Items.Add(new ComboBoxItem() { Content = "æ‹†åˆ†æŒ‰é’®" });
 
             comboBox.SelectionChanged += Style_ComboBox_SelectionChanged;
 
@@ -87,7 +77,7 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
             TextBox textBox3 = new TextBox()
             {
                 Text = ic_path,
-                Header = "Í¼±êÂ·¾¶",
+                Header = "å›¾æ ‡è·¯å¾„",
                 MinWidth = 250
             };
             textBox3.LostFocus += TextBox3_LostFocus;
@@ -180,10 +170,10 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
             ContentDialog dialog = new ContentDialog()
             {
                 XamlRoot = this.XamlRoot,
-                Title = "È·ÈÏÉ¾³ı¸ÃÏî£¿",
-                Content = "ÄãÈ·¶¨ÒªÉ¾³ı¸ÃÏîÂğ£¿",
-                CloseButtonText = "È¡Ïû",
-                PrimaryButtonText = "È·ÈÏÉ¾³ı",
+                Title = "ç¡®è®¤åˆ é™¤è¯¥é¡¹ï¼Ÿ",
+                Content = "ä½ ç¡®å®šè¦åˆ é™¤è¯¥é¡¹å—ï¼Ÿ",
+                CloseButtonText = "å–æ¶ˆ",
+                PrimaryButtonText = "ç¡®è®¤åˆ é™¤",
                 DefaultButton = ContentDialogButton.Primary
             };
             ContentDialogResult result = await dialog.ShowAsync();
@@ -205,7 +195,7 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
         {
             SideBarItem sideBarItem = new SideBarItem()
             {
-                name = "ĞÂÏî"
+                name = "æ–°é¡¹"
             };
             ViewModel.Items.Add(sideBarItem);
         }
@@ -226,10 +216,10 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
             ContentDialog dialog = new ContentDialog()
             {
                 XamlRoot = this.XamlRoot,
-                Title = "È·ÈÏÉ¾³ı¸Ã²Ù×÷£¿",
-                Content = "ÄãÈ·¶¨ÒªÉ¾³ı¸Ã²Ù×÷Âğ£¿",
-                CloseButtonText = "È¡Ïû",
-                PrimaryButtonText = "È·ÈÏÉ¾³ı",
+                Title = "ç¡®è®¤åˆ é™¤è¯¥æ“ä½œï¼Ÿ",
+                Content = "ä½ ç¡®å®šè¦åˆ é™¤è¯¥æ“ä½œå—ï¼Ÿ",
+                CloseButtonText = "å–æ¶ˆ",
+                PrimaryButtonText = "ç¡®è®¤åˆ é™¤",
                 DefaultButton = ContentDialogButton.Primary
             };
             ContentDialogResult result = await dialog.ShowAsync();
@@ -246,7 +236,7 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
         {
             SideBarItemAction action = new SideBarItemAction()
             {
-                title1 = "²Ù×÷"
+                title1 = "æ“ä½œ"
             };
             item.actions.Add(action);
         }
@@ -277,9 +267,9 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
                 await new ContentDialog()
                 {
                     XamlRoot = this.XamlRoot,
-                    Title = "¾¯¸æ",
-                    Content = "ÉèÖÃÎŞ·¨ÕıÈ·¼ÓÔØ£¡",
-                    CloseButtonText = "È·¶¨"
+                    Title = "è­¦å‘Š",
+                    Content = "è®¾ç½®æ— æ³•æ­£ç¡®åŠ è½½ï¼",
+                    CloseButtonText = "ç¡®å®š"
                 }.ShowAsync();
             }
         }

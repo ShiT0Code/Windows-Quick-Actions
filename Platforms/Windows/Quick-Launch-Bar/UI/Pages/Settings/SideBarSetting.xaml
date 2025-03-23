@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="Quick_Launch_Bar.UI.Pages.Settings.SideBarSetting"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,78 +9,6 @@
     mc:Ignorable="d">
 
     <StackPanel Spacing="18">
-        <Grid Height="78"
-              HorizontalAlignment="Stretch"
-              Background="{StaticResource LayerFillColorAltBrush}"
-              CornerRadius="8"
-              BorderBrush="{StaticResource AppBarBorderThemeBrush}"
-              BorderThickness="1"
-              Padding="18">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="90"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="启用全局侧边栏"
-                       VerticalAlignment="Center"/>
-
-            <TextBlock Text="这将会在你的屏幕边缘显示它"
-                       VerticalAlignment="Center"
-                       Grid.Row="1"
-                       Style="{StaticResource CaptionTextBlockStyle}"/>
-
-            <ToggleSwitch OnContent="启用"
-                          OffContent="禁用"
-                          Grid.Column="2"
-                          Grid.RowSpan="2"
-                          VerticalAlignment="Center"
-                          IsOn="{x:Bind SwitchViewModel.DefaultSettings.SideBar}"
-                          Toggled="IsEnable_ToggleSwitch_Toggled"
-                          x:Name="Tog"/>
-        </Grid>
-        
-        <Expander>
-            <Expander.Resources>
-                <Style TargetType="Expander">
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </Expander.Resources>
-
-            <Expander.Header>
-                <Grid Padding="18">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="排除的应用"
-                        VerticalAlignment="Center"/>
-
-                    <TextBlock Text="将不会在以下应用中启用全局侧边栏"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Grid.Row="1"/>
-                </Grid>
-            </Expander.Header>
-
-            <Expander.Content>
-                AAAA
-            </Expander.Content>
-        </Expander>
-
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Stretch"
                     Spacing="27">
