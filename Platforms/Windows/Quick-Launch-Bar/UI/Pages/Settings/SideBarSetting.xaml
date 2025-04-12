@@ -60,18 +60,23 @@
                     </StackPanel>
                 </HyperlinkButton>
             </StackPanel>
-            <Button Click="DelItem_Button_Click"
-                    Grid.Column="1"
+            <StackPanel Orientation="Horizontal"                   
+                        Grid.Column="1"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"
+                        Spacing="8">
+                <Button Content="上移" Click="UpButton_Click"/>
+                 <Button Content="下移" Click="DownButton_Click"/>
+                <Button Click="DelItem_Button_Click"
                     x:Name="del_I"
                     IsEnabled="False">
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <FontIcon Glyph="&#xE74D;"/>
-                    <TextBlock Text="删除此项"/>
-                </StackPanel>
-            </Button>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE74D;"/>
+                        <TextBlock Text="删除此项"/>
+                    </StackPanel>
+                </Button>
 
+            </StackPanel>
             <Grid Grid.Column="1" x:Name="ViewGrid"/>
 
             <TextBlock Grid.Row="1" Grid.Column="1" Text="操作列表：" VerticalAlignment="Center"/>

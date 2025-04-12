@@ -291,20 +291,6 @@ namespace Quick_Launch_Bar.UI
         }
 
 
-        private void NextBu_Click(object sender, RoutedEventArgs e)
-        {
-            double set = ContentSV.HorizontalOffset + 320;
-
-            ContentSV.ChangeView(set, null, null);
-        }
-
-        private void LastButton_Click(object sender, RoutedEventArgs e)
-        {
-            double set = ContentSV.HorizontalOffset - 288;
-
-            ContentSV.ChangeView(set, null, null);
-        }
-
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             flyout.Hide();
@@ -329,7 +315,7 @@ namespace Quick_Launch_Bar.UI
                     ViewModel.Items.Add(item);
                 }
 
-                ActionItems.Children.Clear();
+                ActionsList.Items.Clear();
                 foreach (var item in ViewModel.Items)
                 {
                     Grid grid = new Grid()
@@ -448,7 +434,9 @@ namespace Quick_Launch_Bar.UI
                             grid.Children.Add(button);
                             break;
                     }
-                    ActionItems.Children.Add(grid);
+
+
+                    ActionsList.Items.Add(grid);
 
                     string GetButtonContentTag()
                     {

@@ -28,17 +28,10 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
         public static bool IsLoadedLeft { get; set; } = false;
 
 
-        private void LoadInfo(bool IsEe, string name, string des, string ic_path, int style)
+        private void LoadInfo(string name, string des, string ic_path, int style)
         {
             ViewGrid.Children.Clear();
 
-            ToggleSwitch toggleSwitch = new ToggleSwitch()
-            {
-                IsOn = IsEe,
-                OnContent = "启用",
-                OffContent = "禁用"
-            };
-            toggleSwitch.Toggled += ItemIsEnable_ToggleSwitch_Toggled;
 
             TextBox textBox1 = new TextBox()
             {
@@ -96,7 +89,6 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
                 MaxWidth = 850,
                 Orientation=Orientation.Vertical
             };
-            BasicStackPanel.Children.Add(toggleSwitch);
             BasicStackPanel.Children.Add(textBox1);
             BasicStackPanel.Children.Add(textBox2);
             BasicStackPanel.Children.Add(comboBox);
@@ -136,11 +128,6 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
             }
         }
 
-        private void ItemIsEnable_ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-        {
-            ToggleSwitch toggleSwitch = (ToggleSwitch)sender;
-            item.isEnable = toggleSwitch.IsOn;
-        }
 
 
         SideBarItem item = new SideBarItem();
@@ -148,7 +135,6 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
         {
             if (SideBarList.SelectedItem is SideBarItem selectedItem)
             {
-                bool IsEe = selectedItem.isEnable;
                 string name = selectedItem.name;
                 string des = selectedItem.description;
                 string ic_path = selectedItem.iconPath;
@@ -158,7 +144,7 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
 
                 ActionList.ItemsSource = selectedItem.actions;
 
-                LoadInfo(IsEe, name, des, ic_path, style);
+                LoadInfo(name, des, ic_path, style);
 
                 item = selectedItem;
             }
@@ -296,6 +282,39 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
         {
 
         }
+
+        private void UpButton_Click(object sender, RoutedEventArgs e)
+        {
+            int index = ViewModel.Items.IndexOf(item);
+
+            try
+            {
+                ViewModel.Items.RemoveAt(index);
+                ViewModel.Items.Insert(index-=1, item);
+            }
+            catch 
+            {
+                ViewModel.Items.Add(item);
+            }
+            SideBarList.SelectedItem = item;
+        }
+
+        private void DownButton_Click(object sender, RoutedEventArgs e)
+        {
+            int index = ViewModel.Items.IndexOf(item);
+
+            try
+            {
+                ViewModel.Items.RemoveAt(index);
+                ViewModel.Items.Insert(index+=1, item);
+            }
+            catch
+            {
+                ViewModel.Items.Add(item);
+            }
+            SideBarList.SelectedItem = item;
+        }
+
     }
 
 
@@ -307,7 +326,6 @@ namespace Quick_Launch_Bar.UI.Pages.Settings
 
         public int style { get; set; } = 0;
 
-        public bool isEnable { get; set; } = true;
         public string iconPath { get; set; } = "";
         public ObservableCollection<SideBarItemAction> actions { get; set; } = new ObservableCollection<SideBarItemAction>();
     }
