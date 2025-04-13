@@ -10,7 +10,7 @@
   IgnorableNamespaces="uap rescap uap18">
 
   <Identity
-    Name="ShiT0Code.WindowsApp.QuickLaunchBar"
+    Name="ShiT0Code.WindowsApp.QuickLaunchBar.dev"
     Publisher="CN=ShiT0Code"
     Version="1.7.6.0" />
 
