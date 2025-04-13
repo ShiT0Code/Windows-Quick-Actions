@@ -86,10 +86,6 @@
                                        Loaded="ActionItems_Loaded"
                                       Width="345">
                             </GridView>
-                            <!--StackPanel Orientation="Horizontal"
-                                            Padding="0"
-                                            x:Name="ActionItems"
-                                            Loaded="ActionItems_Loaded"/-->
                         </ScrollViewer>
 
                     </Grid>
