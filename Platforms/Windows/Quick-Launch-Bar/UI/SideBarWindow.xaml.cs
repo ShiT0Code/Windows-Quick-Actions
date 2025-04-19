@@ -207,7 +207,6 @@ namespace Quick_Launch_Bar.UI
 
             this.AppWindow.Move(point);
             
-
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 

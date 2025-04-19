@@ -94,7 +94,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <HoursBetweenUpdateChecks>144</HoursBetweenUpdateChecks>
-    <AppxPackageDir>C:\Users\hbeau\Desktop\1\</AppxPackageDir>
+    <AppxPackageDir>C:\Users\Public\共用文件\1</AppxPackageDir>
     <AppInstallerUri>https://shit0code.github.io/ShiT0Code-Personal-WebSite/Downloads/Resources/Latest/Quick-Launch-Bar_x64.appinstaller</AppInstallerUri>
   </PropertyGroup>
 </Project>

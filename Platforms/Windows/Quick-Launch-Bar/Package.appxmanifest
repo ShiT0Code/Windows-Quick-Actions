@@ -10,9 +10,9 @@
   IgnorableNamespaces="uap rescap uap18">
 
   <Identity
-    Name="ShiT0Code.WindowsApp.QuickLaunchBar.dev"
+    Name="ShiT0Code.WindowsApp.QuickLaunchBar"
     Publisher="CN=ShiT0Code"
-    Version="1.7.6.0" />
+    Version="1.7.7.0" />
 
   <mp:PhoneIdentity PhoneProductId="5643a715-99ab-403b-9e57-177d84379726" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

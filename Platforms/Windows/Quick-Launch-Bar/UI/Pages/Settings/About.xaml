@@ -9,12 +9,8 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <InfoBar Title="生命周期警告"
-            Content="此版本将停止支持！我们将重构应用并迁移到新版应用。此版本未来将不会有功能更新！建议在新版应用发布后升级！"
-            Severity="Warning"
-            IsOpen="True"/>
         <TextBlock Text="侧边栏"/>
         <TextBlock Text="开发者：ShiT0Code"/>
-        <TextBlock Text="版本：1.2.3"/>
+        <TextBlock Text="版本：1.7.7"/>
     </StackPanel>
 </Page>
