@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="Quick_Launch_Bar.UI.SideBarWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -22,7 +22,7 @@
                    SizeChanged="ShapeButton_SizeChanged"
                    RadiusX="3"
                    RadiusY="3"
-                   Opacity="0.65">
+                   Opacity="0.4">
             <FlyoutBase.AttachedFlyout>
                 <Flyout Closed="Flyout_Closed" x:Name="flyout">
                     <Flyout.SystemBackdrop>
@@ -46,33 +46,31 @@
 
                         <StackPanel Orientation="Horizontal"
                                     Grid.Column="1">
-                            <HyperlinkButton Click="Settings_Button_Click"
+                            <AppBarButton Click="Settings_Button_Click"
                                              ToolTipService.ToolTip="打开 应用设置"
-                                             Foreground="{ThemeResource TextControlForeground}">
-                                <FontIcon Glyph="&#xE713;"/>
-                            </HyperlinkButton>
+                                          Icon="Setting"
+                                          Height="48"
+                                          Width="48"/>
 
-                            <HyperlinkButton Foreground="{ThemeResource TextControlForeground}"
+                            <AppBarButton
                                     ToolTipService.ToolTip="更多"
-                                    Click="MoreHyperlinkButton_Click">
-                                <FontIcon Glyph="&#xE712;"/>
+                                    Click="MoreHyperlinkButton_Click"
+                                Icon="More"
+                                Width="48"
+                                Height="48">
                                 <FlyoutBase.AttachedFlyout>
-                                    <Flyout>
-                                        <StackPanel>
-                                            <HyperlinkButton Foreground="{ThemeResource TextControlForeground}"
-                                                    Click="Exit_Button_Click"
-                                                    Content="退出应用"
-                                                    ToolTipService.ToolTip="点击退出应用"/>
-                                        </StackPanel>
-                                    </Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="退出应用" Click="Exit_Button_Click"/>
+                                    </MenuFlyout>
                                 </FlyoutBase.AttachedFlyout>
-                            </HyperlinkButton>
+                            </AppBarButton>
 
-                            <HyperlinkButton Foreground="{ThemeResource TextControlForeground}"
+                            <AppBarButton Width="48"
+                                          Height="48"
                                              Click="Button_Click_3"
                                              ToolTipService.ToolTip="关闭侧边栏">
                                 <FontIcon Glyph="&#xE711;"/>
-                            </HyperlinkButton>
+                            </AppBarButton>
                         </StackPanel>
 
                         <TextBlock Text="固定的应用"

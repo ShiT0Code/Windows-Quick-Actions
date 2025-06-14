@@ -55,7 +55,13 @@ namespace Quick_Launch_Bar.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new ExitingWarning().Activate();
+            Closed += ExitApp;
+            Close();
+        }
+
+        private void ExitApp(object sender, WindowEventArgs args)
+        {
+            App.Current.Exit();
         }
     }
 }

@@ -16,7 +16,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="UI\AllSettingsWindow.xaml" />
-    <None Remove="UI\ExitingWarning.xaml" />
     <None Remove="UI\Pages\Settings\About.xaml" />
     <None Remove="UI\Pages\Settings\SideBarSetting.xaml" />
     <None Remove="UI\SideBarWindow.xaml" />
@@ -42,11 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="UI\AllSettingsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="UI\ExitingWarning.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -94,7 +88,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <HoursBetweenUpdateChecks>144</HoursBetweenUpdateChecks>
-    <AppxPackageDir>C:\Users\Public\共用文件\1</AppxPackageDir>
+    <AppxPackageDir>C:\Users\hbeau\Documents\Codes\Windows-Quick-Actions\OutPut\</AppxPackageDir>
     <AppInstallerUri>https://shit0code.github.io/ShiT0Code-Personal-WebSite/Downloads/Resources/Latest/Quick-Launch-Bar_x64.appinstaller</AppInstallerUri>
   </PropertyGroup>
 </Project>

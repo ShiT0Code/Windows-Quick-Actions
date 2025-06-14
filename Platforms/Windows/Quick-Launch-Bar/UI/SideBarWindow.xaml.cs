@@ -247,7 +247,7 @@ namespace Quick_Launch_Bar.UI
 
         private void Exit_Button_Click(object sender, RoutedEventArgs e)
         {
-            new ExitingWarning().Activate();
+            App.Current.Exit();
         }
 
         private void SetUpApp(string executablePath, string Title,bool IsShow, int times)
