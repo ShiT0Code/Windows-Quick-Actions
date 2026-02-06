@@ -366,3 +366,5 @@ FodyWeavers.xsd
 # Windows
 $RECYCLE.BIN/
 System Volume Information/
+Thumbs.db
+desktop.ini
