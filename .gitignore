@@ -230,12 +230,14 @@ _pkginfo.txt
 !?*.[Cc]ache/
 
 # Others
+TempFiles/
 ClientBin/
 ~$*
 *~
 *.dbmdl
 *.dbproj.schemaview
 *.jfm
+*.pfx
 *.publishsettings
 orleans.codegen.cs
 
@@ -360,3 +362,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Windows
+$RECYCLE.BIN/
+System Volume Information/
+Thumbs.db
+desktop.ini
