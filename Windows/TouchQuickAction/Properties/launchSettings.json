@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TouchQuickAction (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TouchQuickAction (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
