@@ -10,9 +10,12 @@
     xmlns:cont="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <StackPanel>
-        <cont:SettingsCard Header="启用侧边栏">
-            <ToggleSwitch/>
-        </cont:SettingsCard>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel Spacing="12">
+            <cont:SettingsCard Header="启用侧边栏">
+                <ToggleSwitch/>
+            </cont:SettingsCard>
+            <cont:SettingsCard Header="管理固定项" IsClickEnabled="True" Click="SettingsCard_Click"/>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

@@ -10,9 +10,18 @@
     xmlns:cont="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <StackPanel Spacing="12">
-        <cont:SettingsCard Header="侧边栏" Click="SideBar_SettingsCard_Click" IsClickEnabled="True"/>
-        <cont:SettingsCard Header="悬浮球" Click="SuspendedBall_SettingsCard_Click" IsClickEnabled="True"/>
-        <cont:SettingsCard Header="快捷设置" Click="QuickSettings_SettingsCard_Click" IsClickEnabled="True"/>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel Spacing="12">
+            <cont:SettingsCard Header="侧边栏" Click="SideBar_SettingsCard_Click" IsClickEnabled="True"/>
+            <cont:SettingsCard Header="悬浮球" Click="SuspendedBall_SettingsCard_Click" IsClickEnabled="True"/>
+            <cont:SettingsCard Header="快捷设置" Click="QuickSettings_SettingsCard_Click" IsClickEnabled="True"/>
+        
+            <TextBlock Text="关于"/>
+            <cont:SettingsExpander Header="触摸辅助栏" HeaderIcon="{comm:BitmapIcon Source=ms-appx:///Assets/StoreLogo.png}">
+                <cont:SettingsExpander.Items>
+                    <cont:SettingsCard Header="相关信息"/>
+                </cont:SettingsExpander.Items>
+            </cont:SettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

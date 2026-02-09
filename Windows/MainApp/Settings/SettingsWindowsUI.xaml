@@ -3,10 +3,15 @@
     x:Class="MainApp.Settings.SettingsWindowsUI"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MainApp.Settings"
+    xmlns:local="using:MainApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Grid.KeyboardAccelerators>
+        <KeyboardAccelerator Key="Left" Modifiers="Menu" Invoked="Back_KeyboardAccelerator_Invoked"/>
+        <KeyboardAccelerator Key="Up" Modifiers="Menu" Invoked="Back_KeyboardAccelerator_Invoked"/>
+        <KeyboardAccelerator Key="Home" Invoked="Home_KeyboardAccelerator_Invoked"/>
+    </Grid.KeyboardAccelerators>
 
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
@@ -25,19 +30,10 @@
     
     <BreadcrumbBar Grid.Row="1" x:Name="breadcrumbBar" ItemClicked="BreadcrumbBar_ItemClicked" Margin="32,0,18,4">
         <BreadcrumbBar.ItemTemplate>
-            <DataTemplate x:DataType="local:SettingsPageInfo">
-                <TextBlock Text="{x:Bind Title}" Style="{StaticResource SubtitleTextBlockStyle}" FontWeight="Bold"/>
+            <DataTemplate x:DataType="x:String">
+                <TextBlock Text="{x:Bind}" Style="{StaticResource SubtitleTextBlockStyle}" FontWeight="Bold"/>
             </DataTemplate>
         </BreadcrumbBar.ItemTemplate>
     </BreadcrumbBar>
-    <ScrollViewer Grid.Row="2" Margin="30,4,18,8">
-        <Frame x:Name="frame" Loaded="Frame_Loaded">
-            <Frame.KeyboardAccelerators>
-                <KeyboardAccelerator Key="PageUp" Invoked="Back_KeyboardAccelerator_Invoked"/>
-                <KeyboardAccelerator Key="Back" Invoked="Back_KeyboardAccelerator_Invoked"/>
-                <KeyboardAccelerator Key="Left" Modifiers="Menu" Invoked="Back_KeyboardAccelerator_Invoked"/>
-                <KeyboardAccelerator Key="Up" Modifiers="Menu" Invoked="Back_KeyboardAccelerator_Invoked"/>
-            </Frame.KeyboardAccelerators>
-        </Frame>
-    </ScrollViewer>
+    <Frame x:Name="frame" Loaded="Frame_Loaded" Grid.Row="2" Margin="30,4,18,8"/>
 </Grid>
