@@ -10,13 +10,18 @@
     xmlns:cont="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <Grid ColumnSpacing="8" Margin="0,12,0,0">
+    <Grid ColumnSpacing="8" RowSpacing="8" Margin="0,12,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="list" SelectionChanged="ListView_SelectionChanged">
+        <ListView x:Name="listView" SelectionChanged="ListView_SelectionChanged" Grid.RowSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:MainActionListViewItem">
                     <StackPanel Spacing="8" Orientation="Horizontal">
@@ -27,10 +32,13 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ScrollViewer Grid.Column="1">
+        <TextBlock Text="{x:Bind Action.Title, Mode=OneWay}"
+                   Style="{StaticResource SubtitleTextBlockStyle}"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Grid.Column="1"/>
+        <ScrollViewer Grid.Column="1" Grid.Row="1">
             <StackPanel Spacing="12" x:Name="dataView">
-                <TextBlock Text="{x:Bind Action.Title, Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}" FontWeight="Bold" HorizontalAlignment="Center"/>
-
                 <TextBlock Text="信息"/>
                 <cont:SettingsCard Header="名称" Description="{x:Bind Action.Title, Mode=OneWay}" HeaderIcon="{comm:FontIcon Glyph=&#xE8AC;}">
                     <Button Content="更改">
@@ -64,100 +72,110 @@
                         </cont:SettingsCard>
                     </cont:SettingsExpander.Items>
                 </cont:SettingsExpander>
-
-                <TextBlock Text="操作">
-                    <TextBlock.Transitions>
-                        <TransitionCollection>
-                            <RepositionThemeTransition/>
-                        </TransitionCollection>
-                    </TextBlock.Transitions>
-                </TextBlock>
-                <StackPanel Orientation="Horizontal" Spacing="12">
+                
+                <StackPanel Spacing="12">
                     <StackPanel.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition/>
                         </TransitionCollection>
                     </StackPanel.Transitions>
-                    <ComboBox Header="选择一个操作："/>
-                    <HyperlinkButton Content="添加操作" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="操作"/>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <ComboBox Header="选择一个操作：" x:Name="subActionsCombox"/>
+                        <HyperlinkButton Content="添加操作" VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <cont:SettingsCard Header="名称和图标" HeaderIcon="{comm:FontIcon Glyph=&#xE946;}">
+                        <Button Content="更改操作名称">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <TextBox Header="操作名称" MinWidth="180"/>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </cont:SettingsCard>
+                    <cont:SettingsCard Header="更改图标" HeaderIcon="{comm:FontIcon Glyph=&#xE91B;}">
+                        <Button Content="设置">
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="更改浅色图标"/>
+                                    <MenuFlyoutItem Text="更改深色图标"/>
+                                    <MenuFlyoutSeparator/>
+                                    <ToggleMenuFlyoutItem Text="自动把浅色图标变为深色"/>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Text="清除图标"/>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </cont:SettingsCard>
                 </StackPanel>
 
-                <cont:SettingsCard Header="名称和图标" HeaderIcon="{comm:FontIcon Glyph=&#xE946;}">
-                    <cont:SettingsCard.Transitions>
-                        <TransitionCollection>
-                            <RepositionThemeTransition/>
-                        </TransitionCollection>
-                    </cont:SettingsCard.Transitions>
-                    <Button Content="更改操作名称">
-                        <Button.Flyout>
-                            <Flyout>
-                                <TextBox Header="操作名称" MinWidth="180"/>
-                            </Flyout>
-                        </Button.Flyout>
-                    </Button>
-                </cont:SettingsCard>
-                <cont:SettingsCard Header="更改图标" HeaderIcon="{comm:FontIcon Glyph=&#xE91B;}">
-                    <cont:SettingsCard.Transitions>
-                        <TransitionCollection>
-                            <RepositionThemeTransition/>
-                        </TransitionCollection>
-                    </cont:SettingsCard.Transitions>
-                    <Button Content="设置">
-                        <Button.Flyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Text="更改浅色图标"/>
-                                <MenuFlyoutItem Text="更改深色图标"/>
-                                <MenuFlyoutSeparator/>
-                                <ToggleMenuFlyoutItem Text="自动把浅色图标变为深色"/>
-                                <MenuFlyoutSeparator/>
-                                <MenuFlyoutItem Text="清除图标"/>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                </cont:SettingsCard>
-                <ComboBox Header="执行：">
-                    <ComboBox.Transitions>
-                        <TransitionCollection>
-                            <RepositionThemeTransition/>
-                        </TransitionCollection>
-                    </ComboBox.Transitions>
-                    <x:String>打开程序</x:String>
-                    <x:String>打开文件</x:String>
-                    <x:String>打开文件夹</x:String>
-                    <x:String>运行命令</x:String>
-                </ComboBox>
-                <StackPanel Orientation="Horizontal" Spacing="12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
                     <StackPanel.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition/>
                         </TransitionCollection>
                     </StackPanel.Transitions>
-                    <TextBox Header="位置" MinWidth="250"/>
-                    <Button Content="浏览程序" VerticalAlignment="Bottom">
-                        <Button.Flyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Text="AppX 应用"/>
-                                <MenuFlyoutItem Text=".exe 文件"/>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                    <Button Content="浏览" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="该操作的执行任务" VerticalAlignment="Center"/>
+                    <HyperlinkButton Content="添加执行结果" VerticalAlignment="Center"/>
                 </StackPanel>
-                <TextBox Header="参数" Margin="0,0,450,0">
-                    <TextBox.Transitions>
+                <ItemsControl x:Name="itemsControl" Loaded="LastControl_Loaded">
+                    <ItemsControl.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition/>
                         </TransitionCollection>
-                    </TextBox.Transitions>
-                </TextBox>
+                    </ItemsControl.Transitions>
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition/>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="0,4,0,4"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local:ExeceteActionUI">
+                            <cont:SettingsExpander Header="任务">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="执行：" VerticalAlignment="Center"/>
+                                    <ComboBox SelectedIndex="{x:Bind ActionType, Mode=TwoWay}">
+                                        <x:String>打开程序</x:String>
+                                        <x:String>打开文件</x:String>
+                                        <x:String>打开文件夹</x:String>
+                                        <x:String>运行命令</x:String>
+                                    </ComboBox>
+                                </StackPanel>
 
-                <Button Content="Click me" Click="Button_Click">
-                    <Button.Transitions>
-                        <TransitionCollection>
-                            <RepositionThemeTransition/>
-                        </TransitionCollection>
-                    </Button.Transitions>
-                </Button>
+                                <cont:SettingsExpander.Items>
+                                    <cont:SettingsCard>
+                                        <cont:SettingsCard.Header>
+                                            <TextBox Header="位置" MinWidth="250" Text="{x:Bind Command,Mode=TwoWay}"/>
+                                        </cont:SettingsCard.Header>
+                                        <StackPanel Orientation="Horizontal" Spacing="12">
+                                            <Button Content="浏览程序" VerticalAlignment="Bottom">
+                                                <Button.Flyout>
+                                                    <MenuFlyout>
+                                                        <MenuFlyoutItem Text="AppX 应用"/>
+                                                        <MenuFlyoutItem Text=".exe 文件"/>
+                                                    </MenuFlyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            <Button Content="浏览" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                    </cont:SettingsCard>
+                                    <cont:SettingsCard>
+                                        <cont:SettingsCard.Header>
+                                            <TextBox Header="参数" MinWidth="250" Text="{x:Bind Arguments,Mode=TwoWay}"/>
+                                        </cont:SettingsCard.Header>
+                                    </cont:SettingsCard>
+                                </cont:SettingsExpander.Items>
+                            </cont:SettingsExpander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button Content="Click me" Click="Button_Click"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

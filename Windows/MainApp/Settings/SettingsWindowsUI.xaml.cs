@@ -1,6 +1,8 @@
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace MainApp.Settings;
 public sealed partial class SettingsWindowsUI : Grid
@@ -31,11 +33,17 @@ public sealed partial class SettingsWindowsUI : Grid
                 frame.GoBack();
     }
 
-    private void Back_KeyboardAccelerator_Invoked(Microsoft.UI.Xaml.Input.KeyboardAccelerator sender, Microsoft.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs args)
+    bool isBacking = false;
+    private async void Back_KeyboardAccelerator_Invoked(Microsoft.UI.Xaml.Input.KeyboardAccelerator sender, Microsoft.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs args)
     {
+        Debug.Write(isBacking);
+        if (isBacking) return;
+        isBacking = true;
         if (Titles.Count <= 1) return;
         Titles.RemoveAt(Titles.Count - 1);
         if (frame.CanGoBack) frame.GoBack();
+        await Task.Delay(10);
+        isBacking = false;
     }
 
     private void Home_KeyboardAccelerator_Invoked(Microsoft.UI.Xaml.Input.KeyboardAccelerator sender, Microsoft.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs args)

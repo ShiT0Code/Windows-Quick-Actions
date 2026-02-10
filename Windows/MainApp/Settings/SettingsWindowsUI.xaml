@@ -9,7 +9,6 @@
     mc:Ignorable="d">
     <Grid.KeyboardAccelerators>
         <KeyboardAccelerator Key="Left" Modifiers="Menu" Invoked="Back_KeyboardAccelerator_Invoked"/>
-        <KeyboardAccelerator Key="Up" Modifiers="Menu" Invoked="Back_KeyboardAccelerator_Invoked"/>
         <KeyboardAccelerator Key="Home" Invoked="Home_KeyboardAccelerator_Invoked"/>
     </Grid.KeyboardAccelerators>
 
