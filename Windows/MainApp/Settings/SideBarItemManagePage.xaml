@@ -23,7 +23,7 @@
 
         <ListView x:Name="listView" SelectionChanged="ListView_SelectionChanged" Grid.RowSpan="2">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:MainActionListViewItem">
+                <DataTemplate x:DataType="local:MainActionUI">
                     <StackPanel Spacing="8" Orientation="Horizontal">
                         <Image Source="{x:Bind Icon}" Width="18" Height="18"/>
                         <TextBlock Text="{x:Bind Title}"/>
@@ -31,20 +31,25 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <HyperlinkButton Content="添加项" Grid.Row="3"
+                         Click="NewOperation_HyperlinkButton_Click"
+                         HorizontalAlignment="Center" Margin="0,0,50,14"/>
 
         <TextBlock Text="{x:Bind Action.Title, Mode=OneWay}"
                    Style="{StaticResource SubtitleTextBlockStyle}"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
                    Grid.Column="1"/>
-        <ScrollViewer Grid.Column="1" Grid.Row="1">
-            <StackPanel Spacing="12" x:Name="dataView">
+        <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" x:Name="dataView" IsEnabled="False">
+            <StackPanel Spacing="12">
                 <TextBlock Text="信息"/>
-                <cont:SettingsCard Header="名称" Description="{x:Bind Action.Title, Mode=OneWay}" HeaderIcon="{comm:FontIcon Glyph=&#xE8AC;}">
+                <cont:SettingsCard Header="名称"
+                                   Description="{x:Bind Action.Title, Mode=OneWay}"
+                                   HeaderIcon="{comm:FontIcon Glyph=&#xE8AC;}">
                     <Button Content="更改">
                         <Button.Flyout>
                             <Flyout>
-                                    <TextBox Header="名称" MinWidth="190" MaxWidth="422" Text="{x:Bind Action.Title, Mode=TwoWay}"/>
+                                <TextBox Header="名称" MinWidth="190" MaxWidth="422" Text="{x:Bind Action.Title, Mode=TwoWay}" LostFocus="ActionTitle_TextBox_LostFocus"/>
                             </Flyout>
                         </Button.Flyout>
                     </Button>
@@ -72,7 +77,8 @@
                         </cont:SettingsCard>
                     </cont:SettingsExpander.Items>
                 </cont:SettingsExpander>
-                
+                <Button Content="删除此项" Click="DelMainItem_Button_Click"/>
+
                 <StackPanel Spacing="12">
                     <StackPanel.Transitions>
                         <TransitionCollection>
@@ -81,14 +87,21 @@
                     </StackPanel.Transitions>
                     <TextBlock Text="操作"/>
                     <StackPanel Orientation="Horizontal" Spacing="12">
-                        <ComboBox Header="选择一个操作：" x:Name="subActionsCombox"/>
-                        <HyperlinkButton Content="添加操作" VerticalAlignment="Bottom"/>
+                        <ComboBox Header="选择一个操作：" x:Name="subActionsCombox" SelectionChanged="SubActionsCombox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="local:SubActionUI">
+                                    <TextBlock Text="{x:Bind Title}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <HyperlinkButton Content="添加子功能" VerticalAlignment="Bottom" Click="AddFuncution_HyperlinkButton_Click"/>
+                        <Button Content="删除" Click="DelFuncution_Button_Click" VerticalAlignment="Bottom"/>
                     </StackPanel>
-                    <cont:SettingsCard Header="名称和图标" HeaderIcon="{comm:FontIcon Glyph=&#xE946;}">
+                    <cont:SettingsCard Header="名称" HeaderIcon="{comm:FontIcon Glyph=&#xE8AC;}" Description="{x:Bind SubAction.Title, Mode=OneWay}">
                         <Button Content="更改操作名称">
                             <Button.Flyout>
                                 <Flyout>
-                                    <TextBox Header="操作名称" MinWidth="180"/>
+                                    <TextBox Header="操作名称" MinWidth="180" Text="{x:Bind SubAction.Title, Mode=TwoWay}" LostFocus="SubActionTitle_TextBox_LostFocus"/>
                                 </Flyout>
                             </Button.Flyout>
                         </Button>
@@ -116,7 +129,7 @@
                         </TransitionCollection>
                     </StackPanel.Transitions>
                     <TextBlock Text="该操作的执行任务" VerticalAlignment="Center"/>
-                    <HyperlinkButton Content="添加执行结果" VerticalAlignment="Center"/>
+                    <HyperlinkButton Content="添加操作" VerticalAlignment="Center" Click="AddOpreation_HyperlinkButton_Click"/>
                 </StackPanel>
                 <ItemsControl x:Name="itemsControl" Loaded="LastControl_Loaded">
                     <ItemsControl.Transitions>
@@ -137,7 +150,7 @@
                     </ItemsControl.ItemContainerStyle>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="local:ExeceteActionUI">
-                            <cont:SettingsExpander Header="任务">
+                            <cont:SettingsExpander Header="操作">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="执行：" VerticalAlignment="Center"/>
                                     <ComboBox SelectedIndex="{x:Bind ActionType, Mode=TwoWay}">
@@ -147,7 +160,6 @@
                                         <x:String>运行命令</x:String>
                                     </ComboBox>
                                 </StackPanel>
-
                                 <cont:SettingsExpander.Items>
                                     <cont:SettingsCard>
                                         <cont:SettingsCard.Header>
@@ -170,12 +182,21 @@
                                             <TextBox Header="参数" MinWidth="250" Text="{x:Bind Arguments,Mode=TwoWay}"/>
                                         </cont:SettingsCard.Header>
                                     </cont:SettingsCard>
+                                    <cont:SettingsCard Header="删除操作">
+                                        <Button Content="删除" Click="DelOperation_Button_Click" Tag="{x:Bind ID}"/>
+                                    </cont:SettingsCard>
                                 </cont:SettingsExpander.Items>
                             </cont:SettingsExpander>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Button Content="Click me" Click="Button_Click"/>
+                <Button Content="测试按钮" Click="Button_Click">
+                    <Button.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </Button.Transitions>
+                </Button>
             </StackPanel>
         </ScrollViewer>
     </Grid>
