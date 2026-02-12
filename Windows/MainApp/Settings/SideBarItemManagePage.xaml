@@ -77,7 +77,13 @@
                         </cont:SettingsCard>
                     </cont:SettingsExpander.Items>
                 </cont:SettingsExpander>
-                <Button Content="删除此项" Click="DelMainItem_Button_Click"/>
+                <Button Content="删除此项" Click="DelMainItem_Button_Click">
+                    <Button.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </Button.Transitions>
+                </Button>
 
                 <StackPanel Spacing="12">
                     <StackPanel.Transitions>
@@ -149,7 +155,7 @@
                         </Style>
                     </ItemsControl.ItemContainerStyle>
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="local:ExeceteActionUI">
+                        <DataTemplate x:DataType="local:ExeceteAction">
                             <cont:SettingsExpander Header="操作">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="执行：" VerticalAlignment="Center"/>
@@ -163,23 +169,24 @@
                                 <cont:SettingsExpander.Items>
                                     <cont:SettingsCard>
                                         <cont:SettingsCard.Header>
-                                            <TextBox Header="位置" MinWidth="250" Text="{x:Bind Command,Mode=TwoWay}"/>
+                                            <TextBox Header="位置"
+                                                     MinWidth="250"
+                                                     Text="{x:Bind Command,Mode = TwoWay}"/>
                                         </cont:SettingsCard.Header>
-                                        <StackPanel Orientation="Horizontal" Spacing="12">
-                                            <Button Content="浏览程序" VerticalAlignment="Bottom">
-                                                <Button.Flyout>
-                                                    <MenuFlyout>
-                                                        <MenuFlyoutItem Text="AppX 应用"/>
-                                                        <MenuFlyoutItem Text=".exe 文件"/>
-                                                    </MenuFlyout>
-                                                </Button.Flyout>
-                                            </Button>
-                                            <Button Content="浏览" VerticalAlignment="Bottom"/>
-                                        </StackPanel>
+                                        <Button Content="浏览" VerticalAlignment="Bottom">
+                                            <Button.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem Text="AppX 应用"/>
+                                                    <MenuFlyoutItem Text=".exe 文件"/>
+                                                </MenuFlyout>
+                                            </Button.Flyout>
+                                        </Button>
                                     </cont:SettingsCard>
                                     <cont:SettingsCard>
                                         <cont:SettingsCard.Header>
-                                            <TextBox Header="参数" MinWidth="250" Text="{x:Bind Arguments,Mode=TwoWay}"/>
+                                            <TextBox Header="参数"
+                                                     MinWidth="250"
+                                                     Text="{x:Bind Arguments,Mode=TwoWay}"/>
                                         </cont:SettingsCard.Header>
                                     </cont:SettingsCard>
                                     <cont:SettingsCard Header="删除操作">

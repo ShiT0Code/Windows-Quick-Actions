@@ -10,7 +10,7 @@ public sealed partial class SideBarItemManagePage : Page
     public List<MainAction> Actions { get; set; } = [];
     public MainAction Action { get; set; } = new();
     public SubAction SubAction { get; set; } = new();
-    public List<ExeceteActionUI> ExeceteActions { get; set; } = [];
+    public List<ExeceteAction> ExeceteActions { get; set; } = [];
     readonly ActionDataManager DataManager = new();
 
 
@@ -77,6 +77,8 @@ public sealed partial class SideBarItemManagePage : Page
 
         foreach (var item in Actions)
             listView.Items.Add(new MainActionUI { Title = item.Title, ID = item.ID });
+
+        //SubAction.
     }
 
     private void DelOperation_Button_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -99,7 +101,7 @@ public sealed partial class SideBarItemManagePage : Page
     {
         if (SubActionsComboxSelectIndex != -1)
         {
-            ExeceteActionUI execete = new();
+            ExeceteAction execete = new();
             Action.SubActions[SubActionsComboxSelectIndex].ExeceteActions.Add(execete);
             itemsControl.Items.Add(execete);
             _ = DataManager.SaveActionsAsync(Actions);

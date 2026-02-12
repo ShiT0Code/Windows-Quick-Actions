@@ -1,6 +1,8 @@
-﻿using Microsoft.UI.Xaml.Media.Imaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -27,7 +29,7 @@ public partial class MainAction: INotifyPropertyChanged
         }
     }
 
-    private BitmapImage? _icon { get; set; }
+    /*private BitmapImage? _icon { get; set; }
     public BitmapImage? Icon
     {
         get => _icon;
@@ -39,7 +41,7 @@ public partial class MainAction: INotifyPropertyChanged
                 OnPropertyChanged();  // 通知UI更新
             }
         }
-    }
+    }*/
 
     public List<SubAction> SubActions { get; set; } = [];
     public string ID { get; set; } = Guid.NewGuid().ToString();
@@ -63,8 +65,8 @@ public partial class SubAction : INotifyPropertyChanged
         }
     }
 
-    private List<ExeceteActionUI> _execeteActions = [];
-    public List<ExeceteActionUI> ExeceteActions
+    private ObservableCollection<ExeceteAction> _execeteActions { get; set; } = new ObservableCollection<ExeceteAction>();
+    public ObservableCollection<ExeceteAction> ExeceteActions
     {
         get => _execeteActions;
         set
@@ -76,6 +78,19 @@ public partial class SubAction : INotifyPropertyChanged
             }
         }
     }
+    /*private List<ExeceteAction> _execeteActions = [];
+    public List<ExeceteAction> ExeceteActions
+    {
+        get => _execeteActions;
+        set
+        {
+            if (_execeteActions != value)
+            {
+                _execeteActions = value;
+                OnPropertyChanged();
+            }
+        }
+    }*/
 
     public string ID { get; set; } = Guid.NewGuid().ToString();
 
@@ -85,7 +100,6 @@ public partial class SubAction : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
-
 
 [method: DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MainActionUI))]
 public class MainActionUI()
@@ -102,13 +116,52 @@ public class SubActionUI()
     public string ID { get; set; } = "";
 }
 
-[method: DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ExeceteActionUI))]
-public class ExeceteActionUI()
+[method: DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ExeceteAction))]
+public partial class ExeceteAction():INotifyPropertyChanged
 {
-    public int ActionType { get; set; } = 0; // 0: 运行程序, 1: 打开文件, 2: 打开文件夹, 3: 运行命令
-    public string Command { get; set; } = "";
-    public string Arguments { get; set; } = "";
+    private int _actionType { get; set; } = 0;
+    public int ActionType 
+    {
+        get => _actionType;
+        set
+        {
+            if (_actionType != value)
+            {
+                _actionType = value;
+                OnPropertyChanged();
+            }
+        }
+    } // 0: 运行程序, 1: 打开文件, 2: 打开文件夹, 3: 运行命令
+    private string _command { get; set; } = "";
+    public string Command
+    {
+        get=> _command;
+        set
+        {
+            if (_command != value)
+            {
+                _command = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    private string _arguments { get; set; } = "";
+    public string Arguments
+    {
+        get => _arguments;
+        set
+        {
+            if (_arguments != value)
+            {
+                _arguments = value;
+                OnPropertyChanged();
+            }
+        }
+    }
     public string ID { get; set; } = System.Guid.NewGuid().ToString();
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }
 
 
@@ -164,3 +217,12 @@ public class ActionDataManager
         }
     }
 }
+
+
+//public partial class FixItem : ObservableObject
+//{
+//    [ObservableProperty]
+//    private string _name = "";
+//    //[ObservableObject]
+
+//}

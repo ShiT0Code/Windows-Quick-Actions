@@ -10,5 +10,11 @@ public sealed partial class SideBarSettingsPage : Page
     {
         SettingsWindowsUI.Titles.Add("侧边栏固定项");
         this.Frame.Navigate(typeof(SideBarItemManagePage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
-    }                     
+    }
+
+    private void SettingsCard_Click_1(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        SettingsWindowsUI.Titles.Add("排除的应用");
+        this.Frame.Navigate(typeof(SideBarExclusionAppsPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+    }
 }

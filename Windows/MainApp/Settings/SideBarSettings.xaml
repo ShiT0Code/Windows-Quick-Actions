@@ -16,6 +16,7 @@
                 <ToggleSwitch/>
             </cont:SettingsCard>
             <cont:SettingsCard Header="管理固定项" IsClickEnabled="True" Click="SettingsCard_Click"/>
+            <cont:SettingsCard Header="排除的应用" IsClickEnabled="True" Click="SettingsCard_Click_1"/>
         </StackPanel>
     </ScrollViewer>
 </Page>
