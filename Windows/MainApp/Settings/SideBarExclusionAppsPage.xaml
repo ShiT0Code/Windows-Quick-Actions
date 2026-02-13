@@ -6,6 +6,67 @@
     xmlns:local="using:MainApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:con="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
-
+    <Grid RowSpacing="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <con:SettingsCard Header="当前台处于以下程序时，侧边栏将隐藏">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Style="{StaticResource AccentButtonStyle}"
+                        Content="添加桌面应用"
+                        Click="AddWin32App_Button_Click"/>
+                <Button Style="{StaticResource AccentButtonStyle}"
+                        Content="添加 AppX 应用"
+                        Click="AddAppXApp_Button_Click"/>
+            </StackPanel>
+        </con:SettingsCard>
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl x:Name="itemsControl">
+                <ItemsControl.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition/>
+                        <RepositionThemeTransition/>
+                    </TransitionCollection>
+                </ItemsControl.ItemContainerTransitions>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="0,4,0,4"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="local:ExclusionApp">
+                        <con:SettingsExpander Header="{x:Bind DisplayName ,Mode=OneWay}" Description="{x:Bind ExeFilePath, Mode=OneWay}">
+                            <con:SettingsExpander.Items>
+                                <con:SettingsCard>
+                                    <con:SettingsCard.Header>
+                                        <TextBox Header="显示名称"
+                                                 Text="{x:Bind DisplayName, Mode=TwoWay}"
+                                                 MinWidth="300"/>
+                                    </con:SettingsCard.Header>
+                                </con:SettingsCard>
+                                <con:SettingsCard>
+                                    <con:SettingsCard.Header>
+                                        <TextBox Header="路径" Text="{x:Bind ExeFilePath, Mode=TwoWay}"
+                                                 MinWidth="300"/>
+                                    </con:SettingsCard.Header>
+                                </con:SettingsCard>
+                                <con:SettingsCard>
+                                    <con:SettingsCard.Header>
+                                        <TextBox Header="参数" Text="{x:Bind Arguments, Mode=TwoWay}"
+                                                 MinWidth="300"/>
+                                    </con:SettingsCard.Header>
+                                </con:SettingsCard>
+                                <con:SettingsCard Header="移除">
+                                    <Button Content="移除" Click="DelItem_Button_Click" Tag="{x:Bind ID}"/>
+                                </con:SettingsCard>
+                            </con:SettingsExpander.Items>
+                        </con:SettingsExpander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </Page>

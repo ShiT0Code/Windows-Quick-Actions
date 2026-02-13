@@ -10,7 +10,7 @@
     xmlns:cont="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
 
-    <Grid ColumnSpacing="8" RowSpacing="8" Margin="0,12,0,0">
+    <Grid ColumnSpacing="8" RowSpacing="8" Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -21,12 +21,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="listView" SelectionChanged="ListView_SelectionChanged" Grid.RowSpan="2">
+        <ProgressBar IsIndeterminate="True" VerticalAlignment="Top" Margin="4,0,4,0" Grid.ColumnSpan="2" x:Name="progressBar"/>
+        <ListView x:Name="listView" SelectionChanged="ListView_SelectionChanged" Grid.RowSpan="2" Margin="0,12,0,0">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:MainActionUI">
+                <DataTemplate x:DataType="local:FixItemUI">
                     <StackPanel Spacing="8" Orientation="Horizontal">
-                        <Image Source="{x:Bind Icon}" Width="18" Height="18"/>
-                        <TextBlock Text="{x:Bind Title}"/>
+                        <!--Image Source="{x:Bind Icon}" Width="18" Height="18"/-->
+                        <TextBlock Text="{x:Bind Name}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -35,21 +36,25 @@
                          Click="NewOperation_HyperlinkButton_Click"
                          HorizontalAlignment="Center" Margin="0,0,50,14"/>
 
-        <TextBlock Text="{x:Bind Action.Title, Mode=OneWay}"
+        <TextBlock Text="{x:Bind SelectFixItem.Name, Mode=OneWay}"
                    Style="{StaticResource SubtitleTextBlockStyle}"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
-                   Grid.Column="1"/>
+                   Grid.Column="1"
+                    Margin="0,12,0,0"/>
         <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" x:Name="dataView" IsEnabled="False">
             <StackPanel Spacing="12">
                 <TextBlock Text="信息"/>
                 <cont:SettingsCard Header="名称"
-                                   Description="{x:Bind Action.Title, Mode=OneWay}"
+                                   Description="{x:Bind SelectFixItem.Name, Mode=OneWay}"
                                    HeaderIcon="{comm:FontIcon Glyph=&#xE8AC;}">
                     <Button Content="更改">
                         <Button.Flyout>
                             <Flyout>
-                                <TextBox Header="名称" MinWidth="190" MaxWidth="422" Text="{x:Bind Action.Title, Mode=TwoWay}" LostFocus="ActionTitle_TextBox_LostFocus"/>
+                                <TextBox Header="名称"
+                                         MinWidth="190" MaxWidth="422"
+                                         Text="{x:Bind SelectFixItem.Name, Mode=TwoWay}"
+                                         LostFocus="ActionTitle_TextBox_LostFocus"/>
                             </Flyout>
                         </Button.Flyout>
                     </Button>
@@ -95,19 +100,19 @@
                     <StackPanel Orientation="Horizontal" Spacing="12">
                         <ComboBox Header="选择一个操作：" x:Name="subActionsCombox" SelectionChanged="SubActionsCombox_SelectionChanged">
                             <ComboBox.ItemTemplate>
-                                <DataTemplate x:DataType="local:SubActionUI">
-                                    <TextBlock Text="{x:Bind Title}"/>
+                                <DataTemplate x:DataType="local:SubFixItemUI">
+                                    <TextBlock Text="{x:Bind Name}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                         <HyperlinkButton Content="添加子功能" VerticalAlignment="Bottom" Click="AddFuncution_HyperlinkButton_Click"/>
                         <Button Content="删除" Click="DelFuncution_Button_Click" VerticalAlignment="Bottom"/>
                     </StackPanel>
-                    <cont:SettingsCard Header="名称" HeaderIcon="{comm:FontIcon Glyph=&#xE8AC;}" Description="{x:Bind SubAction.Title, Mode=OneWay}">
+                    <cont:SettingsCard Header="名称" HeaderIcon="{comm:FontIcon Glyph=&#xE8AC;}" Description="{x:Bind SelectSubFixItem.Name, Mode=OneWay}">
                         <Button Content="更改操作名称">
                             <Button.Flyout>
                                 <Flyout>
-                                    <TextBox Header="操作名称" MinWidth="180" Text="{x:Bind SubAction.Title, Mode=TwoWay}" LostFocus="SubActionTitle_TextBox_LostFocus"/>
+                                    <TextBox Header="操作名称" MinWidth="180" Text="{x:Bind SelectSubFixItem.Name, Mode=TwoWay}" LostFocus="SubActionTitle_TextBox_LostFocus"/>
                                 </Flyout>
                             </Button.Flyout>
                         </Button>
@@ -155,11 +160,11 @@
                         </Style>
                     </ItemsControl.ItemContainerStyle>
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="local:ExeceteAction">
+                        <DataTemplate x:DataType="local:ExecutionItem">
                             <cont:SettingsExpander Header="操作">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="执行：" VerticalAlignment="Center"/>
-                                    <ComboBox SelectedIndex="{x:Bind ActionType, Mode=TwoWay}">
+                                    <ComboBox SelectedIndex="{x:Bind ActionType, Mode=TwoWay}" LostFocus="Action_LostFocus">
                                         <x:String>打开程序</x:String>
                                         <x:String>打开文件</x:String>
                                         <x:String>打开文件夹</x:String>
@@ -171,7 +176,8 @@
                                         <cont:SettingsCard.Header>
                                             <TextBox Header="位置"
                                                      MinWidth="250"
-                                                     Text="{x:Bind Command,Mode = TwoWay}"/>
+                                                     Text="{x:Bind Command,Mode = TwoWay}"
+                                                     LostFocus="Action_LostFocus"/>
                                         </cont:SettingsCard.Header>
                                         <Button Content="浏览" VerticalAlignment="Bottom">
                                             <Button.Flyout>
@@ -186,7 +192,8 @@
                                         <cont:SettingsCard.Header>
                                             <TextBox Header="参数"
                                                      MinWidth="250"
-                                                     Text="{x:Bind Arguments,Mode=TwoWay}"/>
+                                                     Text="{x:Bind Arguments, Mode=TwoWay}"
+                                                     LostFocus="Action_LostFocus"/>
                                         </cont:SettingsCard.Header>
                                     </cont:SettingsCard>
                                     <cont:SettingsCard Header="删除操作">
