@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="TouchHelper.Settings.SideBar.EditActionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchHelper.Settings.SideBar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    CloseButtonText="关闭"
+    Style="{StaticResource DefaultContentDialogStyle}"
+    PrimaryButtonText="确认"
+    IsPrimaryButtonEnabled="False"
+    Title="编辑操作"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="12">
+        <ComboBox Header="操作：">
+            <x:String>打开文件</x:String>
+            <x:String>打开桌面应用</x:String>
+            <x:String></x:String>
+            <x:String></x:String>
+        </ComboBox>
+    </StackPanel>
+</ContentDialog>

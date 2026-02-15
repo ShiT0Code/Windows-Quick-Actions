@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="TouchHelper.Settings.SelectAppXDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchHelper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="选择应用"
+    CloseButtonText="取消"
+    PrimaryButtonText="确认"
+    DefaultButton="Primary"
+    IsPrimaryButtonEnabled="False"
+    Style="{StaticResource DefaultContentDialogStyle}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <ProgressBar VerticalAlignment="Top"
+                     IsIndeterminate="True"
+                     x:Name="progressBar"/>
+        <ScrollViewer>
+            <ItemsControl x:Name="itemsControl" IsEnabled="False" Loaded="UI_Loaded">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="local:AppXItem">
+                        <CheckBox Tag="{x:Bind FamilyName}" Checked="CheckBox_Checked">
+                            <Grid Margin="0,4,0,4" 
+                                  VerticalAlignment="Stretch"
+                                  MinWidth="344" Height="64">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="72"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="{x:Bind Logo}" Grid.RowSpan="2"
+                                       Stretch="None"
+                                       Height="64"
+                                       Width="64"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="{x:Bind Name}" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Grid.Row="1"
+                                   Text="{x:Bind Publisher}"
+                                   Style="{StaticResource CaptionTextBlockStyle}"/>
+                            </Grid>
+                        </CheckBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</ContentDialog>

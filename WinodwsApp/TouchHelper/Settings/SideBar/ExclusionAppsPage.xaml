@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TouchHelper.Settings.SideBar.ExclusionAppsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchHelper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:con="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ProgressBar x:Name="progressBar" IsIndeterminate="True" VerticalAlignment="Top"/>
+        <con:SettingsCard Header="侧边栏将不在以下应用中启用" Margin="0,3,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="添加桌面应用" Click="AddWin32_Button_Click"
+                        Style="{StaticResource AccentButtonStyle}"/>
+                <Button Content="添加 AppX 应用" Click="AddAppX_Button_Click"
+                        Style="{StaticResource AccentButtonStyle}"/>
+            </StackPanel>
+        </con:SettingsCard>
+        <ItemsControl Grid.Row="1" x:Name="itemsControl">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:ExclusionApp">
+                    <con:SettingsExpander Header="{x:Bind Name, Mode=OneWay}">
+                        <con:SettingsExpander.Items>
+                            <con:SettingsCard>
+                                <con:SettingsCard.Header>
+                                    <TextBox Text="{x:Bind Name, Mode=TwoWay}"
+                                             Header="显示名称"
+                                             MinWidth="350"
+                                             LostFocus="TextBox_LostFocus"/>
+                                </con:SettingsCard.Header>
+                            </con:SettingsCard>
+
+                            <con:SettingsCard>
+                                <con:SettingsCard.Header>
+                                    <TextBox Text="{x:Bind Command, Mode=TwoWay}"
+                                             Header="命令行/路径"
+                                             IsEnabled="{x:Bind IsEditable}"
+                                             MinWidth="350"
+                                             LostFocus="TextBox_LostFocus"/>
+                                </con:SettingsCard.Header>
+                            </con:SettingsCard>
+                            
+                            <con:SettingsCard Header="移除">
+                                <Button Content="移除" Tag="{x:Bind ID}" Click="DelItem_Button_Click"/>
+                            </con:SettingsCard>
+                        </con:SettingsExpander.Items>
+                    </con:SettingsExpander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Page>

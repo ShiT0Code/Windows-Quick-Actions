@@ -9,14 +9,14 @@
   IgnorableNamespaces="uap rescap systemai">
 
   <Identity
-    Name="ShiT0Code.Windows.TQA"
+    Name="bcdaf0d0-ca63-43e8-8faf-3196d988f0b4"
     Publisher="CN=hbeau"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="87558afb-9924-4051-98c1-b26dab20d3f4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="bcdaf0d0-ca63-43e8-8faf-3196d988f0b4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>MainApp</DisplayName>
+    <DisplayName>TouchHelper</DisplayName>
     <PublisherDisplayName>hbeau</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -35,12 +35,13 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="触摸辅助栏"
-        Description="MainApp"
+        DisplayName="TouchHelper"
+        Description="TouchHelper"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>

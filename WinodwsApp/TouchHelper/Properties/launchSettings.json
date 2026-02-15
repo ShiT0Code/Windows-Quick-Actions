@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "MainApp (Package)": {
+    "TouchHelper (Package)": {
       "commandName": "MsixPackage"
     },
-    "MainApp (Unpackaged)": {
+    "TouchHelper (Unpackaged)": {
       "commandName": "Project"
     }
   }

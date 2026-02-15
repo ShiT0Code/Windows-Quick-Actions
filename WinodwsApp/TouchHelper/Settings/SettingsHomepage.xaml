@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TouchHelper.Settings.SettingsHomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchHelper.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:con="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="8">
+        <con:SettingsExpander Header="侧边栏设置">
+            <con:SettingsExpander.Items>
+                <con:SettingsCard Header="启用侧边栏">
+                    <ToggleSwitch/>
+                </con:SettingsCard>
+                <con:SettingsCard Header="固定项"
+                                  IsClickEnabled="True"
+                                  Click="FixedItem_SettingsCard_Click"/>
+                <con:SettingsCard Header="排除的应用"
+                                      Description="在这些应用里完全不显示侧边栏"
+                                      IsClickEnabled="True"
+                                      Click="ExclusionApps_SettingsCard_Click"/>
+            </con:SettingsExpander.Items>
+        </con:SettingsExpander>
+    </StackPanel>
+</Page>

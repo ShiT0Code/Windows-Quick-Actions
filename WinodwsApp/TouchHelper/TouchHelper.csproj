@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RootNamespace>MainApp</RootNamespace>
+    <RootNamespace>TouchHelper</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
@@ -14,17 +14,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="SettingsWindowsUI.xaml" />
-    <None Remove="Settings\QuickSettingsPage.xaml" />
     <None Remove="Settings\SelectAppXDialog.xaml" />
-    <None Remove="Settings\SettingsHomePage.xaml" />
-    <None Remove="Settings\SideBarExclusionAppsPage.xaml" />
-    <None Remove="Settings\SideBarItemManagePage.xaml" />
-    <None Remove="Settings\SideBarSettings.xaml" />
-    <None Remove="Settings\SuspendedBallSettingsPage.xaml" />
+    <None Remove="Settings\SettingsHomepage.xaml" />
+    <None Remove="Settings\SettingsWindowUI.xaml" />
+    <None Remove="Settings\SideBar\ActionListPage.xaml" />
+    <None Remove="Settings\SideBar\EditActionDialog.xaml" />
+    <None Remove="Settings\SideBar\ExclusionAppsPage.xaml" />
+    <None Remove="Settings\SideBar\FixedItemListPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
@@ -46,13 +46,29 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Settings\SideBar\EditActionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Settings\SideBar\ActionListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Settings\SideBar\FixedItemListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Settings\SettingsHomepage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Settings\SelectAppXDialog.xaml">
@@ -60,37 +76,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Settings\SideBarExclusionAppsPage.xaml">
+    <Page Update="Settings\SideBar\ExclusionAppsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Settings\SideBarItemManagePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Settings\QuickSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Settings\SuspendedBallSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Settings\SideBarSettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="SettingsWindowsUI.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Settings\SettingsHomePage.xaml">
+    <Page Update="Settings\SettingsWindowUI.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

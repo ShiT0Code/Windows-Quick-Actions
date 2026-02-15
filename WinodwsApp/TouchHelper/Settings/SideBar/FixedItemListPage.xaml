@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TouchHelper.Settings.SideBar.FixedItemListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchHelper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:con="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ProgressBar x:Name="progressBar" IsIndeterminate="True" VerticalAlignment="Top"/>
+        <con:SettingsCard Header="侧边栏固定项" Margin="0,3,0,0">
+            <Button Content="添加"
+                    Style="{StaticResource AccentButtonStyle}">
+                <Button.Flyout>
+                    <Flyout x:Name="flyout">
+                        <StackPanel Spacing="12">
+                            <TextBox Header="名称" x:Name="newTextBox" MinWidth="250"/>
+                            <Button Content="添加"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Click="AddButton_Click"/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </con:SettingsCard>
+        <ItemsControl x:Name="itemsControl"
+                      Loaded="UI_Loaded"
+                      Grid.Row="1">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:FixedItem">
+                    <con:SettingsExpander Header="{x:Bind Name ,Mode=OneWay}">
+                        <con:SettingsExpander.Items>
+                            <con:SettingsCard>
+                                <con:SettingsCard.Header>
+                                    <TextBox Header="名称"
+                                             Text="{x:Bind Name ,Mode=TwoWay}"
+                                              MinWidth="350"/>
+                                </con:SettingsCard.Header>
+                            </con:SettingsCard>
+
+                            <con:SettingsCard Header="子项"
+                                              IsClickEnabled="True"
+                                              Tag="{x:Bind ID}"
+                                              Click="SubItem_SettingsCard_Click"/>
+
+                            <con:SettingsCard Header="执行的操作"
+                                              IsClickEnabled="True"
+                                              Tag="{x:Bind ID}"
+                                              Click="Action_SettingsCard_Click"/>
+
+                            <con:SettingsCard Header="删除此项">
+                                <Button Content="删除" Click="Del_Button_Click" Tag="{x:Bind ID}"/>
+                            </con:SettingsCard>
+                        </con:SettingsExpander.Items>
+                    </con:SettingsExpander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Page>
