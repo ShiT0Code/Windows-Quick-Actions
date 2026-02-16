@@ -9,16 +9,45 @@
     CloseButtonText="关闭"
     Style="{StaticResource DefaultContentDialogStyle}"
     PrimaryButtonText="确认"
-    IsPrimaryButtonEnabled="False"
     Title="编辑操作"
+    DefaultButton="Primary"
     mc:Ignorable="d">
 
-    <StackPanel Spacing="12">
-        <ComboBox Header="操作：">
+    <StackPanel Spacing="12" Loaded="UI_Loaded">
+        <TextBox Header="名称"  x:Name="displayNameTextBox"/>
+        <ComboBox Header="操作：" x:Name="comBox" SelectionChanged="ComboBox_SelectionChanged">
             <x:String>打开文件</x:String>
+            <x:String>打开文件夹</x:String>
             <x:String>打开桌面应用</x:String>
-            <x:String></x:String>
-            <x:String></x:String>
+            <x:String>打开 AppX 应用</x:String>
+            <x:String>运行命令</x:String>
+            <x:String>打开链接</x:String>
         </ComboBox>
+        
+        <StackPanel Orientation="Horizontal" Spacing="12" x:Name="locationView" Visibility="Collapsed">
+            <TextBox Width="336" x:Name="locationTextBox"/>
+            <Button Content="浏览" x:Name="browserButton" VerticalAlignment="Bottom" Click="BrowserButton_Click"/>
+        </StackPanel>
+        <TextBox Header="参数" x:Name="argumentTextBox" Visibility="Collapsed"/>
+
+        <Grid x:Name="appXView" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="选择应用" Click="SelectAppx_Button_Click"/>
+            <Image Grid.Row="1" Grid.RowSpan="2"
+                   Width="64" Height="64"
+                   Stretch="None"
+                   x:Name="appIcon"/>
+            <TextBlock x:Name="AppXName" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock x:Name="AppXPublisher" Grid.Row="2" Grid.Column="1"/>
+        </Grid>
     </StackPanel>
 </ContentDialog>

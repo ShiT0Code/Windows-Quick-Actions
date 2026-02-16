@@ -19,9 +19,10 @@ public sealed partial class ExclusionAppsPage : Page
         FileOpenPicker picker = new(button.XamlRoot.ContentIslandEnvironment.AppWindowId)
         {
             ViewMode = PickerViewMode.List,
-            SuggestedStartLocation = PickerLocationId.ComputerFolder
+            SuggestedStartLocation = PickerLocationId.ComputerFolder,
+            FileTypeFilter = { ".exe", ".pif", ".com", ".bat", ".cmd" },
+            CommitButtonText = "选择程序"
         };
-        picker.FileTypeFilter.Add(".exe");
         var files = await picker.PickMultipleFilesAsync();
         progressBar.IsIndeterminate = true;
         progressBar.Visibility = Visibility.Visible;
@@ -93,6 +94,5 @@ public sealed partial class ExclusionAppsPage : Page
         await Task.Delay(20);
         foreach (var i in Items)
             Debug.WriteLine(i.Name);
-        //
     }
 }

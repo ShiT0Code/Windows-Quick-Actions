@@ -35,6 +35,16 @@ public sealed partial class SelectAppXDialog : ContentDialog
 
     private async void UI_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        if (Apps.Count > 0)
+        {
+            SelectApps.Clear();
+            return;
+        }
+        //progressBar.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+        //progressBar.IsIndeterminate = true;
+        //itemsControl.Items.Clear();
+        //SelectApps.Clear();
+        
         await Task.Run(() =>
         {
             var packages = new PackageManager().FindPackagesForUser("");

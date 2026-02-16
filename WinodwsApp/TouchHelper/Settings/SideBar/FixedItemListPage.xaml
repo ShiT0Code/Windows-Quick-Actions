@@ -35,6 +35,16 @@
         <ItemsControl x:Name="itemsControl"
                       Loaded="UI_Loaded"
                       Grid.Row="1">
+            <ItemsControl.ItemContainerStyle>
+                <Style  TargetType="ContentPresenter">
+                    <Setter Property="Margin" Value="0,4,0,4"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemContainerTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition/>
+                </TransitionCollection>
+            </ItemsControl.ItemContainerTransitions>
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="local:FixedItem">
                     <con:SettingsExpander Header="{x:Bind Name ,Mode=OneWay}">

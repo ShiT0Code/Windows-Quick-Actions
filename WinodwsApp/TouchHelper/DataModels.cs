@@ -124,7 +124,7 @@ public class Action : INotifyPropertyChanged
     }
 
 
-    /*private string _argument = "";
+    private string _argument = "";
     public string Argument
     {
         get => _argument;
@@ -136,8 +136,21 @@ public class Action : INotifyPropertyChanged
                 OnPropertyChanged();
             }
         }
-    }*/
+    }
 
+    private string _displayName = "";
+    public string DisplayName
+    {
+        get => _displayName;
+        set
+        {
+            if (_displayName != value)
+            {
+                _displayName = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     public string ID { get; set; } = Guid.NewGuid().ToString();
     public string ParentID { get; set; } = "";
