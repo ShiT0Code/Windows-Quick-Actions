@@ -37,20 +37,9 @@
             </ItemsControl.ItemContainerTransitions>
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="local:Action">
-                    <con:SettingsExpander Header="操作">
-                        <con:SettingsExpander.Items>
-                            <con:SettingsCard>
-                                <con:SettingsCard.Header>
-                                    <TextBox Header="命令行"
-                                             Text="{x:Bind Command, Mode=TwoWay}"
-                                              MinWidth="350"/>
-                                </con:SettingsCard.Header>
-                            </con:SettingsCard>
-                            <con:SettingsCard Header="删除操作">
-                                <Button Content="删除" Click="Del_Button_Click" Tag="{x:Bind ID}"/>
-                            </con:SettingsCard>
-                        </con:SettingsExpander.Items>
-                    </con:SettingsExpander>
+                    <con:SettingsCard Header="{x:Bind DisplayName ,Mode=OneWay}">
+                        <Button Content="编辑" Tag="{x:Bind ID}" Click="EditButton_Click"/>
+                    </con:SettingsCard>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

@@ -21,7 +21,7 @@ public sealed partial class SettingsWindowUI : Grid
 
     private async void Frame_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        await Task.Delay(1000);
+        await Task.Delay(50);
         Titles.Add("设置");
         frame.Navigate(typeof(SettingsHomePage));
     }

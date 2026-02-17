@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -9,12 +10,31 @@ namespace TouchHelper;
 
 [method: DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AppXItem))]
 // 只要这一个，所有的数据模型都能在 Release 模式中正常工作（有点神奇
-public class AppXItem()
+public class AppXItem() : INotifyPropertyChanged
 {
     public string Name { get; set; } = "";
     public string FamilyName { get; set; } = "";
     public string Publisher { get; set; } = "";
     public BitmapImage? Logo { get; set; }
+
+    private bool _isSeected = false;
+    public bool IsSeected
+    {
+        get => _isSeected;
+        set
+        {
+            // 仅在值真正改变时更新并通知
+            if (_isSeected != value)
+            {
+                _isSeected = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 }
 
 public class ExclusionApp : INotifyPropertyChanged
@@ -73,7 +93,7 @@ public partial class FixedItem() : INotifyPropertyChanged
     }
 
     public string ID { get; set; } = Guid.NewGuid().ToString();
-    public string ParentID { get; set; } = ""; 
+    //public List<string> ParentID { get; set; } = ["root"]; 
 
     public List<FixedItem> SubItems { get; set; } = [];
     public List<Action> Actions { get; set; } = [];
@@ -118,11 +138,11 @@ public class Action : INotifyPropertyChanged
             if (_command != value)
             {
                 _command = value;
+                Debug.WriteLine(value);
                 OnPropertyChanged();
             }
         }
     }
-
 
     private string _argument = "";
     public string Argument
@@ -138,6 +158,20 @@ public class Action : INotifyPropertyChanged
         }
     }
 
+    private int _type = 0;
+    public int Type
+    {
+        get => _type;
+        set
+        {
+            if (_type != value)
+            {
+                _type = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     private string _displayName = "";
     public string DisplayName
     {
@@ -147,13 +181,17 @@ public class Action : INotifyPropertyChanged
             if (_displayName != value)
             {
                 _displayName = value;
+                Debug.WriteLine(_displayName);
                 OnPropertyChanged();
             }
         }
     }
 
+    public AppXItem App { get; set; } = new();
+    public bool RunAppx { get; set; } = false;
+
     public string ID { get; set; } = Guid.NewGuid().ToString();
-    public string ParentID { get; set; } = "";
+    //public List<string> ParentID { get; set; } = [];
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 

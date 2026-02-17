@@ -18,7 +18,7 @@
     <None Remove="Settings\SettingsHomepage.xaml" />
     <None Remove="Settings\SettingsWindowUI.xaml" />
     <None Remove="Settings\SideBar\ActionListPage.xaml" />
-    <None Remove="Settings\SideBar\EditActionDialog.xaml" />
+    <None Remove="Settings\SideBar\EditActionPage.xaml" />
     <None Remove="Settings\SideBar\ExclusionAppsPage.xaml" />
     <None Remove="Settings\SideBar\FixedItemListPage.xaml" />
   </ItemGroup>
@@ -51,7 +51,7 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Settings\SideBar\EditActionDialog.xaml">
+    <Page Update="Settings\SideBar\EditActionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

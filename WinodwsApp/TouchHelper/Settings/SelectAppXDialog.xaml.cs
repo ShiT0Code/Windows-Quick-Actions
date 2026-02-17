@@ -16,6 +16,7 @@ public sealed partial class SelectAppXDialog : ContentDialog
 
     private List<AppXItem> Apps = [];
     public List<AppXItem> SelectApps { get; set; } = [];
+    public bool IsSingleSelect { get; set; } = false;
     private readonly string appFamilyName = Package.Current.Id.FamilyName;
 
     private void CheckBox_Checked(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -30,14 +31,33 @@ public sealed partial class SelectAppXDialog : ContentDialog
             else
                 SelectApps.Remove(app);
         }
-        this.IsPrimaryButtonEnabled = SelectApps.Count != 0;
+        if (SelectApps.Count > 0)
+        {
+            if (IsSingleSelect && SelectApps.Count == 1)
+            {
+                this.IsPrimaryButtonEnabled = true;
+            }
+            else if (!IsSingleSelect)
+                this.IsPrimaryButtonEnabled = true;
+            else
+            {
+                this.IsPrimaryButtonEnabled = false;
+                singleWarning.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+            }
+        }
+        else
+            this.IsPrimaryButtonEnabled = false;
     }
 
     private async void UI_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        if (IsSingleSelect)
+            this.Title = "选择一个应用";
         if (Apps.Count > 0)
         {
             SelectApps.Clear();
+            foreach (var app in Apps)
+                app.IsSeected = false;
             return;
         }
         //progressBar.Visibility = Microsoft.UI.Xaml.Visibility.Visible;

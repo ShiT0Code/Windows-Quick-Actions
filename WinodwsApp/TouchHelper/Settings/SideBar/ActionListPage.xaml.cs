@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
@@ -27,18 +28,37 @@ public sealed partial class ActionListPage : Page
         if (e.Parameter is List<Action> fixedItems)
             Items = fixedItems;
     }
-    private string? ParentID = null;
+    //private List<string> ParentID = [];
     private List<Action> Items = [];
 
-    private async void AddButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private void AddButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        EditItem(new());
+    }
+    private void EditButton_Click(object sender, RoutedEventArgs e)
+    {
+        string Tag = (string)((Button)sender).Tag;
+        var action = Items.FirstOrDefault(a => a.ID == Tag);
+        if (action != null)
+        {
+            EditItem(action);
+        }
+    }
+
+    private async void EditItem(Action action)
+    {
+        /*Debug.WriteLine(action.Command);
+        Debug.WriteLine(";;;");
         EditActionDialog dialog = new()
         {
-            XamlRoot = this.XamlRoot
+            XamlRoot = this.XamlRoot,
+            OldAction = action,
+            IsEditing = isEditing
         };
         SelectAppXDialog dialog2 = new()
         {
-            XamlRoot = this.XamlRoot
+            XamlRoot = this.XamlRoot,
+            IsSingleSelect = true
         };
         var result = await dialog.ShowAsync();
         bool needContinue = false;
@@ -48,8 +68,8 @@ public sealed partial class ActionListPage : Page
             {
                 needContinue = true;
                 var result2 = await dialog2.ShowAsync();
-                if (result2 == ContentDialogResult.Primary && dialog2.SelectApps.Count>0)
-                    dialog.AppX = dialog2.SelectApps[0];
+                if (result2 == ContentDialogResult.Primary && dialog2.SelectApps.Count > 0)
+                    dialog.Action.App = dialog2.SelectApps[0];
                 result = await dialog.ShowAsync();
             }
             else
@@ -57,15 +77,37 @@ public sealed partial class ActionListPage : Page
                 if (result == ContentDialogResult.Primary)
                 {
                     needContinue = false;
+                    Debug.WriteLine("o" + action.DisplayName);
+                    action.App = dialog.Action.App;
+                    action.DisplayName = dialog.Action.DisplayName;
+                    action.Command = dialog.Action.Command;
+                    Debug.WriteLine("N" + action.Command);
+                    action.Argument = dialog.Action.Argument;
+                    action.ID = dialog.Action.ID;
+                    action.ParentID = dialog.Action.ParentID;
+                    action.Type = dialog.Action.Type;
+
                 }
                 else
-                {
                     needContinue = false;
-                }
             }
         }
         while (needContinue);
 
+        if (!isEditing)
+        {
+            Items.Add(dialog.Action);
+            itemsControl.Items.Add(dialog.Action);
+        }
+        var it = Items[0];
+        Debug.WriteLine(it.Command);
+        Debug.WriteLine(it.DisplayName);
+        Debug.WriteLine(it.Type);
+        ;*/
+        if (string.IsNullOrEmpty(action.DisplayName))
+            action.DisplayName = "新操作";
+        SettingsWindowUI.Titles.Add(action.DisplayName);
+        this.Frame.Navigate(typeof(EditActionPage), action, new SlideNavigationTransitionInfo { Effect = SlideNavigationTransitionEffect.FromRight });
     }
 
     private void Del_Button_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -84,9 +126,9 @@ public sealed partial class ActionListPage : Page
 
     private async void UI_Loaded(object sender, RoutedEventArgs e)
     {
-        ParentID = Items[0].ParentID;
-        if (Items.Count > 0)
-            ParentID = Items[0].ParentID;
+        //ParentID = Items[0].ParentID;
+        //if (Items.Count > 0)
+        //    ParentID = Items[0].ParentID;
         if (Items.Count == 0 || Items[0].ID == "")
             Items.Clear();
 
@@ -97,6 +139,5 @@ public sealed partial class ActionListPage : Page
         }
         progressBar.IsIndeterminate = false;
         progressBar.Visibility = Visibility.Collapsed;
-
     }
 }

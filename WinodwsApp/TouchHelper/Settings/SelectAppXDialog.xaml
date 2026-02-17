@@ -14,15 +14,26 @@
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid RowSpacing="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <ProgressBar VerticalAlignment="Top"
                      IsIndeterminate="True"
                      x:Name="progressBar"/>
-        <ScrollViewer>
+        <TextBlock Text="只能选择一个应用" 
+                   Foreground="{StaticResource SystemControlErrorTextForegroundBrush}"
+                   Visibility="Collapsed"
+                   x:Name="singleWarning"/>
+        <ScrollViewer Grid.Row="1">
             <ItemsControl x:Name="itemsControl" IsEnabled="False" Loaded="UI_Loaded">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="local:AppXItem">
-                        <CheckBox Tag="{x:Bind FamilyName}" Checked="CheckBox_Checked">
+                        <CheckBox Tag="{x:Bind FamilyName}"
+                                  Checked="CheckBox_Checked"
+                                  Unchecked="CheckBox_Checked"
+                                  IsChecked="{x:Bind IsSeected, Mode=TwoWay}">
                             <Grid Margin="0,4,0,4" 
                                   VerticalAlignment="Stretch"
                                   MinWidth="344" Height="64">

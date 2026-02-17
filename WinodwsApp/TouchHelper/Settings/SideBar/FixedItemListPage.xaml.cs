@@ -19,7 +19,7 @@ public sealed partial class FixedItemListPage : Page
         if (e.Parameter is List<FixedItem> fixedItems)
             Items = fixedItems;
     }
-    private string ParentID = ""; // 如果为空，则为根
+    //private List<string> ParentID = []; // 如果为root，则为根
     private List<FixedItem> Items = [];
 
     private void AddButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -27,7 +27,7 @@ public sealed partial class FixedItemListPage : Page
         try
         {
             string name = newTextBox.Text;
-            if (!string.IsNullOrEmpty(name))
+            if (true || !string.IsNullOrEmpty(name))
             {
                 FixedItem item = new()
                 {
@@ -69,12 +69,12 @@ public sealed partial class FixedItemListPage : Page
         if( item != null)
         {
             var items = item.SubItems;
-            if (items.Count == 0)
-                items.Add(new()
-                {
-                    ParentID = this.ParentID,
-                    ID = ""
-                });
+            //if (items.Count == 0)
+            //    items.Add(new()
+            //    {
+            //        ParentID = this.ParentID,
+            //        ID = ""
+            //    });
             SettingsWindowUI.Titles.Add(item.Name);
             this.Frame.Navigate(typeof(FixedItemListPage), items, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
@@ -88,20 +88,20 @@ public sealed partial class FixedItemListPage : Page
         {
             SettingsWindowUI.Titles.Add(item.Name);
             var items = item.Actions;
-            if (items.Count == 0)
-                items.Add(new()
-                {
-                    ParentID = this.ParentID,
-                    ID = ""
-                });
+            //if (items.Count == 0)
+            //    items.Add(new()
+            //    {
+            //        ParentID = this.ParentID,
+            //        ID = ""
+            //    });
             this.Frame.Navigate(typeof(ActionListPage), items, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
     }
 
     private async void UI_Loaded(object sender, RoutedEventArgs e)
     {
-        if (Items.Count > 0)
-            ParentID = Items[0].ParentID;
+        //if (Items.Count > 0)
+            //ParentID = Items[0].ParentID;
         if (Items.Count == 0 || Items[0].ID == "")
             Items.Clear();
 
