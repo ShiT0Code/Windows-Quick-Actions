@@ -23,6 +23,9 @@
                                       Description="在这些应用里完全不显示侧边栏"
                                       IsClickEnabled="True"
                                       Click="ExclusionApps_SettingsCard_Click"/>
+                <con:SettingsCard Header="（测试）添加数据" IsClickEnabled="True" Click="TestData_SettingsCard_Click"/>
+                <con:SettingsCard Header="（测试）保存数据" IsClickEnabled="True" Click="Save_SettingsCard_Click"/>
+                <con:SettingsCard Header="（测试）从文件加载数据" IsClickEnabled="True" Click="Load_SettingsCard_Click"/>
             </con:SettingsExpander.Items>
         </con:SettingsExpander>
     </StackPanel>

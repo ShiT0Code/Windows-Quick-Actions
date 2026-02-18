@@ -7,8 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:con="using:CommunityToolkit.WinUI.Controls"
-    xmlns:ui="using:CommunityToolkit.WinUI"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="UI_Loaded">
 
     <Grid RowSpacing="12">
         <Grid.RowDefinitions>
@@ -22,26 +22,37 @@
                     Style="{StaticResource AccentButtonStyle}"
                     Click="AddButton_Click"/>
         </con:SettingsCard>
-        <ItemsControl x:Name="itemsControl"
-                      Loaded="UI_Loaded"
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl x:Name="itemsControl"
                       Grid.Row="1">
-            <ItemsControl.ItemContainerStyle>
-                <Style  TargetType="ContentPresenter">
-                    <Setter Property="Margin" Value="0,4,0,4"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemContainerTransitions>
-                <TransitionCollection>
-                    <RepositionThemeTransition/>
-                </TransitionCollection>
-            </ItemsControl.ItemContainerTransitions>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="local:Action">
-                    <con:SettingsCard Header="{x:Bind DisplayName ,Mode=OneWay}">
-                        <Button Content="编辑" Tag="{x:Bind ID}" Click="EditButton_Click"/>
-                    </con:SettingsCard>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                <ItemsControl.ItemContainerStyle>
+                    <Style  TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="0,4,0,4"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition/>
+                    </TransitionCollection>
+                </ItemsControl.ItemContainerTransitions>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="local:Action">
+                        <con:SettingsExpander Header="{x:Bind DisplayName ,Mode=OneWay}">
+                            <con:SettingsExpander.Items>
+                                <con:SettingsCard>
+                                    <con:SettingsCard.Header>
+                                        <TextBox Header="名称" Text="{x:Bind DisplayName ,Mode=TwoWay}"/>
+                                    </con:SettingsCard.Header>
+                                </con:SettingsCard>
+                                <con:SettingsCard Header="编辑" Tag="{x:Bind ID}" IsClickEnabled="True" Click="EditCard_Click"/>
+                                <con:SettingsCard Header="删除">
+                                    <Button Content="删除" Tag="{x:Bind ID}"  Click="Del_Button_Click"/>
+                                </con:SettingsCard>
+                            </con:SettingsExpander.Items>
+                        </con:SettingsExpander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Page>

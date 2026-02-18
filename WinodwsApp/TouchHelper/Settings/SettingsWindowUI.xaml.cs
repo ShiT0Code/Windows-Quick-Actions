@@ -14,14 +14,10 @@ public sealed partial class SettingsWindowUI : Grid
         Titles.CollectionChanged += Titles_CollectionChanged;
     }
 
-    private void Titles_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-    {
-        breadcrumbBar.ItemsSource = Titles.ToArray();
-    }
+    private void Titles_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => breadcrumbBar.ItemsSource = Titles.ToArray();
 
-    private async void Frame_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private void Frame_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        await Task.Delay(50);
         Titles.Add("设置");
         frame.Navigate(typeof(SettingsHomePage));
     }

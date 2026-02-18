@@ -34,16 +34,11 @@ public sealed partial class SelectAppXDialog : ContentDialog
         if (SelectApps.Count > 0)
         {
             if (IsSingleSelect && SelectApps.Count == 1)
-            {
                 this.IsPrimaryButtonEnabled = true;
-            }
             else if (!IsSingleSelect)
                 this.IsPrimaryButtonEnabled = true;
             else
-            {
                 this.IsPrimaryButtonEnabled = false;
-                singleWarning.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
-            }
         }
         else
             this.IsPrimaryButtonEnabled = false;
@@ -51,6 +46,7 @@ public sealed partial class SelectAppXDialog : ContentDialog
 
     private async void UI_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        singleWarning.IsOpen = IsSingleSelect;
         if (IsSingleSelect)
             this.Title = "选择一个应用";
         if (Apps.Count > 0)
@@ -60,10 +56,6 @@ public sealed partial class SelectAppXDialog : ContentDialog
                 app.IsSeected = false;
             return;
         }
-        //progressBar.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
-        //progressBar.IsIndeterminate = true;
-        //itemsControl.Items.Clear();
-        //SelectApps.Clear();
         
         await Task.Run(() =>
         {

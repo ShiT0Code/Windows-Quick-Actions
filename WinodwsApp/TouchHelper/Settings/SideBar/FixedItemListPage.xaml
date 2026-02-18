@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:con="using:CommunityToolkit.WinUI.Controls"
     xmlns:ui="using:CommunityToolkit.WinUI"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="UI_Loaded">
 
     <Grid RowSpacing="12">
         <Grid.RowDefinitions>
@@ -32,48 +33,48 @@
                 </Button.Flyout>
             </Button>
         </con:SettingsCard>
-        <ItemsControl x:Name="itemsControl"
-                      Loaded="UI_Loaded"
-                      Grid.Row="1">
-            <ItemsControl.ItemContainerStyle>
-                <Style  TargetType="ContentPresenter">
-                    <Setter Property="Margin" Value="0,4,0,4"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemContainerTransitions>
-                <TransitionCollection>
-                    <RepositionThemeTransition/>
-                </TransitionCollection>
-            </ItemsControl.ItemContainerTransitions>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="local:FixedItem">
-                    <con:SettingsExpander Header="{x:Bind Name ,Mode=OneWay}">
-                        <con:SettingsExpander.Items>
-                            <con:SettingsCard>
-                                <con:SettingsCard.Header>
-                                    <TextBox Header="名称"
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl x:Name="itemsControl">
+                <ItemsControl.ItemContainerStyle>
+                    <Style  TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="0,4,0,4"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition/>
+                    </TransitionCollection>
+                </ItemsControl.ItemContainerTransitions>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="local:FixedItem">
+                        <con:SettingsExpander Header="{x:Bind Name ,Mode=OneWay}">
+                            <con:SettingsExpander.Items>
+                                <con:SettingsCard>
+                                    <con:SettingsCard.Header>
+                                        <TextBox Header="名称"
                                              Text="{x:Bind Name ,Mode=TwoWay}"
                                               MinWidth="350"/>
-                                </con:SettingsCard.Header>
-                            </con:SettingsCard>
+                                    </con:SettingsCard.Header>
+                                </con:SettingsCard>
 
-                            <con:SettingsCard Header="子项"
+                                <con:SettingsCard Header="子项"
                                               IsClickEnabled="True"
                                               Tag="{x:Bind ID}"
                                               Click="SubItem_SettingsCard_Click"/>
 
-                            <con:SettingsCard Header="执行的操作"
+                                <con:SettingsCard Header="执行的操作"
                                               IsClickEnabled="True"
                                               Tag="{x:Bind ID}"
                                               Click="Action_SettingsCard_Click"/>
 
-                            <con:SettingsCard Header="删除此项">
-                                <Button Content="删除" Click="Del_Button_Click" Tag="{x:Bind ID}"/>
-                            </con:SettingsCard>
-                        </con:SettingsExpander.Items>
-                    </con:SettingsExpander>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                                <con:SettingsCard Header="删除此项">
+                                    <Button Content="删除" Click="Del_Button_Click" Tag="{x:Bind ID}"/>
+                                </con:SettingsCard>
+                            </con:SettingsExpander.Items>
+                        </con:SettingsExpander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Page>

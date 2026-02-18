@@ -1,18 +1,9 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Windows.Storage.Pickers;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
 namespace TouchHelper.Settings.SideBar;
 
@@ -21,36 +12,32 @@ public sealed partial class EditActionPage : Page
     public EditActionPage() => InitializeComponent();
 
     private Action Action { get; set; } = new();
+    List<string> parentIDs = [];
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
         if (e.Parameter is Action action)
         {
-            Action.App = action.App;
-            Action.Argument = action.Argument;
-            Action.Command = action.Command;
-            Action.DisplayName = action.DisplayName;
-            Action.ID = action.ID;
-            //Action.ParentID = action.ParentID;
-            Action.Type = action.Type;
-            Action.RunAppx = action.RunAppx;
+            foreach (var s in action.ParentID)
+                parentIDs.Add(s);
+            Action = action;
         }
     }
 
-    int option = 1;
+    int option = 0;
+    private void Option0_RadioButton_Click(object sender, RoutedEventArgs e)
+    {
+        Action.Type = option = 0;
+        OptionNot2();
+    }
+
     private void Option1_RadioButton_Click(object sender, RoutedEventArgs e)
     {
-        option = 1;
-        OptionNot3();
+        Action.Type = option = 1;
+        OptionNot2();
     }
 
-    private void Option2_RadioButton_Click(object sender, RoutedEventArgs e)
-    {
-        option = 2;
-        OptionNot3();
-    }
-
-    private void OptionNot3()
+    private void OptionNot2()
     {
         Action.RunAppx = false;
         appView.Visibility = Visibility.Collapsed;
@@ -61,9 +48,13 @@ public sealed partial class EditActionPage : Page
         Action.App.Name = appName.Text = Action.App.Publisher = appPublisher.Text = "";
     }
 
-    private void Option3_RadioButton_Click(object sender, RoutedEventArgs e)
+    private void Option2_RadioButton_Click(object sender, RoutedEventArgs e)
     {
-        option = 3;
+        Option2();
+    }
+    private void Option2()
+    {
+        Action.Type = option = 2;
         Action.RunAppx = true;
         commandBox.Visibility = browserBtn.Visibility = Visibility.Collapsed;
         appView.Visibility = Visibility.Visible;
@@ -77,7 +68,7 @@ public sealed partial class EditActionPage : Page
             IsSingleSelect = true
         };
         var result = await dialog.ShowAsync();
-        if(result == ContentDialogResult.Primary && dialog.SelectApps.Count>0)
+        if (result == ContentDialogResult.Primary && dialog.SelectApps.Count > 0)
         {
             var app = dialog.SelectApps[0];
             Action.App.Name = appName.Text = app.Name;
@@ -85,6 +76,7 @@ public sealed partial class EditActionPage : Page
             Action.App.Logo = app.Logo;
             appIcon.Source = app.Logo;
             Action.RunAppx = true;
+            Action.Type = 2;
         }
     }
 
@@ -100,7 +92,7 @@ public sealed partial class EditActionPage : Page
 
     private async void Browser_Click(object sender, RoutedEventArgs e)
     {
-        if(option==1)
+        if (option == 0)
         {
             FileOpenPicker picker = new(this.XamlRoot.ContentIslandEnvironment.AppWindowId)
             {
@@ -125,9 +117,38 @@ public sealed partial class EditActionPage : Page
         }
     }
 
-    private void OKButton_Click(object sender, RoutedEventArgs e)
+    /*private void OKButton_Click(object sender, RoutedEventArgs e)
     {
+        Debug.WriteLine(FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].DisplayName);
+        Debug.WriteLine(Action.DisplayName);
+        Debug.WriteLine(Action.Type);
+
+        //*FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].Type = option;
+        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].DisplayName = Action.DisplayName;
+        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].Command = Action.Command;
+        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].Argument = Action.Argument;
+        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].App = Action.App*
+
         SettingsWindowUI.Titles.RemoveAt(SettingsWindowUI.Titles.Count - 1);
+        this.Frame.GoBack();
+    }*/
+
+    private async void Grid_Loaded(object sender, RoutedEventArgs e)
+    {
+        commandBox.Text = Action.Command;
+        displayBox.Text = Action.DisplayName;
+        appName.Text = Action.App.Name;
+        appPublisher.Text = Action.App.Publisher;
+        appIcon.Source = Action.App.Logo;
+        selectBtns.SelectedIndex = option = Action.Type;
+        if (option == 2)
+            Option2();
+        else
+            OptionNot2();
+    }
+
+    private void Back_Button_Click(object sender, RoutedEventArgs e)
+    {
         this.Frame.GoBack();
     }
 }

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -92,11 +91,10 @@ public partial class FixedItem() : INotifyPropertyChanged
         }
     }
 
-    public string ID { get; set; } = Guid.NewGuid().ToString();
-    //public List<string> ParentID { get; set; } = ["root"]; 
+    public string ID { get; set; } = "";
 
-    public List<FixedItem> SubItems { get; set; } = [];
-    public List<Action> Actions { get; set; } = [];
+    public Dictionary<string, FixedItem> SubItems { get; set; } = [];
+    public Dictionary<string, Action> Actions { get; set; } = [];
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
@@ -138,7 +136,6 @@ public class Action : INotifyPropertyChanged
             if (_command != value)
             {
                 _command = value;
-                Debug.WriteLine(value);
                 OnPropertyChanged();
             }
         }
@@ -181,7 +178,6 @@ public class Action : INotifyPropertyChanged
             if (_displayName != value)
             {
                 _displayName = value;
-                Debug.WriteLine(_displayName);
                 OnPropertyChanged();
             }
         }
@@ -190,8 +186,8 @@ public class Action : INotifyPropertyChanged
     public AppXItem App { get; set; } = new();
     public bool RunAppx { get; set; } = false;
 
-    public string ID { get; set; } = Guid.NewGuid().ToString();
-    //public List<string> ParentID { get; set; } = [];
+    public string ID { get; set; } = "";
+    public List<string> ParentID { get; set; } = [];
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 

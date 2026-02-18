@@ -9,7 +9,7 @@
   IgnorableNamespaces="uap rescap systemai">
 
   <Identity
-    Name="bcdaf0d0-ca63-43e8-8faf-3196d988f0b4"
+    Name="ShiT0Code.TouchHelper.WindowsApp"
     Publisher="CN=hbeau"
     Version="1.0.0.0" />
 

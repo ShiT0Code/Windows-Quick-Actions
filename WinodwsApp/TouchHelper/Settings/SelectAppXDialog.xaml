@@ -12,22 +12,21 @@
     DefaultButton="Primary"
     IsPrimaryButtonEnabled="False"
     Style="{StaticResource DefaultContentDialogStyle}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="UI_Loaded">
 
     <Grid RowSpacing="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <InfoBar x:Name="singleWarning" Title="只能选择一个应用" Severity="Warning"/>
         <ProgressBar VerticalAlignment="Top"
                      IsIndeterminate="True"
                      x:Name="progressBar"/>
-        <TextBlock Text="只能选择一个应用" 
-                   Foreground="{StaticResource SystemControlErrorTextForegroundBrush}"
-                   Visibility="Collapsed"
-                   x:Name="singleWarning"/>
         <ScrollViewer Grid.Row="1">
-            <ItemsControl x:Name="itemsControl" IsEnabled="False" Loaded="UI_Loaded">
+            <ItemsControl x:Name="itemsControl" IsEnabled="False">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="local:AppXItem">
                         <CheckBox Tag="{x:Bind FamilyName}"
