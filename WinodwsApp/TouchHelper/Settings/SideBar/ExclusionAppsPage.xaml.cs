@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using TouchHelper.DataCore;
 
 namespace TouchHelper.Settings.SideBar;
 public sealed partial class ExclusionAppsPage : Page
@@ -28,7 +29,7 @@ public sealed partial class ExclusionAppsPage : Page
         progressBar.Visibility = Visibility.Visible;
         foreach (var file in files)
         {
-            await Task.Delay(10); // 防止文件太多导致界面卡死
+            await Task.Delay(1); // 防止文件太多导致界面卡死
             string path = file.Path;
             int lastSlash = path.LastIndexOf('\\');
             int lastDot = path.LastIndexOf('.');
@@ -43,6 +44,7 @@ public sealed partial class ExclusionAppsPage : Page
         }
         progressBar.Visibility = Visibility.Collapsed;
         progressBar.IsIndeterminate = false;
+        _ = DataContainer.SaveExclusionApps();
     }
 
     private async void AddAppX_Button_Click(object sender, RoutedEventArgs e)
@@ -58,7 +60,7 @@ public sealed partial class ExclusionAppsPage : Page
             progressBar.Visibility = Visibility.Visible;
             foreach (var a in dialog.SelectApps)
             {
-                await Task.Delay(10); // 防止应用太多导致界面卡死
+                await Task.Delay(1); // 防止应用太多导致界面卡死
                 ExclusionApp app = new()
                 {
                     Name = a.Name,
@@ -70,9 +72,9 @@ public sealed partial class ExclusionAppsPage : Page
             }
         }
         dialog = null;
-        //_ = dataReaderW.SaveExclusionAppsAsync(Items);
         progressBar.Visibility = Visibility.Collapsed;
         progressBar.IsIndeterminate = false;
+        _ = DataContainer.SaveExclusionApps();
     }
 
     private void DelItem_Button_Click(object sender, RoutedEventArgs e)
@@ -87,12 +89,33 @@ public sealed partial class ExclusionAppsPage : Page
                 break;
             }
         }
+        _ = DataContainer.SaveExclusionApps();
     }
 
     private async void TextBox_LostFocus(object sender, RoutedEventArgs e)
     {
         await Task.Delay(20);
-        foreach (var i in Items)
-            Debug.WriteLine(i.Name);
+        _ = DataContainer.SaveExclusionApps();
+    }
+
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        await Task.Delay(500);
+        if (!DataContainer.IsExclusionAppsLoaded)
+        {
+            await DataContainer.LoadExclusionApps();
+            await Task.Delay(60);
+        }
+        Items = DataContainer.ExclusionApps;
+        Debug.WriteLine(Items.Count);
+
+        foreach (var item in Items)
+        {
+            itemsControl.Items.Insert(0, item);
+            await Task.Delay(1);
+        }
+        await Task.Delay(Items.Count + 300);
+        progressBar.IsIndeterminate = false;
+        progressBar.Visibility = Visibility.Collapsed;
     }
 }

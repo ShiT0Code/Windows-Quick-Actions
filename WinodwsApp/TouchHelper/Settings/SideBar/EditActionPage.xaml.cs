@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Windows.Storage.Pickers;
 using System;
 using System.Collections.Generic;
+using TouchHelper.DataCore;
 
 namespace TouchHelper.Settings.SideBar;
 
@@ -37,7 +38,7 @@ public sealed partial class EditActionPage : Page
         OptionNot2();
     }
 
-    private void OptionNot2()
+    private void OptionNot2(bool needSave = true)
     {
         Action.RunAppx = false;
         appView.Visibility = Visibility.Collapsed;
@@ -46,18 +47,20 @@ public sealed partial class EditActionPage : Page
         Action.App.Logo = null;
         appIcon.Source = null;
         Action.App.Name = appName.Text = Action.App.Publisher = appPublisher.Text = "";
+        if (needSave)
+            _ = DataContainer.SaveFixedItems();
     }
 
-    private void Option2_RadioButton_Click(object sender, RoutedEventArgs e)
-    {
-        Option2();
-    }
-    private void Option2()
+    private void Option2_RadioButton_Click(object sender, RoutedEventArgs e) => Option2();
+
+    private void Option2(bool needSave = true)
     {
         Action.Type = option = 2;
         Action.RunAppx = true;
         commandBox.Visibility = browserBtn.Visibility = Visibility.Collapsed;
         appView.Visibility = Visibility.Visible;
+        if (needSave)
+            _ = DataContainer.SaveFixedItems();
     }
 
     private async void SelectApp_Button_Click(object sender, RoutedEventArgs e)
@@ -77,17 +80,20 @@ public sealed partial class EditActionPage : Page
             appIcon.Source = app.Logo;
             Action.RunAppx = true;
             Action.Type = 2;
+            _ = DataContainer.SaveFixedItems();
         }
     }
 
     private void CommandBox_LostFocus(object sender, RoutedEventArgs e)
     {
         Action.Command = commandBox.Text;
+        _ = DataContainer.SaveFixedItems();
     }
 
     private void Display_TextBox_LostFocus(object sender, RoutedEventArgs e)
     {
         Action.DisplayName = displayBox.Text;
+        _ = DataContainer.SaveFixedItems();
     }
 
     private async void Browser_Click(object sender, RoutedEventArgs e)
@@ -115,23 +121,8 @@ public sealed partial class EditActionPage : Page
             if (folder != null)
                 commandBox.Text = Action.Command = folder.Path;
         }
+        _ = DataContainer.SaveFixedItems();
     }
-
-    /*private void OKButton_Click(object sender, RoutedEventArgs e)
-    {
-        Debug.WriteLine(FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].DisplayName);
-        Debug.WriteLine(Action.DisplayName);
-        Debug.WriteLine(Action.Type);
-
-        //*FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].Type = option;
-        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].DisplayName = Action.DisplayName;
-        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].Command = Action.Command;
-        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].Argument = Action.Argument;
-        FixedCurrentItemData.RootFixedItem[parentIDs[0]].Actions[parentIDs[1]].App = Action.App*
-
-        SettingsWindowUI.Titles.RemoveAt(SettingsWindowUI.Titles.Count - 1);
-        this.Frame.GoBack();
-    }*/
 
     private async void Grid_Loaded(object sender, RoutedEventArgs e)
     {
@@ -142,13 +133,14 @@ public sealed partial class EditActionPage : Page
         appIcon.Source = Action.App.Logo;
         selectBtns.SelectedIndex = option = Action.Type;
         if (option == 2)
-            Option2();
+            Option2(false);
         else
-            OptionNot2();
+            OptionNot2(false);
     }
 
     private void Back_Button_Click(object sender, RoutedEventArgs e)
     {
+        SettingsWindowUI.Titles.RemoveAt(SettingsWindowUI.Titles.Count - 1);
         this.Frame.GoBack();
     }
 }

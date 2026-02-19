@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using TouchHelper.Settings.SideBar;
-using TouchHelper.DataCore;
+using Windows.ApplicationModel;
 
 namespace TouchHelper.Settings;
 public sealed partial class SettingsHomePage : Page
@@ -21,15 +21,8 @@ public sealed partial class SettingsHomePage : Page
         this.Frame.Navigate(typeof(FixedItemListPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
     }
 
-    private void TestData_SettingsCard_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) => DataContainer.Start();
 
-    private async void Save_SettingsCard_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        await DataContainer.SaveFixedItems();
-    }
+    private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) => aboutCard.Description = $"{Package.Current.DisplayName} ©2026 {Package.Current.PublisherDisplayName}\n{Package.Current.Id.Version}";
 
-    private async void Load_SettingsCard_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        await DataContainer.LoadFixedJsons();
-    }
+    private void Github_SettingsCard_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) => _ = Windows.System.Launcher.LaunchUriAsync(new System.Uri("https://github.com/ShiT0Code/Windows-Quick-Actions/tree/master"));
 }

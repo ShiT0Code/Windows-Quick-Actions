@@ -53,6 +53,7 @@
                                     <con:SettingsCard.Header>
                                         <TextBox Header="名称"
                                              Text="{x:Bind Name ,Mode=TwoWay}"
+                                                 LostFocus="TextBox_LostFocus"
                                               MinWidth="350"/>
                                     </con:SettingsCard.Header>
                                 </con:SettingsCard>

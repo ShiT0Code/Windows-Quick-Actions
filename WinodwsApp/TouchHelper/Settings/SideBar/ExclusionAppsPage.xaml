@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:con="using:CommunityToolkit.WinUI.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
     <Grid RowSpacing="12">
         <Grid.RowDefinitions>
@@ -25,6 +26,16 @@
             </StackPanel>
         </con:SettingsCard>
         <ItemsControl Grid.Row="1" x:Name="itemsControl">
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Margin" Value="0,4,0,4"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemContainerTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition/>
+                </TransitionCollection>
+            </ItemsControl.ItemContainerTransitions>
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="local:ExclusionApp">
                     <con:SettingsExpander Header="{x:Bind Name, Mode=OneWay}">

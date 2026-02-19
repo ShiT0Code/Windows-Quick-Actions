@@ -8,10 +8,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:con="using:CommunityToolkit.WinUI.Controls"
     xmlns:ui="using:CommunityToolkit.WinUI"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
     <StackPanel Spacing="8">
-        <con:SettingsExpander Header="侧边栏设置">
+        <StackPanel.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition/>
+            </TransitionCollection>
+        </StackPanel.ChildrenTransitions>
+        
+        <con:SettingsExpander Header="侧边栏设置" IsExpanded="True">
             <con:SettingsExpander.Items>
                 <con:SettingsCard Header="启用侧边栏">
                     <ToggleSwitch/>
@@ -23,9 +30,12 @@
                                       Description="在这些应用里完全不显示侧边栏"
                                       IsClickEnabled="True"
                                       Click="ExclusionApps_SettingsCard_Click"/>
-                <con:SettingsCard Header="（测试）添加数据" IsClickEnabled="True" Click="TestData_SettingsCard_Click"/>
-                <con:SettingsCard Header="（测试）保存数据" IsClickEnabled="True" Click="Save_SettingsCard_Click"/>
-                <con:SettingsCard Header="（测试）从文件加载数据" IsClickEnabled="True" Click="Load_SettingsCard_Click"/>
+            </con:SettingsExpander.Items>
+        </con:SettingsExpander>
+        <con:SettingsExpander Header="关于" x:Name="aboutCard" HeaderIcon="{ui:FontIcon Glyph=&#xE946;}">
+            <con:SettingsExpander.Items>
+                <con:SettingsCard Header="文件"/>
+                <con:SettingsCard Header="Github 仓库" IsClickEnabled="True" Click="Github_SettingsCard_Click"/>
             </con:SettingsExpander.Items>
         </con:SettingsExpander>
     </StackPanel>

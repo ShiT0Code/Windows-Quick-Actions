@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TouchHelper.DataCore;
 
 namespace TouchHelper.Settings.SideBar;
 
@@ -29,6 +30,7 @@ public sealed partial class ActionListPage : Page
         };
         itemsControl.Items.Insert(0, action);
         Items.Add(action.ID, action);
+        _ = DataContainer.SaveFixedItems();
     }
 
     private void EditCard_Click(object sender, RoutedEventArgs e)
@@ -45,6 +47,7 @@ public sealed partial class ActionListPage : Page
         var item = Items[Tag];
         itemsControl.Items.Remove(item);
         Items.Remove(Tag);
+        _ = DataContainer.SaveFixedItems();
     }
 
     private async void UI_Loaded(object sender, RoutedEventArgs e)
@@ -57,5 +60,11 @@ public sealed partial class ActionListPage : Page
         }
         progressBar.IsIndeterminate = false;
         progressBar.Visibility = Visibility.Collapsed;
+    }
+
+    private async void TextBox_LostFocus(object sender, RoutedEventArgs e)
+    {
+        await Task.Delay(10);
+        _ = DataContainer.SaveFixedItems();
     }
 }
