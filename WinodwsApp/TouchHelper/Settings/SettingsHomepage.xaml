@@ -21,7 +21,7 @@
         <con:SettingsExpander Header="侧边栏设置" IsExpanded="True">
             <con:SettingsExpander.Items>
                 <con:SettingsCard Header="启用侧边栏">
-                    <ToggleSwitch/>
+                    <ToggleSwitch x:Name="sideBarToggleSwitch"/>
                 </con:SettingsCard>
                 <con:SettingsCard Header="固定项"
                                   IsClickEnabled="True"

@@ -11,13 +11,13 @@
   <Identity
     Name="ShiT0Code.TouchHelper.WindowsApp"
     Publisher="CN=hbeau"
-    Version="1.0.0.0" />
+    Version="1.10.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="bcdaf0d0-ca63-43e8-8faf-3196d988f0b4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>TouchHelper</DisplayName>
-    <PublisherDisplayName>hbeau</PublisherDisplayName>
+    <PublisherDisplayName>ShiT0Code</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

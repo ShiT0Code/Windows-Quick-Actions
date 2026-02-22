@@ -11,6 +11,9 @@ public partial class App : Application
 {
     private nint _settingsWindowHwnd = IntPtr.Zero;
 
+    private nint _sideBar_L_Hwnd = IntPtr.Zero;
+    private nint _sideBar_R_Hwnd = IntPtr.Zero;
+
     public App() => InitializeComponent();
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
@@ -25,23 +28,7 @@ public partial class App : Application
             return;
         }
         AppInstance.GetCurrent().Activated += OnActivated;
-        CreatSettingsWindow();
-    }
 
-    private void OnActivated(object? sender, AppActivationArguments e)
-    {
-        if (_settingsWindowHwnd == IntPtr.Zero)
-        {
-            CreatSettingsWindow();
-            return;
-        }
-
-        if (IsIconic(_settingsWindowHwnd))
-            ShowWindow(_settingsWindowHwnd, 9);
-    }
-
-    private async void CreatSettingsWindow()
-    {
         Window window = new()
         {
             ExtendsContentIntoTitleBar = true
@@ -55,8 +42,12 @@ public partial class App : Application
         window.Content = new Settings.SettingsWindowUI();
     }
 
-    [DllImport("user32.dll")]
-    private static extern bool SetForegroundWindow(IntPtr hWnd);
+    private void OnActivated(object? sender, AppActivationArguments e)
+    {
+        if (IsIconic(_settingsWindowHwnd))
+            ShowWindow(_settingsWindowHwnd, 9);
+    }
+
     [DllImport("user32.dll")]
     private static extern bool IsIconic(IntPtr hWnd);
     [DllImport("user32.dll")]

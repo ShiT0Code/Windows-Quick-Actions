@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="TouchHelper.SideBar.SideBarWindow_Left"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchHelper.SideBar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:con="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    Title="Left SideBar">
+
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="paneTransform" X="0" Y="0"/>
+        </Grid.RenderTransform>
+        <Grid.Resources>
+            <Storyboard x:Name="paneOpenStoryboard">
+                <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="-400" To="0" >
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase Exponent="42" EasingMode="EaseInOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="paneCloseStoryboard">
+                <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="0" To="-400">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase Exponent="24" EasingMode="EaseInOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="paneGrid" Width="0" MaxWidth="368" HorizontalAlignment="Right">
+            <Grid CornerRadius="8" Background="{StaticResource CardStrokeColorDefaultBrush}">
+                <Button Content="这是内容" Click="Button_Click" Scale="1,1,1" HorizontalAlignment="Center"/>
+            </Grid>
+        </Grid>
+        <con:PropertySizer Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                           x:Name="sizer"
+                            Minimum="0"
+                            Tapped="PropertySizer_Tapped" ManipulationCompleted="Sizer_ManipulationCompleted"
+                            Binding="{x:Bind paneGrid.Width ,Mode=TwoWay}"/>
+    </Grid>
+</Window>

@@ -21,6 +21,8 @@
     <None Remove="Settings\SideBar\EditActionPage.xaml" />
     <None Remove="Settings\SideBar\ExclusionAppsPage.xaml" />
     <None Remove="Settings\SideBar\FixedItemListPage.xaml" />
+    <None Remove="SideBar\SideBarWindow_Left.xaml" />
+    <None Remove="SideBar\SideBarWindow_Right.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,8 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.2.251219" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SideBar\SideBarWindow_Right.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SideBar\SideBarWindow_Left.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Settings\SideBar\EditActionPage.xaml">
