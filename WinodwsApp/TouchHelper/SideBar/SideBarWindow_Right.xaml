@@ -11,10 +11,6 @@
     mc:Ignorable="d"
     Title="Right SideBar">
 
-    <Window.SystemBackdrop>
-        <DesktopAcrylicBackdrop/>
-    </Window.SystemBackdrop>
-
     <Grid HorizontalAlignment="Right">
         <Grid.RenderTransform>
             <TranslateTransform x:Name="paneTransform" X="368" Y="0"/>

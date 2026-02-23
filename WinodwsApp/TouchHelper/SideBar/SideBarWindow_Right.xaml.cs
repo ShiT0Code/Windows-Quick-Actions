@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ public sealed partial class SideBarWindow_Right : Window
     {
         InitializeComponent();
         ExtendsContentIntoTitleBar = true;
+        //this.SystemBackdrop = new WinUIEx.TransparentTintBackdrop();
+        this.SystemBackdrop  = new DesktopAcrylicBackdrop();
     }
 
     private bool IsPaneOpen = false;
@@ -26,17 +29,6 @@ public sealed partial class SideBarWindow_Right : Window
 
     private async void Button_Click(object sender, RoutedEventArgs e)
     {
-        if (IsPaneOpen)
-        {
-            paneCloseStoryboard.Begin();
-            await Task.Delay(500);
-            paneTransform.X = 0;
-        }
-        else
-        {
-            paneOpenStoryboard.Begin();
-        }
-        IsPaneOpen = !IsPaneOpen;
     }
 
     private void Sizer_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
