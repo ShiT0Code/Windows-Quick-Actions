@@ -4,6 +4,7 @@ using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using TouchHelper.SideBar;
 using WinRT.Interop;
 
 namespace TouchHelper;

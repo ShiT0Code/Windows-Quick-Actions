@@ -11,39 +11,53 @@
     mc:Ignorable="d"
     Title="Right SideBar">
 
-    <Grid HorizontalAlignment="Right">
-        <Grid.RenderTransform>
-            <TranslateTransform x:Name="paneTransform" X="368" Y="0"/>
-        </Grid.RenderTransform>
-        <Grid.Resources>
-            <Storyboard x:Name="paneOpenStoryboard">
-                <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="368" To="0" >
-                    <DoubleAnimation.EasingFunction>
-                        <ExponentialEase Exponent="42" EasingMode="EaseInOut"/>
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-            </Storyboard>
-            <Storyboard x:Name="paneCloseStoryboard">
-                <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="0" To="368">
-                    <DoubleAnimation.EasingFunction>
-                        <ExponentialEase Exponent="24" EasingMode="EaseInOut" />
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-            </Storyboard>
-        </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="paneGrid" Width="368" HorizontalAlignment="Left" Grid.Column="1">
-            <Grid CornerRadius="8" Background="{StaticResource CardStrokeColorDefaultBrush}" >
-                <Button Content="这是内容" Click="Button_Click" Scale="1,1,1" HorizontalAlignment="Center"/>
+    <Grid HorizontalAlignment="Right" x:Name="rootGrid">
+        <Image x:Name="backgroundImage" HorizontalAlignment="Right" Stretch="None" Visibility="Collapsed"/>
+        <Grid HorizontalAlignment="Right" x:Name="grid1">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="paneTransform" X="368" Y="0"/>
+            </Grid.RenderTransform>
+            <Grid.Resources>
+                <Storyboard x:Name="paneOpenStoryboard">
+                    <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="368" To="0" >
+                        <DoubleAnimation.EasingFunction>
+                            <ExponentialEase Exponent="42" EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard x:Name="paneCloseStoryboard">
+                    <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="0" To="368">
+                        <DoubleAnimation.EasingFunction>
+                            <ExponentialEase Exponent="24" EasingMode="EaseOut" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="paneGrid" Width="368" HorizontalAlignment="Left" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid CornerRadius="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Margin="0,0,0,8" x:Name="pane1">
+                    <Button Content="这是内容" Click="Button_Click" Scale="1,1,1" HorizontalAlignment="Center"/>
+                </Grid>
+                <Grid CornerRadius="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Grid.Row="1" Margin="0,8,0,8" x:Name="pane2">
+                    <Button Content="这是内容" Scale="1,1,1" HorizontalAlignment="Center" Click="Button_Click_1"/>
+                </Grid>
+                <Grid CornerRadius="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Grid.Row="2" Margin="0,8,0,0" x:Name="pane3">
+                    <Button Content="这是内容" Scale="1,1,1" HorizontalAlignment="Center"/>
+                </Grid>
             </Grid>
-        </Grid>
-        <con:PropertySizer HorizontalAlignment="Right" VerticalAlignment="Stretch"
-                           x:Name="sizer"
+            <con:PropertySizer HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                            x:Name="sizer" RequestedTheme="Dark"
                             Minimum="0"
                             Tapped="PropertySizer_Tapped" ManipulationCompleted="Sizer_ManipulationCompleted"
                             Binding="{x:Bind paneTransform.X ,Mode=TwoWay}"/>
+        </Grid>
     </Grid>
 </Window>

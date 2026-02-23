@@ -12,9 +12,9 @@
     Closed="SideBarWindow_Left_Closed"
     Title="Left SideBar">
 
-    <Grid>
-        <Image Source="C:\Users\hbeau\Pictures\哥伦比亚,拉斯拉哈斯圣殿1.jpg" HorizontalAlignment="Left" Stretch="None"/>
-        <Grid HorizontalAlignment="Left">
+    <Grid  HorizontalAlignment="Left" x:Name="rootGrid">
+        <Image x:Name="backgroundImage" HorizontalAlignment="Left" Stretch="None" Visibility="Collapsed"/>
+        <Grid HorizontalAlignment="Left" x:Name="grid1">
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="paneTransform" X="-368" Y="0"/>
             </Grid.RenderTransform>
@@ -22,14 +22,14 @@
                 <Storyboard x:Name="paneOpenStoryboard">
                     <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="-368" To="0" >
                         <DoubleAnimation.EasingFunction>
-                            <ExponentialEase Exponent="42" EasingMode="EaseInOut"/>
+                            <ExponentialEase Exponent="42" EasingMode="EaseOut"/>
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
                 </Storyboard>
                 <Storyboard x:Name="paneCloseStoryboard">
                     <DoubleAnimation Storyboard.TargetName="paneTransform" Storyboard.TargetProperty="X" From="0" To="-368">
                         <DoubleAnimation.EasingFunction>
-                            <ExponentialEase Exponent="24" EasingMode="EaseInOut" />
+                            <ExponentialEase Exponent="100" EasingMode="EaseOut" />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
                 </Storyboard>
@@ -44,21 +44,23 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid CornerRadius="8" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" Margin="0,0,0,8">
+                <Grid CornerRadius="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Margin="0,0,0,8" x:Name="pane1">
                     <Button Content="这是内容" Click="Button_Click" Scale="1,1,1" HorizontalAlignment="Center"/>
                 </Grid>
-                <Grid CornerRadius="8" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" Grid.Row="1" Margin="0,8,0,8">
-                    <Button Content="这是内容1" Scale="1,1,1" HorizontalAlignment="Center"/>
+                <Grid CornerRadius="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Grid.Row="1" Margin="0,8,0,8" x:Name="pane2">
+                    <Button Content="这是内容" Scale="1,1,1" HorizontalAlignment="Center" Click="Button_Click_1"/>
                 </Grid>
-                <Grid CornerRadius="8" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" Grid.Row="2" Margin="0,8,0,0">
+                <Grid CornerRadius="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Grid.Row="2" Margin="0,8,0,0" x:Name="pane3">
                     <Button Content="这是内容2" Scale="1,1,1" HorizontalAlignment="Center"/>
                 </Grid>
-
             </Grid>
             <con:PropertySizer HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                           x:Name="sizer" Grid.Column="1"
+                            Grid.Column="1" x:Name="sizer"
                             Minimum="-368" Maximum="0"
+                            RequestedTheme="Dark"
                             Tapped="PropertySizer_Tapped" ManipulationCompleted="Sizer_ManipulationCompleted"
+                            ManipulationStarting="PropertySizer_ManipulationStarting"
+                            PointerEntered="PropertySizer_PointerEntered"
                             Binding="{x:Bind paneTransform.X ,Mode=TwoWay}"/>
         </Grid>
 
