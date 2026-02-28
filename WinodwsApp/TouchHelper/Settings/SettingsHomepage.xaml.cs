@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using TouchHelper.Settings.SideBar;
 using TouchHelper.SideBar;
@@ -45,9 +45,7 @@ public sealed partial class SettingsHomePage : Page
         Windows.Storage.ApplicationData.Current.LocalSettings.Values["enableSideBar"] = enable;
         if(enable)
         {
-            sideBarToggleSwitch.IsOn = false;
-            new SideBarWindow_Left().Activate();
-            new SideBarWindow_Right().Activate();
+            SideBarDataContainer.LaunchSideBar();
         }
     }
 }

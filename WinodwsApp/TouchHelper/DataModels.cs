@@ -101,30 +101,6 @@ public partial class FixedItem() : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 }
 
-/*public class FixedSubItem : INotifyPropertyChanged
-{
-    private string _name = "";
-    public string Name
-    {
-        get => _name;
-        set
-        {
-            if (_name != value)
-            {
-                _name = value;
-                OnPropertyChanged();
-            }
-        }
-    }
-
-    public string ID { get; set; } = Guid.NewGuid().ToString();
-
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-}*/
-
 public class Action : INotifyPropertyChanged
 {
     private string _command = "";

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="TouchHelper.SideBar.SideBarTargetWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchHelper.SideBar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="SideBarTargetWindow"
+    Closed="Window_Closed">
+
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid Loaded="Grid_Loaded">
+        <Grid Background="Transparent" Height="64" VerticalAlignment="Top"
+              ManipulationMode="TranslateX"
+              ManipulationDelta="ManipulationDelta"
+              ManipulationCompleted="ManipulationCompleted">
+            <Grid.RenderTransform>
+                <TranslateTransform/>
+            </Grid.RenderTransform>
+        </Grid>
+        <Grid Background="Transparent" Width="12" x:Name="rectangle"
+              ManipulationMode="TranslateX"
+              ManipulationDelta="ManipulationDelta"
+              ManipulationCompleted="ManipulationCompleted">
+            <Grid.RenderTransform>
+                <TranslateTransform/>
+            </Grid.RenderTransform>
+            
+            <Grid Width="8" Height="64" VerticalAlignment="Center"
+              Margin="2,8,2,0"
+              Background="{ThemeResource ButtonBackgroundThemeBrush}"
+              BorderBrush="{ThemeResource ButtonBorderThemeBrush}" BorderThickness="1"
+              CornerRadius="3"
+              RequestedTheme="Light">
+            </Grid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <AppBarButton Icon="More" Height="48" Width="42" Margin="0,12,4,0">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="退出应用" Click="ExitApp_MenuFlyoutItem_Click"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Icon="Cancel"  HorizontalContentAlignment="Right"
+                      Height="48" Width="42" Margin="0,12,6,0" Click="Close_AppBarButton_Click"/>
+        </StackPanel>
+        <StackPanel Padding="24">
+            <TextBlock Text="固定项" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Bold"
+                       Margin="10,0,0,0" HorizontalAlignment="Left"/>
+        </StackPanel>
+    </Grid>
+</Window>

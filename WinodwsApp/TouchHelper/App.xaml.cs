@@ -10,11 +10,7 @@ using WinRT.Interop;
 namespace TouchHelper;
 public partial class App : Application
 {
-    private nint _settingsWindowHwnd = IntPtr.Zero;
-
-    private nint _sideBar_L_Hwnd = IntPtr.Zero;
-    private nint _sideBar_R_Hwnd = IntPtr.Zero;
-
+    private nint _settingsWindowHwnd;
     public App() => InitializeComponent();
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
@@ -41,16 +37,13 @@ public partial class App : Application
         window.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
         await Task.Delay(60);
         window.Content = new Settings.SettingsWindowUI();
+        if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["enableSideBar"] is bool enableSideBar && enableSideBar)
+            SideBarDataContainer.LaunchSideBar();
     }
 
     private void OnActivated(object? sender, AppActivationArguments e)
     {
-        if (IsIconic(_settingsWindowHwnd))
-            ShowWindow(_settingsWindowHwnd, 9);
+        if (API_Helper.IsIconic(_settingsWindowHwnd))
+            API_Helper.BringToTop(_settingsWindowHwnd);
     }
-
-    [DllImport("user32.dll")]
-    private static extern bool IsIconic(IntPtr hWnd);
-    [DllImport("user32.dll")]
-    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 }
