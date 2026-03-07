@@ -41,11 +41,11 @@ static class SideBarDataContainer
         RectInt32 leftBarRect = new((int)(-110 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), (int)(120 * ScalePercent), (int)(54 * ScalePercent));
         RectInt32 rightBarRect = new((int)(ScreenWidth - 10 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), 120, (int)(54 * ScalePercent));
 
-        var leftPane = new SideBarTargetWindow(SideBarTargetWindow.PaneWindowType.Left, LeftPaneCloseRect, CurrentData);
+        var leftPane = new SideBarWindow(SideBarWindow.PaneWindowType.Left, LeftPaneCloseRect, CurrentData);
         LeftPaneHwnd = WindowNative.GetWindowHandle(leftPane);
         leftPane.Activate();
         new LeftBar(leftBarRect, leftPane.AppWindow, CurrentData).Activate();
-        var rightPane = new SideBarTargetWindow(SideBarTargetWindow.PaneWindowType.Right, RightPaneCloseRect, CurrentData);
+        var rightPane = new SideBarWindow(SideBarWindow.PaneWindowType.Right, RightPaneCloseRect, CurrentData);
         RightPaneHwnd = WindowNative.GetWindowHandle(rightPane);
         rightPane.Activate();
         new RightBar(rightBarRect, rightPane.AppWindow,CurrentData).Activate();

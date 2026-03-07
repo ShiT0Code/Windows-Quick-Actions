@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using Windows.Graphics;
 using static TouchHelper.SideBar.SideBarDataContainer;
 namespace TouchHelper.SideBar;
-public partial class SideBarTargetWindow : Window
+public partial class SideBarWindow : Window
 {
     public enum PaneWindowType { Left, Right };
     private PaneWindowType _paneWindowType;
     private readonly PointInt32 _closePoint;
     private SideBarCurrentData CuDa { get; set; }
 
-    public SideBarTargetWindow(PaneWindowType paneWindowType, RectInt32 closeRect,SideBarCurrentData data)
+    public SideBarWindow(PaneWindowType paneWindowType, RectInt32 closeRect,SideBarCurrentData data)
     {
         CuDa = data;
 
@@ -128,9 +128,6 @@ public partial class SideBarTargetWindow : Window
     private async void Grid_Loaded(object sender, RoutedEventArgs e)
     {
         await Task.Delay(750);
-        var content = new SideBarWindowContent();
-        Grid.SetRow(content, 1);
-        Grid.SetColumn(content, 1);
-        rootGrid.Children.Add(content);
+        frame.Navigate(typeof(SideBarMainPage));
     }
 }

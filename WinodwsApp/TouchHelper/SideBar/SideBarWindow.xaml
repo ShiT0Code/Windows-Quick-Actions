@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Window
-    x:Class="TouchHelper.SideBar.SideBarTargetWindow"
+    x:Class="TouchHelper.SideBar.SideBarWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TouchHelper.SideBar"
@@ -14,7 +14,7 @@
         <DesktopAcrylicBackdrop/>
     </Window.SystemBackdrop>
 
-    <Grid Loaded="Grid_Loaded" x:Name="rootGrid">
+    <Grid Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="42"/>
             <RowDefinition Height="*"/>
@@ -49,6 +49,7 @@
                       Height="46" Width="42" Click="Close_AppBarButton_Click"/>
             </StackPanel>
         </Grid>
+        
         <Grid Background="Transparent" Width="14" x:Name="rectangle"
               ManipulationCompleted="ManipulationCompleted"
               DoubleTapped="Rectangle_DoubleTapped"
@@ -63,5 +64,7 @@
               RequestedTheme="Light">
             </Grid>
         </Grid>
+
+        <Frame Grid.Row="1" Grid.Column="1" x:Name="frame"/>
     </Grid>
 </Window>

@@ -1,9 +1,9 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 
 namespace TouchHelper.SideBar;
-public sealed partial class SideBarWindowContent : Grid
+public sealed partial class SideBarMainPage : Page
 {
-    public SideBarWindowContent()
+    public SideBarMainPage()
     {
         InitializeComponent();
     }

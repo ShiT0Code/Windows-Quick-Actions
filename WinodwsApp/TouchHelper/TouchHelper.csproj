@@ -22,8 +22,6 @@
     <None Remove="Settings\SideBar\ExclusionAppsPage.xaml" />
     <None Remove="Settings\SideBar\FixedItemListPage.xaml" />
     <None Remove="SideBar\LeftBar.xaml" />
-    <None Remove="SideBar\SideBarTargetWindow.xaml" />
-    <None Remove="SideBar\SideBarWindowContent.xaml" />
     <None Remove="SideBar\SideBarWindow_Left.xaml" />
     <None Remove="SideBar\SideBarWindow_Right.xaml" />
   </ItemGroup>
@@ -57,7 +55,7 @@
     <PackageReference Include="WinUIEx" Version="2.9.0" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="SideBar\SideBarWindowContent.xaml">
+    <Page Update="SideBar\SideBarMainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -107,7 +105,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="SideBar\SideBarTargetWindow.xaml">
+    <Page Update="SideBar\SideBarWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
