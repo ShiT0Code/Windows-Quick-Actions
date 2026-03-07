@@ -31,7 +31,7 @@ public sealed partial class LeftBar : Window
         API_Helper.RefreshWindowFrame(hwnd);
         API_Helper.SetWindowAlwaysOnTop(hwnd);
         AppWindow.MoveAndResize(rect);
-        PaneCurrentPosition_L = new((int)(-368 * ScalePercent), (int)(ScreenHeigh / 2 - 300 * ScalePercent));
+        PaneCurrentPosition_L = new((int)(-276 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent));
 
         InitializeComponent();
     }
@@ -79,7 +79,7 @@ public sealed partial class LeftBar : Window
                 deltaX = 0;
         }
 
-        if (PaneCurrentPosition_L.X + deltaX > -368 * ScalePercent && PaneCurrentPosition_L.X + deltaX < 100 * ScalePercent)
+        if (PaneCurrentPosition_L.X + deltaX > -276 * ScalePercent && PaneCurrentPosition_L.X + deltaX < 48 * ScalePercent)
             PaneCurrentPosition_L.X += (int)deltaX;
         if (PaneCurrentPosition_L.Y + deltaY > 0 && PaneCurrentPosition_L.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
             PaneCurrentPosition_L.Y += (int)deltaY;
@@ -97,7 +97,7 @@ public sealed partial class LeftBar : Window
         }
         else
         {
-            PaneCurrentPosition_L.X = (int)(-368 * ScalePercent);
+            PaneCurrentPosition_L.X = (int)(-276 * ScalePercent);
             LeftIsPaneOpen = false;
         }
         LeftTargetAppWindow.Move(PaneCurrentPosition_L);
@@ -113,7 +113,7 @@ public sealed partial class LeftBar : Window
     private async void Tapped()
     {
         SelectLeftPane();
-        PaneCurrentPosition_L.X = LeftIsPaneOpen ? (int)(-368 * ScalePercent) : 7;
+        PaneCurrentPosition_L.X = LeftIsPaneOpen ? (int)(-276 * ScalePercent) : 7;
         LeftTargetAppWindow.Move(PaneCurrentPosition_L);
         LeftIsPaneOpen = !LeftIsPaneOpen;
         rectangle.Opacity = LeftIsPaneOpen ? 0 : 1;

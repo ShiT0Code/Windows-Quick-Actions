@@ -31,7 +31,7 @@ public sealed partial class RightBar : Window
         API_Helper.RefreshWindowFrame(hwnd);
         API_Helper.SetWindowAlwaysOnTop(hwnd);
         AppWindow.MoveAndResize(rect);
-        PaneCurrentPosition_R = new(ScreenWidth, (int)(ScreenHeigh / 2 - 300 * ScalePercent));
+        PaneCurrentPosition_R = new(ScreenWidth, (int)(ScreenHeigh / 2 - 225 * ScalePercent));
 
         InitializeComponent();
     }
@@ -79,7 +79,7 @@ public sealed partial class RightBar : Window
                 deltaX = 0 * ScalePercent;
         }
 
-        if (PaneCurrentPosition_R.X + deltaX > ScreenWidth - 468 * ScalePercent && PaneCurrentPosition_R.X + deltaX < ScreenWidth)
+        if (PaneCurrentPosition_R.X + deltaX > ScreenWidth - 324 * ScalePercent && PaneCurrentPosition_R.X + deltaX < ScreenWidth)
             PaneCurrentPosition_R.X += (int)deltaX;
         if (PaneCurrentPosition_R.Y + deltaY > 0 * ScalePercent && PaneCurrentPosition_R.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
             PaneCurrentPosition_R.Y += (int)deltaY;
@@ -92,7 +92,7 @@ public sealed partial class RightBar : Window
         SelectRightPane();
         if (PaneCurrentPosition_R.X <= ScreenWidth - 180 * ScalePercent)
         {
-            PaneCurrentPosition_R.X = (int)(ScreenWidth - 374 * ScalePercent);
+            PaneCurrentPosition_R.X = (int)(ScreenWidth - 286 * ScalePercent);
             RightIsPaneOpen = true;
         }
         else
@@ -113,7 +113,7 @@ public sealed partial class RightBar : Window
     private async void Tapped()
     {
         SelectRightPane();
-        PaneCurrentPosition_R.X = RightIsPaneOpen ? ScreenWidth : (int)(ScreenWidth - 374 * ScalePercent);
+        PaneCurrentPosition_R.X = RightIsPaneOpen ? ScreenWidth : (int)(ScreenWidth - 286 * ScalePercent);
         RightTargetAppWindow.Move(PaneCurrentPosition_R);
         RightIsPaneOpen = !RightIsPaneOpen;
         rectangle.Opacity = RightIsPaneOpen ? 0 : 1;

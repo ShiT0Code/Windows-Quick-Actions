@@ -18,11 +18,11 @@ public partial class SideBarTargetWindow : Window
         _closePoint.Y = closeRect.Y;
 
         OverlappedPresenter presenter = OverlappedPresenter.Create();
-        presenter.IsMaximizable = presenter.IsMinimizable = presenter.IsAlwaysOnTop = true;
-        presenter.IsResizable = false;
-        presenter.SetBorderAndTitleBar(true, false);
+        presenter.IsAlwaysOnTop = true;
+        presenter.IsMaximizable = presenter.IsMinimizable = presenter.IsResizable = false;
+        //presenter.SetBorderAndTitleBar(true, false);
         AppWindow.SetPresenter(presenter);
-        AppWindow.IsShownInSwitchers = false;
+        //AppWindow.IsShownInSwitchers = false;
 
         InitializeComponent();
         rectangle.HorizontalAlignment = (_paneWindowType == PaneWindowType.Left) ? HorizontalAlignment.Right : HorizontalAlignment.Left;
@@ -56,12 +56,12 @@ public partial class SideBarTargetWindow : Window
     private void ManipulationDelta(object sender, Microsoft.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs e)
     {
         double deltaX = e.Delta.Translation.X;
-        if (_paneWindowType == PaneWindowType.Left && LeftBar.PaneCurrentPosition_L.X + deltaX < 100 * ScalePercent)
+        if (_paneWindowType == PaneWindowType.Left && LeftBar.PaneCurrentPosition_L.X + deltaX < 48 * ScalePercent)
         {
             LeftBar.PaneCurrentPosition_L.X += (int)e.Delta.Translation.X;
             AppWindow.Move(LeftBar.PaneCurrentPosition_L);
         }
-        else if (_paneWindowType == PaneWindowType.Right && RightBar.PaneCurrentPosition_R.X + deltaX > ScreenWidth - 468 * ScalePercent)
+        else if (_paneWindowType == PaneWindowType.Right && RightBar.PaneCurrentPosition_R.X + deltaX > ScreenWidth - 324 * ScalePercent)
         {
             RightBar.PaneCurrentPosition_R.X += (int)e.Delta.Translation.X;
             AppWindow.Move(RightBar.PaneCurrentPosition_R);
@@ -79,7 +79,7 @@ public partial class SideBarTargetWindow : Window
             }
             else
             {
-                LeftBar.PaneCurrentPosition_L.X = (int)(-368 * ScalePercent);
+                LeftBar.PaneCurrentPosition_L.X = (int)(-276 * ScalePercent);
                 LeftBar.LeftIsPaneOpen = false;
             }
             AppWindow.Move(LeftBar.PaneCurrentPosition_L);
@@ -88,7 +88,7 @@ public partial class SideBarTargetWindow : Window
         {
             if (RightBar.PaneCurrentPosition_R.X <= ScreenWidth - 180 * ScalePercent)
             {
-                RightBar.PaneCurrentPosition_R.X = (int)(ScreenWidth - 374 * ScalePercent);
+                RightBar.PaneCurrentPosition_R.X = (int)(ScreenWidth - 286 * ScalePercent);
                 RightBar.RightIsPaneOpen = true;
             }
             else

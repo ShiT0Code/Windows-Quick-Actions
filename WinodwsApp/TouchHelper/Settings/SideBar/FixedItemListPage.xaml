@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="TouchHelper.Settings.SideBar.FixedItemListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -53,8 +53,8 @@
                                     <con:SettingsCard.Header>
                                         <TextBox Header="名称"
                                              Text="{x:Bind Name ,Mode=TwoWay}"
-                                                 LostFocus="TextBox_LostFocus"
-                                              MinWidth="350"/>
+                                             LostFocus="TextBox_LostFocus"
+                                             MinWidth="350"/>
                                     </con:SettingsCard.Header>
                                 </con:SettingsCard>
 

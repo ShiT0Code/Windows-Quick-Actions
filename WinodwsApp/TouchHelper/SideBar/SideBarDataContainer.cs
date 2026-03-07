@@ -10,6 +10,8 @@ static class SideBarDataContainer
     public static int ScreenHeigh { get; set; } = 0;
     public static double ScalePercent { get; set; } = 0;
     public enum LockedAxis { X, Y, None };
+
+    // 定义侧边栏窗口大小
     public static RectInt32 LeftPaneCloseRect { get; set; }
     public static PointInt32 LeftPaneOpenosition { get; set; }
     public static RectInt32 RightPaneCloseRect { get; set; }
@@ -28,13 +30,14 @@ static class SideBarDataContainer
         ScreenWidth = screenWidth;
         ScalePercent = scalePercent;
 
-        LeftPaneCloseRect = new((int)(-378 * ScalePercent), (int)(ScreenHeigh / 2 - 300 * ScalePercent), (int)(368 * scalePercent), (int)(600 * scalePercent));
-        LeftPaneOpenosition = new(0, (int)(ScreenHeigh / 2 - 300 * ScalePercent));
-        RightPaneCloseRect = new(ScreenWidth, (int)(ScreenHeigh / 2 - 300 * ScalePercent), (int)(368 * scalePercent), (int)(600 * scalePercent));
-        RightPaneOpenPosition = new((int)(ScreenWidth - 368 * ScalePercent), (int)(ScreenHeigh / 2 - 300 * ScalePercent));
+        // 设定大小
+        LeftPaneCloseRect = new((int)(-378 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent), (int)(276 * scalePercent), (int)(450 * scalePercent));
+        LeftPaneOpenosition = new(0, (int)(ScreenHeigh / 2 - 225 * ScalePercent));
+        RightPaneCloseRect = new(ScreenWidth, (int)(ScreenHeigh / 2 - 225 * ScalePercent), (int)(276 * scalePercent), (int)(450 * scalePercent));
+        RightPaneOpenPosition = new((int)(ScreenWidth - 368 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent));
 
-        RectInt32 leftBarRect = new((int)(-110 * ScalePercent), (int)(ScreenHeigh / 2 - 40 * ScalePercent), (int)(120 * ScalePercent), (int)(80 * ScalePercent));
-        RectInt32 rightBarRect = new((int)(ScreenWidth - 12 * ScalePercent), (int)(ScreenHeigh / 2 - 40 * ScalePercent), 120, (int)(80 * ScalePercent));
+        RectInt32 leftBarRect = new((int)(-110 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), (int)(120 * ScalePercent), (int)(54 * ScalePercent));
+        RectInt32 rightBarRect = new((int)(ScreenWidth - 10 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), 120, (int)(54 * ScalePercent));
 
         var leftPane = new SideBarTargetWindow(SideBarTargetWindow.PaneWindowType.Left, LeftPaneCloseRect);
         LeftPaneHwnd = WindowNative.GetWindowHandle(leftPane);

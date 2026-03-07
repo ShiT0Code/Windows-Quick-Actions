@@ -20,10 +20,9 @@
             <TranslateTransform/>
         </Grid.RenderTransform>
         
-        <Grid Width="8" Height="64" x:Name="rectangle" VerticalAlignment="Center"
+        <Grid Width="4" Height="48" x:Name="rectangle" VerticalAlignment="Center"
               Background="{ThemeResource ButtonBackgroundThemeBrush}" HorizontalAlignment="Right"
-              BorderBrush="{ThemeResource ButtonBorderThemeBrush}" BorderThickness="0.5"
-              CornerRadius="3"
+              CornerRadius="2.5"
               RequestedTheme="Light">
             <Grid.OpacityTransition>
                 <ScalarTransition/>
