@@ -32,11 +32,12 @@ public partial class App : Application
         };
         window.Activate();
         _settingsWindowHwnd = WindowNative.GetWindowHandle(window);
-        window.SystemBackdrop = new MicaBackdrop();
         window.Title = "设置";
         window.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
         await Task.Delay(60);
         window.Content = new Settings.SettingsWindowUI();
+        window.SystemBackdrop = new MicaBackdrop();
+        window.AppWindow.TitleBar.PreferredTheme = Microsoft.UI.Windowing.TitleBarTheme.UseDefaultAppMode;
         if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["enableSideBar"] is bool enableSideBar && enableSideBar)
             SideBarDataContainer.LaunchSideBar();
     }

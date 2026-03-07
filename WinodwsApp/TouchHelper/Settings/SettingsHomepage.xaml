@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="TouchHelper.Settings.SettingsHomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,33 +10,35 @@
     xmlns:ui="using:CommunityToolkit.WinUI"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
+    
+    <ScrollViewer>
+        <StackPanel Spacing="8">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition/>
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
 
-    <StackPanel Spacing="8">
-        <StackPanel.ChildrenTransitions>
-            <TransitionCollection>
-                <RepositionThemeTransition/>
-            </TransitionCollection>
-        </StackPanel.ChildrenTransitions>
-        
-        <con:SettingsExpander Header="侧边栏设置" IsExpanded="True">
-            <con:SettingsExpander.Items>
-                <con:SettingsCard Header="启用侧边栏">
-                    <ToggleSwitch x:Name="sideBarToggleSwitch"/>
-                </con:SettingsCard>
-                <con:SettingsCard Header="固定项"
+            <con:SettingsExpander Header="侧边栏设置" IsExpanded="True">
+                <con:SettingsExpander.Items>
+                    <con:SettingsCard Header="启用侧边栏">
+                        <ToggleSwitch x:Name="sideBarToggleSwitch"/>
+                    </con:SettingsCard>
+                    <con:SettingsCard Header="固定项"
                                   IsClickEnabled="True"
                                   Click="FixedItem_SettingsCard_Click"/>
-                <con:SettingsCard Header="排除的应用"
+                    <con:SettingsCard Header="排除的应用"
                                       Description="在这些应用里完全不显示侧边栏"
                                       IsClickEnabled="True"
                                       Click="ExclusionApps_SettingsCard_Click"/>
-            </con:SettingsExpander.Items>
-        </con:SettingsExpander>
-        <con:SettingsExpander Header="关于" x:Name="aboutCard" HeaderIcon="{ui:FontIcon Glyph=&#xE946;}">
-            <con:SettingsExpander.Items>
-                <con:SettingsCard Header="文件"/>
-                <con:SettingsCard Header="Github 仓库" IsClickEnabled="True" Click="Github_SettingsCard_Click"/>
-            </con:SettingsExpander.Items>
-        </con:SettingsExpander>
-    </StackPanel>
+                </con:SettingsExpander.Items>
+            </con:SettingsExpander>
+            <con:SettingsExpander Header="关于" x:Name="aboutCard" HeaderIcon="{ui:FontIcon Glyph=&#xE946;}">
+                <con:SettingsExpander.Items>
+                    <con:SettingsCard Header="文件"/>
+                    <con:SettingsCard Header="Github 仓库" IsClickEnabled="True" Click="Github_SettingsCard_Click"/>
+                </con:SettingsExpander.Items>
+            </con:SettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

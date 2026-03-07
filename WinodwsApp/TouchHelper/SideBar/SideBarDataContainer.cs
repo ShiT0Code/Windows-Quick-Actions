@@ -30,33 +30,28 @@ static class SideBarDataContainer
         ScreenWidth = screenWidth;
         ScalePercent = scalePercent;
 
+        SideBarCurrentData CurrentData = new();
+
         // 设定大小
-        LeftPaneCloseRect = new((int)(-378 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent), (int)(276 * scalePercent), (int)(450 * scalePercent));
+        LeftPaneCloseRect = new((int)(-276 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent), (int)(276 * scalePercent), (int)(450 * scalePercent));
         LeftPaneOpenosition = new(0, (int)(ScreenHeigh / 2 - 225 * ScalePercent));
         RightPaneCloseRect = new(ScreenWidth, (int)(ScreenHeigh / 2 - 225 * ScalePercent), (int)(276 * scalePercent), (int)(450 * scalePercent));
-        RightPaneOpenPosition = new((int)(ScreenWidth - 368 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent));
+        RightPaneOpenPosition = new((int)(ScreenWidth - 276 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent));
 
         RectInt32 leftBarRect = new((int)(-110 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), (int)(120 * ScalePercent), (int)(54 * ScalePercent));
         RectInt32 rightBarRect = new((int)(ScreenWidth - 10 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), 120, (int)(54 * ScalePercent));
 
-        var leftPane = new SideBarTargetWindow(SideBarTargetWindow.PaneWindowType.Left, LeftPaneCloseRect);
+        var leftPane = new SideBarTargetWindow(SideBarTargetWindow.PaneWindowType.Left, LeftPaneCloseRect, CurrentData);
         LeftPaneHwnd = WindowNative.GetWindowHandle(leftPane);
         leftPane.Activate();
-        new LeftBar(leftBarRect, leftPane.AppWindow).Activate();
-        var rightPane = new SideBarTargetWindow(SideBarTargetWindow.PaneWindowType.Right, RightPaneCloseRect);
+        new LeftBar(leftBarRect, leftPane.AppWindow, CurrentData).Activate();
+        var rightPane = new SideBarTargetWindow(SideBarTargetWindow.PaneWindowType.Right, RightPaneCloseRect, CurrentData);
         RightPaneHwnd = WindowNative.GetWindowHandle(rightPane);
         rightPane.Activate();
-        new RightBar(rightBarRect, rightPane.AppWindow).Activate();
+        new RightBar(rightBarRect, rightPane.AppWindow,CurrentData).Activate();
     }
 
-    public static void SelectLeftPane()
-    {
-        API_Helper.BringToTop(LeftPaneHwnd);
-    }
+    public static void SelectLeftPane() => API_Helper.BringToTop(LeftPaneHwnd);
 
-    public static void SelectRightPane()
-    {
-        API_Helper.BringToTop(RightPaneHwnd);
-    }
-
+    public static void SelectRightPane() => API_Helper.BringToTop(RightPaneHwnd);
 }

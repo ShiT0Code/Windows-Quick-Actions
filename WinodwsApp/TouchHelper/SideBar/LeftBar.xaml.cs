@@ -14,11 +14,13 @@ public sealed partial class LeftBar : Window
     private LockedAxis _lockedAxis = LockedAxis.None;
     private bool _isLocked;
     private AppWindow LeftTargetAppWindow;
-    public static Windows.Graphics.PointInt32 PaneCurrentPosition_L = new();
-    public static bool LeftIsPaneOpen = false;
+    public SideBarCurrentData CurDa { get; set; }
 
-    public LeftBar(Windows.Graphics.RectInt32 rect, AppWindow paneAppWindow)
+    public LeftBar(Windows.Graphics.RectInt32 rect, AppWindow paneAppWindow, SideBarCurrentData data)
     {
+        CurDa = data;
+        CurDa.LeftPaneCurrentPoint = new((int)(-276 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent));
+
         ExtendsContentIntoTitleBar = true;
         SystemBackdrop = new WinUIEx.TransparentTintBackdrop();
         AppWindow.IsShownInSwitchers = false;
@@ -31,7 +33,6 @@ public sealed partial class LeftBar : Window
         API_Helper.RefreshWindowFrame(hwnd);
         API_Helper.SetWindowAlwaysOnTop(hwnd);
         AppWindow.MoveAndResize(rect);
-        PaneCurrentPosition_L = new((int)(-276 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent));
 
         InitializeComponent();
     }
@@ -79,32 +80,30 @@ public sealed partial class LeftBar : Window
                 deltaX = 0;
         }
 
-        if (PaneCurrentPosition_L.X + deltaX > -276 * ScalePercent && PaneCurrentPosition_L.X + deltaX < 48 * ScalePercent)
-            PaneCurrentPosition_L.X += (int)deltaX;
-        if (PaneCurrentPosition_L.Y + deltaY > 0 && PaneCurrentPosition_L.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
-            PaneCurrentPosition_L.Y += (int)deltaY;
-        LeftTargetAppWindow.Move(PaneCurrentPosition_L);
+        if (CurDa.LeftPaneCurrentPoint.X + deltaX > -276 * ScalePercent && CurDa.LeftPaneCurrentPoint.X + deltaX < 48 * ScalePercent)
+            CurDa.LeftPaneCurrentPoint = new((int)(CurDa.LeftPaneCurrentPoint.X + deltaX), CurDa.LeftPaneCurrentPoint.Y);
+        if (CurDa.LeftPaneCurrentPoint.Y + deltaY > 0 && CurDa.LeftPaneCurrentPoint.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
+            CurDa.LeftPaneCurrentPoint = new(CurDa.LeftPaneCurrentPoint.X, (int)(CurDa.LeftPaneCurrentPoint.Y + deltaY));
+        LeftTargetAppWindow.Move(CurDa.LeftPaneCurrentPoint);
         SelectLeftPane();
     }
 
     private async void Rectangle_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
     {
         SelectLeftPane();
-        if (PaneCurrentPosition_L.X >= -180 * ScalePercent)
+        if (CurDa.LeftPaneCurrentPoint.X >= -180 * ScalePercent)
         {
-            PaneCurrentPosition_L.X = 7;
-            LeftIsPaneOpen = true;
+            CurDa.LeftPaneCurrentPoint = new(7, CurDa.LeftPaneCurrentPoint.Y);
+            CurDa.IsLeftPaneOpen = true;
         }
         else
         {
-            PaneCurrentPosition_L.X = (int)(-276 * ScalePercent);
-            LeftIsPaneOpen = false;
+            CurDa.LeftPaneCurrentPoint = new((int)(-276 * ScalePercent), CurDa.LeftPaneCurrentPoint.Y);
+            CurDa.IsLeftPaneOpen = false;
         }
-        LeftTargetAppWindow.Move(PaneCurrentPosition_L);
-        rectangle.Opacity = LeftIsPaneOpen ? 0 : 1;
-        await Task.Delay(50);
-        SelectLeftPane();
-        await Task.Delay(200);
+        LeftTargetAppWindow.Move(CurDa.LeftPaneCurrentPoint);
+        rectangle.Opacity = CurDa.IsLeftPaneOpen ? 0 : 1;
+        await Task.Delay(500);
         SelectLeftPane();
     }
 
@@ -113,12 +112,10 @@ public sealed partial class LeftBar : Window
     private async void Tapped()
     {
         SelectLeftPane();
-        PaneCurrentPosition_L.X = LeftIsPaneOpen ? (int)(-276 * ScalePercent) : 7;
-        LeftTargetAppWindow.Move(PaneCurrentPosition_L);
-        LeftIsPaneOpen = !LeftIsPaneOpen;
-        rectangle.Opacity = LeftIsPaneOpen ? 0 : 1;
-        await Task.Delay(50);
-        SelectLeftPane();
+        CurDa.LeftPaneCurrentPoint = new((CurDa.IsLeftPaneOpen ? (int)(-276 * ScalePercent) : 7), CurDa.LeftPaneCurrentPoint.Y);
+        LeftTargetAppWindow.Move(CurDa.LeftPaneCurrentPoint);
+        CurDa.IsLeftPaneOpen = !CurDa.IsLeftPaneOpen;
+        rectangle.Opacity = CurDa.IsLeftPaneOpen ? 0 : 1;
         await Task.Delay(200);
         SelectLeftPane();
     }

@@ -22,7 +22,7 @@
 
         <Grid Width="4" Height="48" x:Name="rectangle" VerticalAlignment="Center"
               Background="{ThemeResource ButtonBackgroundThemeBrush}" HorizontalAlignment="Left"
-              CornerRadius="2"
+              CornerRadius="2" Opacity="{x:Bind CuDa.RightOpacity ,Mode=OneWay}"
               RequestedTheme="Light">
             <Grid.OpacityTransition>
                 <ScalarTransition/>

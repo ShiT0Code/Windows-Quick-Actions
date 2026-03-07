@@ -14,23 +14,48 @@
         <DesktopAcrylicBackdrop/>
     </Window.SystemBackdrop>
 
-    <Grid Loaded="Grid_Loaded">
-        <Grid Background="Transparent" Height="64" VerticalAlignment="Top"
-              ManipulationMode="TranslateX"
-              ManipulationDelta="ManipulationDelta"
-              ManipulationCompleted="ManipulationCompleted">
-            <Grid.RenderTransform>
-                <TranslateTransform/>
-            </Grid.RenderTransform>
-        </Grid>
-        <Grid Background="Transparent" Width="12" x:Name="rectangle"
-              ManipulationMode="TranslateX"
-              ManipulationDelta="ManipulationDelta"
+    <Grid Loaded="Grid_Loaded" x:Name="rootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="14"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="14"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="Transparent" Height="42" VerticalAlignment="Top"
+              ManipulationMode="TranslateX" x:Name="titleBar"
+              Grid.ColumnSpan="3"
               ManipulationCompleted="ManipulationCompleted">
             <Grid.RenderTransform>
                 <TranslateTransform/>
             </Grid.RenderTransform>
             
+            <TextBlock Text="侧边栏" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,6,0,0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Height="36" Width="36"
+                        Background="Transparent" BorderBrush="Transparent"
+                        Padding="0" Margin="0,6,0,0">
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="退出应用" Click="ExitApp_MenuFlyoutItem_Click"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                    <FontIcon Glyph="&#xE712;" />
+                </Button>
+                <AppBarButton Icon="Cancel" HorizontalContentAlignment="Right"
+                      Height="46" Width="42" Click="Close_AppBarButton_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid Background="Transparent" Width="14" x:Name="rectangle"
+              ManipulationCompleted="ManipulationCompleted"
+              DoubleTapped="Rectangle_DoubleTapped"
+              ManipulationMode="TranslateX" Grid.Row="1">
+            <Grid.RenderTransform>
+                <TranslateTransform/>
+            </Grid.RenderTransform>
             <Grid Width="4" Height="48" VerticalAlignment="Center"
               Margin="2,0,2,0"
               Background="{ThemeResource ButtonBackgroundThemeBrush}"
@@ -38,20 +63,5 @@
               RequestedTheme="Light">
             </Grid>
         </Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <AppBarButton Icon="More" Height="48" Width="42" Margin="0,12,4,0">
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="退出应用" Click="ExitApp_MenuFlyoutItem_Click"/>
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-            <AppBarButton Icon="Cancel"  HorizontalContentAlignment="Right"
-                      Height="48" Width="42" Margin="0,12,6,0" Click="Close_AppBarButton_Click"/>
-        </StackPanel>
-        <StackPanel Padding="24">
-            <TextBlock Text="固定项" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Bold"
-                       Margin="10,0,0,0" HorizontalAlignment="Left"/>
-        </StackPanel>
     </Grid>
 </Window>

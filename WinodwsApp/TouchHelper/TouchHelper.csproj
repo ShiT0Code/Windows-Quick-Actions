@@ -23,6 +23,7 @@
     <None Remove="Settings\SideBar\FixedItemListPage.xaml" />
     <None Remove="SideBar\LeftBar.xaml" />
     <None Remove="SideBar\SideBarTargetWindow.xaml" />
+    <None Remove="SideBar\SideBarWindowContent.xaml" />
     <None Remove="SideBar\SideBarWindow_Left.xaml" />
     <None Remove="SideBar\SideBarWindow_Right.xaml" />
   </ItemGroup>
@@ -54,6 +55,11 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" />
     <PackageReference Include="WinUIEx" Version="2.9.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SideBar\SideBarWindowContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="SideBar\SideBarWindow_Right.xaml">
