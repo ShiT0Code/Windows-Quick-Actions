@@ -1,4 +1,4 @@
-using CommunityToolkit.WinUI.Controls;
+﻿using CommunityToolkit.WinUI.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -19,11 +19,8 @@ public sealed partial class FixedItemListPage : Page
         base.OnNavigatedTo(e);
         if (e.Parameter is Dictionary<string, FixedItem> fixedItems)
             Items = fixedItems;
-        else
-            IsRoot = true;
     }
     private Dictionary<string, FixedItem> Items = [];
-    private bool IsRoot = false;
 
     private void AddButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
@@ -73,22 +70,12 @@ public sealed partial class FixedItemListPage : Page
     private async void UI_Loaded(object sender, RoutedEventArgs e)
     {
         await Task.Delay(500);
-        if (IsRoot)
-        {
-            if (!DataContainer.IsFixedItemsLoaded)
-            {
-                await DataContainer.LoadFixedItems();
-                await Task.Delay(60);
-            }
-            Items = DataContainer.RootFixedItem;
-        }
-
         foreach (var item in Items)
         {
-            itemsControl.Items.Insert(0, item.Value);
             await Task.Delay(1);
+            itemsControl.Items.Insert(0, item.Value);
         }
-        await Task.Delay(Items.Count + 300);
+        await Task.Delay(100);
         progressBar.IsIndeterminate = false;
         progressBar.Visibility = Visibility.Collapsed;
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
+using TouchHelper.DataCore;
 using TouchHelper.Settings.SideBar;
 using TouchHelper.SideBar;
 using Windows.ApplicationModel;
@@ -15,11 +16,13 @@ public sealed partial class SettingsHomePage : Page
         this.Frame.Navigate(typeof(ExclusionAppsPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
     }
 
-    private void FixedItem_SettingsCard_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private async void FixedItem_SettingsCard_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         this.IsEnabled = false;
         SettingsWindowUI.Titles.Add("固定项");
-        this.Frame.Navigate(typeof(FixedItemListPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+        if(!DataContainer.IsFixedItemsLoaded)
+            await DataContainer.LoadFixedItems();
+        this.Frame.Navigate(typeof(FixedItemListPage), DataContainer.RootFixedItem, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
     }
 
 

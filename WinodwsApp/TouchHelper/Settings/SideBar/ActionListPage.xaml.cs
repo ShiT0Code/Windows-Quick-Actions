@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
@@ -52,12 +52,13 @@ public sealed partial class ActionListPage : Page
 
     private async void UI_Loaded(object sender, RoutedEventArgs e)
     {
-
+        await Task.Delay(500);
         foreach (var item in Items)
         {
+            await Task.Delay(5);
             itemsControl.Items.Insert(0, item.Value);
-            await Task.Delay(20);
         }
+        await Task.Delay(100);
         progressBar.IsIndeterminate = false;
         progressBar.Visibility = Visibility.Collapsed;
     }
