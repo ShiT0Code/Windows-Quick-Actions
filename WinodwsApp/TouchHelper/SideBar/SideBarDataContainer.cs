@@ -38,10 +38,10 @@ static class SideBarDataContainer
         };
 
         // 设定大小
-        LeftPaneCloseRect = new((int)(-curDat.Width * ScalePercent), (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent), (int)(curDat.Width * scalePercent), (int)(450 * scalePercent));
-        LeftPaneOpenosition = new(0, (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent));
-        RightPaneCloseRect = new(ScreenWidth, (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent), (int)(curDat.Width * scalePercent), (int)(450 * scalePercent));
-        RightPaneOpenPosition = new((int)(ScreenWidth - curDat.Width * ScalePercent), (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent));
+        LeftPaneCloseRect = new((int)(-curDat.Width), (int)(ScreenHeigh / 2 - curDat.HalfofHeight), (int)(curDat.Width), (int)(450 * scalePercent));
+        LeftPaneOpenosition = new(0, (int)(ScreenHeigh / 2 - curDat.HalfofHeight));
+        RightPaneCloseRect = new(ScreenWidth, (int)(ScreenHeigh / 2 - curDat.HalfofHeight), (int)(curDat.Width ), (int)(450 * scalePercent));
+        RightPaneOpenPosition = new((int)(ScreenWidth - curDat.Width), (int)(ScreenHeigh / 2 - curDat.HalfofHeight));
 
         RectInt32 leftBarRect = new((int)(-110 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), (int)(120 * ScalePercent), (int)(54 * ScalePercent));
         RectInt32 rightBarRect = new((int)(ScreenWidth - 10 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), 120, (int)(54 * ScalePercent));

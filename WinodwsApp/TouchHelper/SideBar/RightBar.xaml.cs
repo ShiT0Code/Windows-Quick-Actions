@@ -18,7 +18,7 @@ public sealed partial class RightBar : Window
     public RightBar(Windows.Graphics.RectInt32 rect, AppWindow paneAppWindow,SideBarCurrentData data)
     {
         Data = data;
-        Data.RightPaneCurrentPoint = new(ScreenWidth, (int)(ScreenHeigh / 2 - (Data.HalfofHeight+10) * ScalePercent));
+        Data.RightPaneCurrentPoint = new(ScreenWidth, (int)(ScreenHeigh / 2 - (Data.HalfofHeight+10)));
 
         ExtendsContentIntoTitleBar = true;
         SystemBackdrop = new WinUIEx.TransparentTintBackdrop();
@@ -79,9 +79,9 @@ public sealed partial class RightBar : Window
                 deltaX = 0 * ScalePercent;
         }
 
-        if (Data.RightPaneCurrentPoint.X + deltaX > ScreenWidth - (Data.Width+50) * ScalePercent && Data.RightPaneCurrentPoint.X + deltaX < ScreenWidth)
+        if (Data.RightPaneCurrentPoint.X + deltaX > ScreenWidth - (Data.Width+50*ScalePercent) && Data.RightPaneCurrentPoint.X + deltaX < ScreenWidth)
             Data.RightPaneCurrentPoint = new((int)(Data.RightPaneCurrentPoint.X + deltaX), Data.RightPaneCurrentPoint.Y);
-        if (Data.RightPaneCurrentPoint.Y + deltaY > 0 * ScalePercent && Data.RightPaneCurrentPoint.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
+        if (Data.RightPaneCurrentPoint.Y + deltaY > 0 && Data.RightPaneCurrentPoint.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
             Data.RightPaneCurrentPoint = new(Data.RightPaneCurrentPoint.X, (int)(Data.RightPaneCurrentPoint.Y + deltaY));
         RightTargetAppWindow.Move(Data.RightPaneCurrentPoint);
         await Task.Delay(150);
@@ -91,9 +91,9 @@ public sealed partial class RightBar : Window
     private async void Rectangle_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
     {
         SelectRightPane();
-        if (Data.RightPaneCurrentPoint.X <= ScreenWidth - Data.Width/2 * ScalePercent)
+        if (Data.RightPaneCurrentPoint.X <= ScreenWidth - Data.Width/2)
         {
-            Data.RightPaneCurrentPoint = new((int)(ScreenWidth - (Data.Width+10) * ScalePercent), Data.RightPaneCurrentPoint.Y);
+            Data.RightPaneCurrentPoint = new((int)(ScreenWidth - (Data.Width + 10*ScalePercent)), Data.RightPaneCurrentPoint.Y);
             Data.IsRightPaneOpen = true;
         }
         else
@@ -112,7 +112,7 @@ public sealed partial class RightBar : Window
     private async void Tapped()
     {
         SelectRightPane();
-        Data.RightPaneCurrentPoint = new(Data.IsRightPaneOpen ? ScreenWidth : (int)(ScreenWidth - (Data.Width+10) * ScalePercent), Data.RightPaneCurrentPoint.Y);
+        Data.RightPaneCurrentPoint = new(Data.IsRightPaneOpen ? ScreenWidth : (int)(ScreenWidth - (Data.Width+10*ScalePercent)), Data.RightPaneCurrentPoint.Y);
         RightTargetAppWindow.Move(Data.RightPaneCurrentPoint);
         Data.IsRightPaneOpen = !Data.IsRightPaneOpen;
         rectangle.Opacity = Data.IsRightPaneOpen ? 0 : 1;

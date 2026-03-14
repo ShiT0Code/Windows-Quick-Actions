@@ -77,7 +77,7 @@ public partial class SideBarWindow : Window
     private void Right_PaneManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
     {
         double deltaX = e.Delta.Translation.X;
-        if (Data.RightPaneCurrentPoint.X + deltaX > ScreenWidth - (Data.Width+50) * ScalePercent)
+        if (Data.RightPaneCurrentPoint.X + deltaX > ScreenWidth - (Data.Width+50* ScalePercent) )
         {
             Data.RightPaneCurrentPoint = new((int)(Data.RightPaneCurrentPoint.X + e.Delta.Translation.X), Data.RightPaneCurrentPoint.Y);
             AppWindow.Move(Data.RightPaneCurrentPoint);
@@ -89,7 +89,7 @@ public partial class SideBarWindow : Window
     {
         if (_paneWindowType == PaneWindowType.Left)
         {
-            if(Data.LeftPaneCurrentPoint.X > - Data.Width/2 * ScalePercent)
+            if(Data.LeftPaneCurrentPoint.X > - Data.Width/2)
             {
                 Data.LeftPaneCurrentPoint = new(7, Data.LeftPaneCurrentPoint.Y);
                 Data.IsLeftPaneOpen = true;
@@ -105,9 +105,9 @@ public partial class SideBarWindow : Window
         }
         else
         {
-            if (Data.RightPaneCurrentPoint.X <= ScreenWidth - Data.Width/2 * ScalePercent)
+            if (Data.RightPaneCurrentPoint.X <= ScreenWidth - Data.Width/2)
             {
-                Data.RightPaneCurrentPoint = new((int)(ScreenWidth - (Data.Width+10) * ScalePercent), Data.RightPaneCurrentPoint.Y);
+                Data.RightPaneCurrentPoint = new((int)(ScreenWidth - (Data.Width+10 * ScalePercent)), Data.RightPaneCurrentPoint.Y);
                 Data.IsRightPaneOpen = true;
                 Data.RightOpacity = 0;
             }

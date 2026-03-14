@@ -19,7 +19,7 @@ public sealed partial class LeftBar : Window
     public LeftBar(Windows.Graphics.RectInt32 rect, AppWindow paneAppWindow, SideBarCurrentData data)
     {
         Data = data;
-        Data.LeftPaneCurrentPoint = new((int)(-Data.Width * ScalePercent), (int)(ScreenHeigh / 2 - Data.HalfofHeight * ScalePercent));
+        Data.LeftPaneCurrentPoint = new((int)(-Data.Width), (int)(ScreenHeigh / 2 - Data.HalfofHeight));
 
         ExtendsContentIntoTitleBar = true;
         SystemBackdrop = new WinUIEx.TransparentTintBackdrop();
@@ -80,7 +80,7 @@ public sealed partial class LeftBar : Window
                 deltaX = 0;
         }
 
-        if (Data.LeftPaneCurrentPoint.X + deltaX > -Data.Width * ScalePercent && Data.LeftPaneCurrentPoint.X + deltaX < 50 * ScalePercent)
+        if (Data.LeftPaneCurrentPoint.X + deltaX > -Data.Width && Data.LeftPaneCurrentPoint.X + deltaX < 50 * ScalePercent)
             Data.LeftPaneCurrentPoint = new((int)(Data.LeftPaneCurrentPoint.X + deltaX), Data.LeftPaneCurrentPoint.Y);
         if (Data.LeftPaneCurrentPoint.Y + deltaY > 0 && Data.LeftPaneCurrentPoint.Y + deltaY < ScreenHeigh - 64 * ScalePercent)
             Data.LeftPaneCurrentPoint = new(Data.LeftPaneCurrentPoint.X, (int)(Data.LeftPaneCurrentPoint.Y + deltaY));
@@ -92,14 +92,14 @@ public sealed partial class LeftBar : Window
     private async void Rectangle_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
     {
         SelectLeftPane();
-        if (Data.LeftPaneCurrentPoint.X >= -Data.Width/2 * ScalePercent)
+        if (Data.LeftPaneCurrentPoint.X >= -Data.Width / 2)
         {
             Data.LeftPaneCurrentPoint = new(7, Data.LeftPaneCurrentPoint.Y);
             Data.IsLeftPaneOpen = true;
         }
         else
         {
-            Data.LeftPaneCurrentPoint = new((int)(-Data.Width * ScalePercent), Data.LeftPaneCurrentPoint.Y);
+            Data.LeftPaneCurrentPoint = new((int)(-Data.Width), Data.LeftPaneCurrentPoint.Y);
             Data.IsLeftPaneOpen = false;
         }
         LeftTargetAppWindow.Move(Data.LeftPaneCurrentPoint);
@@ -113,7 +113,7 @@ public sealed partial class LeftBar : Window
     private async void Tapped()
     {
         SelectLeftPane();
-        Data.LeftPaneCurrentPoint = new((Data.IsLeftPaneOpen ? (int)(-Data.Width * ScalePercent) : 7), Data.LeftPaneCurrentPoint.Y);
+        Data.LeftPaneCurrentPoint = new((Data.IsLeftPaneOpen ? (int)(-Data.Width) : 7), Data.LeftPaneCurrentPoint.Y);
         LeftTargetAppWindow.Move(Data.LeftPaneCurrentPoint);
         Data.IsLeftPaneOpen = !Data.IsLeftPaneOpen;
         rectangle.Opacity = Data.IsLeftPaneOpen ? 0 : 1;

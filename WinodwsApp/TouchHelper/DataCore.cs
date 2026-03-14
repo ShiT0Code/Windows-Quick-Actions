@@ -93,6 +93,7 @@ public class DataContainer
 }
 
 [JsonSerializable(typeof(Dictionary<string, FixedItem>))]
+[JsonSerializable(typeof(List<FixedItem>))]
 [JsonSerializable(typeof(List<ExclusionApp>))]
 [JsonSourceGenerationOptions(WriteIndented = true, PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 internal partial class AppJsonContext : JsonSerializerContext;
