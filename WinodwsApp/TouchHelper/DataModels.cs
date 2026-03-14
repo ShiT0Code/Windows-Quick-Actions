@@ -121,9 +121,7 @@ public partial class FixedItem() : INotifyPropertyChanged
                     Icon = new BitmapImage(uri);
                 }
                 else
-                {
-                    IconUri = "666";
-                }
+                    _icon = Icon = null;
                 OnPropertyChanged();
             }
         }
