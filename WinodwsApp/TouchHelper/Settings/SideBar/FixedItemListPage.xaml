@@ -57,6 +57,24 @@
                                              MinWidth="350"/>
                                     </con:SettingsCard.Header>
                                 </con:SettingsCard>
+                                <con:SettingsCard>
+                                    <con:SettingsCard.Header>
+                                        <TextBox Header="描述"
+                                             Text="{x:Bind Description ,Mode=TwoWay}"
+                                             LostFocus="TextBox_LostFocus"
+                                             MinWidth="350"/>
+                                    </con:SettingsCard.Header>
+                                </con:SettingsCard>
+                                
+                                <con:SettingsCard>
+                                    <con:SettingsCard.Header>
+                                        <StackPanel Spacing="12" Orientation="Horizontal">
+                                            <Image Width="48" Height="48" Source="{x:Bind Icon,Mode=OneWay}"/>
+                                            <TextBox Text="{x:Bind IconUri,Mode=TwoWay}" MinWidth="250" Height="32" LostFocus="TextBox_LostFocus"/>
+                                            <Button Content="浏览" Click="BrowerImage_Button_Click" Tag="{x:Bind ID}"/>
+                                        </StackPanel>
+                                    </con:SettingsCard.Header>
+                                </con:SettingsCard>
 
                                 <con:SettingsCard Header="子项"
                                               IsClickEnabled="True"

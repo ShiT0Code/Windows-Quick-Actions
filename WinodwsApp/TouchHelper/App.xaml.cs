@@ -10,7 +10,7 @@ using WinRT.Interop;
 namespace TouchHelper;
 public partial class App : Application
 {
-    private nint _settingsWindowHwnd;
+    public static nint settingsHwnd;
     public App() => InitializeComponent();
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
@@ -31,7 +31,7 @@ public partial class App : Application
             ExtendsContentIntoTitleBar = true
         };
         window.Activate();
-        _settingsWindowHwnd = WindowNative.GetWindowHandle(window);
+        settingsHwnd = WindowNative.GetWindowHandle(window);
         window.Title = "设置";
         window.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
         await Task.Delay(60);
@@ -44,7 +44,7 @@ public partial class App : Application
 
     private void OnActivated(object? sender, AppActivationArguments e)
     {
-        if (API_Helper.IsIconic(_settingsWindowHwnd))
-            API_Helper.BringToTop(_settingsWindowHwnd);
+        if (API_Helper.IsIconic(settingsHwnd))
+            API_Helper.BringToTop(settingsHwnd);
     }
 }

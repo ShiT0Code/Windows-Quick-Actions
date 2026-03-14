@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -90,6 +91,57 @@ public partial class FixedItem() : INotifyPropertyChanged
             }
         }
     }
+
+    private string _description = "";
+    public string Description
+    {
+        get => _description;
+        set
+        {
+            if (_description != value)
+            {
+                _description = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    private string _iconUri = "";
+    public string IconUri
+    {
+        get => _iconUri;
+        set
+        {
+            Debug.WriteLine(string.IsNullOrWhiteSpace(value));
+            if (_iconUri != value && !string.IsNullOrWhiteSpace(value))
+            {
+                if (Uri.TryCreate(value, UriKind.RelativeOrAbsolute, out Uri? uri) && uri != null)
+                {
+                    _iconUri = value;
+                    Icon = new BitmapImage(uri);
+                }
+                else
+                {
+                    IconUri = "666";
+                }
+                OnPropertyChanged();
+            }
+        }
+    }
+    private BitmapImage? _icon = null;
+    public BitmapImage? Icon
+    {
+        get => _icon;
+        set
+        {
+            if (_icon != value)
+            {
+                _icon = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
 
     public string ID { get; set; } = "";
 

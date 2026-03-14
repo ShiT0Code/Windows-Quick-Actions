@@ -9,6 +9,7 @@ static class SideBarDataContainer
     public static int ScreenWidth { get; set; } = 0;
     public static int ScreenHeigh { get; set; } = 0;
     public static double ScalePercent { get; set; } = 0;
+
     public enum LockedAxis { X, Y, None };
 
     // 定义侧边栏窗口大小
@@ -30,25 +31,29 @@ static class SideBarDataContainer
         ScreenWidth = screenWidth;
         ScalePercent = scalePercent;
 
-        SideBarCurrentData CurrentData = new();
+        SideBarCurrentData curDat = new()
+        {
+            Width = 300 * scalePercent,
+            HalfofHeight = 250 * scalePercent
+        };
 
         // 设定大小
-        LeftPaneCloseRect = new((int)(-276 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent), (int)(276 * scalePercent), (int)(450 * scalePercent));
-        LeftPaneOpenosition = new(0, (int)(ScreenHeigh / 2 - 225 * ScalePercent));
-        RightPaneCloseRect = new(ScreenWidth, (int)(ScreenHeigh / 2 - 225 * ScalePercent), (int)(276 * scalePercent), (int)(450 * scalePercent));
-        RightPaneOpenPosition = new((int)(ScreenWidth - 276 * ScalePercent), (int)(ScreenHeigh / 2 - 225 * ScalePercent));
+        LeftPaneCloseRect = new((int)(-curDat.Width * ScalePercent), (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent), (int)(curDat.Width * scalePercent), (int)(450 * scalePercent));
+        LeftPaneOpenosition = new(0, (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent));
+        RightPaneCloseRect = new(ScreenWidth, (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent), (int)(curDat.Width * scalePercent), (int)(450 * scalePercent));
+        RightPaneOpenPosition = new((int)(ScreenWidth - curDat.Width * ScalePercent), (int)(ScreenHeigh / 2 - curDat.HalfofHeight * ScalePercent));
 
         RectInt32 leftBarRect = new((int)(-110 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), (int)(120 * ScalePercent), (int)(54 * ScalePercent));
         RectInt32 rightBarRect = new((int)(ScreenWidth - 10 * ScalePercent), (int)(ScreenHeigh / 2 - 28 * ScalePercent), 120, (int)(54 * ScalePercent));
 
-        var leftPane = new SideBarWindow(SideBarWindow.PaneWindowType.Left, LeftPaneCloseRect, CurrentData);
+        var leftPane = new SideBarWindow(SideBarWindow.PaneWindowType.Left, LeftPaneCloseRect, curDat);
         LeftPaneHwnd = WindowNative.GetWindowHandle(leftPane);
         leftPane.Activate();
-        new LeftBar(leftBarRect, leftPane.AppWindow, CurrentData).Activate();
-        var rightPane = new SideBarWindow(SideBarWindow.PaneWindowType.Right, RightPaneCloseRect, CurrentData);
+        new LeftBar(leftBarRect, leftPane.AppWindow, curDat).Activate();
+        var rightPane = new SideBarWindow(SideBarWindow.PaneWindowType.Right, RightPaneCloseRect, curDat);
         RightPaneHwnd = WindowNative.GetWindowHandle(rightPane);
         rightPane.Activate();
-        new RightBar(rightBarRect, rightPane.AppWindow,CurrentData).Activate();
+        new RightBar(rightBarRect, rightPane.AppWindow,curDat).Activate();
     }
 
     public static void SelectLeftPane() => API_Helper.BringToTop(LeftPaneHwnd);

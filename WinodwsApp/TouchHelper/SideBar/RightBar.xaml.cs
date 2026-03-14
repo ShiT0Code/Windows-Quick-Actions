@@ -13,12 +13,12 @@ public sealed partial class RightBar : Window
     private LockedAxis _lockedAxis = LockedAxis.None;
     private bool _isLocked;
     private AppWindow RightTargetAppWindow;
-    public SideBarCurrentData CuDa { get; set; }
+    public SideBarCurrentData Data { get; set; }
 
     public RightBar(Windows.Graphics.RectInt32 rect, AppWindow paneAppWindow,SideBarCurrentData data)
     {
-        CuDa = data;
-        CuDa.RightPaneCurrentPoint = new(ScreenWidth, (int)(ScreenHeigh / 2 - 225 * ScalePercent));
+        Data = data;
+        Data.RightPaneCurrentPoint = new(ScreenWidth, (int)(ScreenHeigh / 2 - (Data.HalfofHeight+10) * ScalePercent));
 
         ExtendsContentIntoTitleBar = true;
         SystemBackdrop = new WinUIEx.TransparentTintBackdrop();
@@ -45,7 +45,7 @@ public sealed partial class RightBar : Window
         rectangle.Opacity = 0;
     }
 
-    private void Rectangle_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+    private async void Rectangle_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
     {
         double deltaX = e.Delta.Translation.X;
         double deltaY = e.Delta.Translation.Y;
@@ -79,30 +79,31 @@ public sealed partial class RightBar : Window
                 deltaX = 0 * ScalePercent;
         }
 
-        if (CuDa.RightPaneCurrentPoint.X + deltaX > ScreenWidth - 324 * ScalePercent && CuDa.RightPaneCurrentPoint.X + deltaX < ScreenWidth)
-            CuDa.RightPaneCurrentPoint = new((int)(CuDa.RightPaneCurrentPoint.X + deltaX), CuDa.RightPaneCurrentPoint.Y);
-        if (CuDa.RightPaneCurrentPoint.Y + deltaY > 0 * ScalePercent && CuDa.RightPaneCurrentPoint.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
-            CuDa.RightPaneCurrentPoint = new(CuDa.RightPaneCurrentPoint.X, (int)(CuDa.RightPaneCurrentPoint.Y + deltaY));
-        RightTargetAppWindow.Move(CuDa.RightPaneCurrentPoint);
+        if (Data.RightPaneCurrentPoint.X + deltaX > ScreenWidth - (Data.Width+50) * ScalePercent && Data.RightPaneCurrentPoint.X + deltaX < ScreenWidth)
+            Data.RightPaneCurrentPoint = new((int)(Data.RightPaneCurrentPoint.X + deltaX), Data.RightPaneCurrentPoint.Y);
+        if (Data.RightPaneCurrentPoint.Y + deltaY > 0 * ScalePercent && Data.RightPaneCurrentPoint.Y + deltaY < ScreenHeigh - 56 * ScalePercent)
+            Data.RightPaneCurrentPoint = new(Data.RightPaneCurrentPoint.X, (int)(Data.RightPaneCurrentPoint.Y + deltaY));
+        RightTargetAppWindow.Move(Data.RightPaneCurrentPoint);
+        await Task.Delay(150);
         SelectRightPane();
     }
 
     private async void Rectangle_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
     {
         SelectRightPane();
-        if (CuDa.RightPaneCurrentPoint.X <= ScreenWidth - 180 * ScalePercent)
+        if (Data.RightPaneCurrentPoint.X <= ScreenWidth - Data.Width/2 * ScalePercent)
         {
-            CuDa.RightPaneCurrentPoint = new((int)(ScreenWidth - 286 * ScalePercent), CuDa.RightPaneCurrentPoint.Y);
-            CuDa.IsRightPaneOpen = true;
+            Data.RightPaneCurrentPoint = new((int)(ScreenWidth - (Data.Width+10) * ScalePercent), Data.RightPaneCurrentPoint.Y);
+            Data.IsRightPaneOpen = true;
         }
         else
         {
-            CuDa.RightPaneCurrentPoint = new(ScreenWidth, CuDa.RightPaneCurrentPoint.Y);
-            CuDa.IsRightPaneOpen = false;
+            Data.RightPaneCurrentPoint = new(ScreenWidth, Data.RightPaneCurrentPoint.Y);
+            Data.IsRightPaneOpen = false;
         }
-        RightTargetAppWindow.Move(CuDa.RightPaneCurrentPoint);
-        rectangle.Opacity = CuDa.IsRightPaneOpen ? 0 : 1;
-        await Task.Delay(200);
+        RightTargetAppWindow.Move(Data.RightPaneCurrentPoint);
+        rectangle.Opacity = Data.IsRightPaneOpen ? 0 : 1;
+        await Task.Delay(160);
         SelectRightPane();
     }
 
@@ -111,11 +112,11 @@ public sealed partial class RightBar : Window
     private async void Tapped()
     {
         SelectRightPane();
-        CuDa.RightPaneCurrentPoint = new(CuDa.IsRightPaneOpen ? ScreenWidth : (int)(ScreenWidth - 286 * ScalePercent), CuDa.RightPaneCurrentPoint.Y);
-        RightTargetAppWindow.Move(CuDa.RightPaneCurrentPoint);
-        CuDa.IsRightPaneOpen = !CuDa.IsRightPaneOpen;
-        rectangle.Opacity = CuDa.IsRightPaneOpen ? 0 : 1;
-        await Task.Delay(200);
+        Data.RightPaneCurrentPoint = new(Data.IsRightPaneOpen ? ScreenWidth : (int)(ScreenWidth - (Data.Width+10) * ScalePercent), Data.RightPaneCurrentPoint.Y);
+        RightTargetAppWindow.Move(Data.RightPaneCurrentPoint);
+        Data.IsRightPaneOpen = !Data.IsRightPaneOpen;
+        rectangle.Opacity = Data.IsRightPaneOpen ? 0 : 1;
+        await Task.Delay(160);
         SelectRightPane();
     }
 }

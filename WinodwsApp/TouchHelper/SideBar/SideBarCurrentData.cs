@@ -9,6 +9,9 @@ public class SideBarCurrentData : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+    public double Width { get; set; }
+    public double HalfofHeight { get; set; }
+
     private bool _isLeftPaneOpen = false;
     public bool IsLeftPaneOpen
     {

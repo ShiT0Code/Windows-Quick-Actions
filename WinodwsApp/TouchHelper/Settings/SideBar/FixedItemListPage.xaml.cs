@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Windows.Storage.Pickers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,7 +26,7 @@ public sealed partial class FixedItemListPage : Page
     private void AddButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         string name = newTextBox.Text;
-        if (!string.IsNullOrEmpty(name))
+        if (!string.IsNullOrWhiteSpace(name))
         {
             string id = Guid.NewGuid().ToString();
             FixedItem item = new()
@@ -84,5 +85,23 @@ public sealed partial class FixedItemListPage : Page
     {
         await Task.Delay(10);
         _ = DataContainer.SaveFixedItems();
+    }
+
+    private async void BrowerImage_Button_Click(object sender, RoutedEventArgs e)
+    {
+        FileOpenPicker picker = new(this.XamlRoot.ContentIslandEnvironment.AppWindowId)
+        {
+            ViewMode = PickerViewMode.List,
+            SuggestedStartLocation = PickerLocationId.PicturesLibrary,
+            FileTypeFilter = { ".jpg", ".jpeg", ".png", ".bmp",".dib", ".gif",".svg",".ico",".tif",".tiff",".heic",".hif",".avif",".webp" }
+        };
+        var file = await picker.PickSingleFileAsync();
+        if(file !=null)
+        {
+            string path = file.Path;
+            string Tag = (string)((Button)sender).Tag;
+            Items[Tag].IconUri = path;
+            _ = DataContainer.SaveFixedItems();
+        }
     }
 }

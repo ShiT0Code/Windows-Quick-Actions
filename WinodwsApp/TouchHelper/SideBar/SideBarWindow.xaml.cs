@@ -12,11 +12,11 @@ public partial class SideBarWindow : Window
     public enum PaneWindowType { Left, Right };
     private PaneWindowType _paneWindowType;
     private readonly PointInt32 _closePoint;
-    private SideBarCurrentData CuDa { get; set; }
+    private SideBarCurrentData Data { get; set; }
 
     public SideBarWindow(PaneWindowType paneWindowType, RectInt32 closeRect,SideBarCurrentData data)
     {
-        CuDa = data;
+        Data = data;
 
         _paneWindowType = paneWindowType;
         AppWindow.MoveAndResize(closeRect);
@@ -53,34 +53,34 @@ public partial class SideBarWindow : Window
         AppWindow.Move(_closePoint);
         if (_paneWindowType == PaneWindowType.Left)
         {
-            CuDa.LeftPaneCurrentPoint = _closePoint;
-            CuDa.IsLeftPaneOpen = false;
-            CuDa.LeftOpacity = 1;
+            Data.LeftPaneCurrentPoint = _closePoint;
+            Data.IsLeftPaneOpen = false;
+            Data.LeftOpacity = 1;
         }
         else
         {
-            CuDa.RightPaneCurrentPoint = _closePoint;
-            CuDa.IsRightPaneOpen = false;
-            CuDa.RightOpacity = 1;
+            Data.RightPaneCurrentPoint = _closePoint;
+            Data.IsRightPaneOpen = false;
+            Data.RightOpacity = 1;
         }
     }
 
     private void Left_PaneManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
     {
         double deltaX = e.Delta.Translation.X;
-        if (CuDa.LeftPaneCurrentPoint.X + deltaX < 48 * ScalePercent)
+        if (Data.LeftPaneCurrentPoint.X + deltaX < 50 * ScalePercent)
         {
-            CuDa.LeftPaneCurrentPoint = new((int)(CuDa.LeftPaneCurrentPoint.X + e.Delta.Translation.X), CuDa.LeftPaneCurrentPoint.Y);
-            AppWindow.Move(CuDa.LeftPaneCurrentPoint);
+            Data.LeftPaneCurrentPoint = new((int)(Data.LeftPaneCurrentPoint.X + e.Delta.Translation.X), Data.LeftPaneCurrentPoint.Y);
+            AppWindow.Move(Data.LeftPaneCurrentPoint);
         }
     }
     private void Right_PaneManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
     {
         double deltaX = e.Delta.Translation.X;
-        if (CuDa.RightPaneCurrentPoint.X + deltaX > ScreenWidth - 324 * ScalePercent)
+        if (Data.RightPaneCurrentPoint.X + deltaX > ScreenWidth - (Data.Width+50) * ScalePercent)
         {
-            CuDa.RightPaneCurrentPoint = new((int)(CuDa.RightPaneCurrentPoint.X + e.Delta.Translation.X), CuDa.RightPaneCurrentPoint.Y);
-            AppWindow.Move(CuDa.RightPaneCurrentPoint);
+            Data.RightPaneCurrentPoint = new((int)(Data.RightPaneCurrentPoint.X + e.Delta.Translation.X), Data.RightPaneCurrentPoint.Y);
+            AppWindow.Move(Data.RightPaneCurrentPoint);
         }
     }
 
@@ -89,35 +89,35 @@ public partial class SideBarWindow : Window
     {
         if (_paneWindowType == PaneWindowType.Left)
         {
-            if(CuDa.LeftPaneCurrentPoint.X > - 180 * ScalePercent)
+            if(Data.LeftPaneCurrentPoint.X > - Data.Width/2 * ScalePercent)
             {
-                CuDa.LeftPaneCurrentPoint = new(7, CuDa.LeftPaneCurrentPoint.Y);
-                CuDa.IsLeftPaneOpen = true;
-                CuDa.LeftOpacity = 0;
+                Data.LeftPaneCurrentPoint = new(7, Data.LeftPaneCurrentPoint.Y);
+                Data.IsLeftPaneOpen = true;
+                Data.LeftOpacity = 0;
             }
             else
             {
-                CuDa.LeftPaneCurrentPoint = _closePoint;
-                CuDa.IsLeftPaneOpen = false;
-                CuDa.LeftOpacity = 1;
+                Data.LeftPaneCurrentPoint = _closePoint;
+                Data.IsLeftPaneOpen = false;
+                Data.LeftOpacity = 1;
             }
-            AppWindow.Move(CuDa.LeftPaneCurrentPoint);
+            AppWindow.Move(Data.LeftPaneCurrentPoint);
         }
         else
         {
-            if (CuDa.RightPaneCurrentPoint.X <= ScreenWidth - 180 * ScalePercent)
+            if (Data.RightPaneCurrentPoint.X <= ScreenWidth - Data.Width/2 * ScalePercent)
             {
-                CuDa.RightPaneCurrentPoint = new((int)(ScreenWidth - 286 * ScalePercent), CuDa.RightPaneCurrentPoint.Y);
-                CuDa.IsRightPaneOpen = true;
-                CuDa.RightOpacity = 0;
+                Data.RightPaneCurrentPoint = new((int)(ScreenWidth - (Data.Width+10) * ScalePercent), Data.RightPaneCurrentPoint.Y);
+                Data.IsRightPaneOpen = true;
+                Data.RightOpacity = 0;
             }
             else
             {
-                CuDa.RightPaneCurrentPoint = _closePoint;
-                CuDa.IsRightPaneOpen = false;
-                CuDa.RightOpacity = 1;
+                Data.RightPaneCurrentPoint = _closePoint;
+                Data.IsRightPaneOpen = false;
+                Data.RightOpacity = 1;
             }
-            AppWindow.Move(CuDa.RightPaneCurrentPoint);
+            AppWindow.Move(Data.RightPaneCurrentPoint);
         }
     }
 
